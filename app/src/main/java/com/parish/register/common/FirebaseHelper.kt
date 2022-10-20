@@ -1,5 +1,7 @@
-package com.parish.register.nineteen.common
+package com.parish.register.common
 
+import com.google.firebase.storage.FirebaseStorage
+import com.parish.register.model.FileData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,7 +14,7 @@ object FirebaseHelper {
 
     private const val FILE_LINES_DIVIDER = "\n"
 
-    /*suspend fun getFirebaseFileData(filePath: String): FileData =
+    suspend fun getFirebaseFileData(filePath: String): FileData =
         suspendCancellableCoroutine { continuation ->
 
             val storage = FirebaseStorage.getInstance()
@@ -115,5 +117,5 @@ object FirebaseHelper {
             e.printStackTrace()
         }
         return lineNumberReader.lineNumber + 1
-    }*/
+    }
 }

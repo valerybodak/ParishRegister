@@ -1,4 +1,4 @@
-package com.parish.register.nineteen.common
+package com.parish.register.common
 
 sealed class Resource<T>(
     val data: T? = null,

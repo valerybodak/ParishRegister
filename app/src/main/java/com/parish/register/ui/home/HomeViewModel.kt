@@ -2,6 +2,7 @@ package com.parish.register.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.parish.register.repository.ParishRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,8 +13,13 @@ class HomeViewModel @Inject constructor(
     private val parishRepository: ParishRepository
 ) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    private var syncParishRegisterData = MutableLiveData<Boolean>()
+
+    val parishRegisterLiveData = Transformations.switchMap(syncParishRegisterData) { sync ->
+        parishRepository.getQuiz(category).asLiveData()
     }
-    val text: LiveData<String> = _text
+
+    init {
+        syncParishRegisterData.value = true
+    }
 }

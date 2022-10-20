@@ -1,6 +1,9 @@
 package com.parish.register.repository
 
 import com.parish.register.db.dao.DaoBorn
+import com.parish.register.model.Category
+import com.parish.register.nineteen.common.FirebaseHelper
+import com.parish.register.nineteen.common.Resource
 import com.parish.register.nineteen.common.SharedPrefsManager
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -10,7 +13,7 @@ class ParishRepository @Inject constructor(
     private val daoBorn: DaoBorn
 ) {
 
-    /*fun getQuiz(category: Category?): Flow<Resource<List<Question>>> {
+    fun getQuiz(category: Category = Category.ALL): Flow<Resource<List<Question>>> {
         return FirebaseHelper.loadFileData(
             BOOKS_LIST_FILE_NAME,
             query = { daoQuestions.getAllQuestions().map { it.toQuestion() } },
@@ -43,7 +46,7 @@ class ParishRepository @Inject constructor(
             }
         }
         sharedPrefsManager.saveLastSynced(TAG_QUIZ)
-    }*/
+    }
 
     companion object {
         private const val BOOKS_LIST_FILE_NAME = "quiz-19.tsv"

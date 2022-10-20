@@ -18,10 +18,10 @@ class HomeFragment : Fragment() {
     private var binding: FragmentHomeBinding? = null
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //viewModel.initArgs(Category.getById(args.categoryId))
-    }
+        viewModel.initArgs(Category.getById(args.categoryId))
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,

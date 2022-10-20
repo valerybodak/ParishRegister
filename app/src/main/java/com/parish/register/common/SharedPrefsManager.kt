@@ -1,4 +1,4 @@
-package com.parish.register.nineteen.common
+package com.parish.register.common
 
 import android.content.Context
 import android.content.SharedPreferences
