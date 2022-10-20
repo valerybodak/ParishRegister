@@ -14,4 +14,10 @@ abstract class DaoBorn {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(items: List<BornEntity>): LongArray
+
+    @Query("SELECT * FROM born")
+    abstract suspend fun getAllBorn(): List<BornEntity>
+
+    @Query("SELECT * FROM born WHERE id == :id")
+    abstract suspend fun getBorn(id: String): BornEntity?
 }

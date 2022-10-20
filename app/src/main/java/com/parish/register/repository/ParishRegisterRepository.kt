@@ -1,11 +1,8 @@
 package com.parish.register.repository
 
+import com.parish.register.common.*
 import com.parish.register.db.dao.DaoBorn
 import com.parish.register.model.Category
-import com.parish.register.common.FirebaseHelper
-import com.parish.register.common.Resource
-import com.parish.register.common.SharedPrefsManager
-import com.parish.register.common.SyncHelper
 import com.parish.register.model.ListItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -18,7 +15,7 @@ class ParishRegisterRepository @Inject constructor(
     fun getQuiz(category: Category = Category.ALL): Flow<Resource<List<ListItem>>> {
         return FirebaseHelper.loadFileData(
             BORN_LIST_FILE_NAME,
-            query = { daoQuestions.getAllQuestions().map { it.toQuestion() } },
+            query = { daoBorn.getAllBorn().map { it.toBorn() } },
             shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_PARISH_REGISTER)) },
             observeProgress = true,
             saveFetchResponse = { rawItems -> saveQuiz(rawItems) }
@@ -27,23 +24,12 @@ class ParishRegisterRepository @Inject constructor(
 
     private suspend fun saveQuiz(rawItems: List<String>) {
         rawItems.forEach { line ->
-            line.toQuestionEntity()?.let { remoteQuestion ->
-                val localQuestion = daoQuestions.getQuestion(remoteQuestion.id)
-                if (localQuestion != null) {
-                    daoQuestions.update(
-                        localQuestion.copy(
-                            difficulty = remoteQuestion.difficulty,
-                            text = remoteQuestion.text,
-                        )
-                    )
+            line.toBornEntity()?.let { remoteBorn ->
+                val localBorn = daoBorn.getBorn(remoteBorn.id)
+                if (localBorn != null) {
+                    daoBorn.update(remoteBorn.copy(localId = localBorn.localId))
                 } else {
-                    daoQuestions.insert(remoteQuestion)
-                }
-
-                val answers = line.toAnswerEntityList()
-                if(answers.isNotEmpty()) {
-                    daoAnswers.deleteAnswersForQuestion(remoteQuestion.id)
-                    daoAnswers.insertAll(answers)
+                    daoBorn.insert(remoteBorn)
                 }
             }
         }
