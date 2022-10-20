@@ -5,19 +5,21 @@ import com.parish.register.model.Category
 import com.parish.register.common.FirebaseHelper
 import com.parish.register.common.Resource
 import com.parish.register.common.SharedPrefsManager
+import com.parish.register.common.SyncHelper
+import com.parish.register.model.ListItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ParishRepository @Inject constructor(
+class ParishRegisterRepository @Inject constructor(
     private val sharedPrefsManager: SharedPrefsManager,
     private val daoBorn: DaoBorn
 ) {
 
-    fun getQuiz(category: Category = Category.ALL): Flow<Resource<List<Question>>> {
+    fun getQuiz(category: Category = Category.ALL): Flow<Resource<List<ListItem>>> {
         return FirebaseHelper.loadFileData(
-            BOOKS_LIST_FILE_NAME,
+            BORN_LIST_FILE_NAME,
             query = { daoQuestions.getAllQuestions().map { it.toQuestion() } },
-            shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_QUIZ)) },
+            shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_PARISH_REGISTER)) },
             observeProgress = true,
             saveFetchResponse = { rawItems -> saveQuiz(rawItems) }
         )
@@ -45,11 +47,11 @@ class ParishRepository @Inject constructor(
                 }
             }
         }
-        sharedPrefsManager.saveLastSynced(TAG_QUIZ)
+        sharedPrefsManager.saveLastSynced(TAG_PARISH_REGISTER)
     }
 
     companion object {
-        private const val BOOKS_LIST_FILE_NAME = "quiz-19.tsv"
-        private const val TAG_QUIZ = "TAG_QUIZ"
+        private const val BORN_LIST_FILE_NAME = "quiz-19.tsv"
+        private const val TAG_PARISH_REGISTER = "TAG_PARISH_REGISTER"
     }
 }

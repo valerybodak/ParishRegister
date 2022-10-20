@@ -3,7 +3,7 @@ package com.parish.register.di
 import android.app.Application
 import com.parish.register.db.dao.DaoBorn
 import com.parish.register.common.SharedPrefsManager
-import com.parish.register.repository.ParishRepository
+import com.parish.register.repository.ParishRegisterRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,10 +24,10 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideParishRepository(
+    fun provideParishRegisterRepository(
         sharedPrefsManager: SharedPrefsManager,
         daoBorn: DaoBorn
-    ): ParishRepository {
-        return ParishRepository(sharedPrefsManager, daoBorn)
+    ): ParishRegisterRepository {
+        return ParishRegisterRepository(sharedPrefsManager, daoBorn)
     }
 }

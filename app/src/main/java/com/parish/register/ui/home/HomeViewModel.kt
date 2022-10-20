@@ -1,13 +1,13 @@
 package com.parish.register.ui.home
 
 import androidx.lifecycle.*
-import com.parish.register.repository.ParishRepository
+import com.parish.register.repository.ParishRegisterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val parishRepository: ParishRepository
+    private val parishRepository: ParishRegisterRepository
 ) : ViewModel() {
 
     private var syncParishRegisterData = MutableLiveData<Boolean>()
