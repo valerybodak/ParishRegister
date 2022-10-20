@@ -2,7 +2,7 @@ package com.parish.register.di
 
 import android.app.Application
 import com.parish.register.db.dao.DaoBorn
-import com.parish.register.nineteen.common.SharedPrefsManager
+import com.parish.register.common.SharedPrefsManager
 import com.parish.register.repository.ParishRepository
 import dagger.Module
 import dagger.Provides

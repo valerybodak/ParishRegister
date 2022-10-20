@@ -2,9 +2,9 @@ package com.parish.register.repository
 
 import com.parish.register.db.dao.DaoBorn
 import com.parish.register.model.Category
-import com.parish.register.nineteen.common.FirebaseHelper
-import com.parish.register.nineteen.common.Resource
-import com.parish.register.nineteen.common.SharedPrefsManager
+import com.parish.register.common.FirebaseHelper
+import com.parish.register.common.Resource
+import com.parish.register.common.SharedPrefsManager
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
