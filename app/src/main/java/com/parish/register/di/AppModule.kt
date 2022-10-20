@@ -1,7 +1,9 @@
-package com.parish.register
+package com.parish.register.di
 
 import android.app.Application
+import com.parish.register.db.dao.DaoBorn
 import com.parish.register.nineteen.common.SharedPrefsManager
+import com.parish.register.repository.ParishRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,13 +22,12 @@ class AppModule {
         return SharedPrefsManager(context)
     }
 
-    /*@Singleton
+    @Singleton
     @Provides
-    fun provideQuizRepository(
+    fun provideParishRepository(
         sharedPrefsManager: SharedPrefsManager,
-        daoQuestions: DaoQuestions,
-        daoAnswers: DaoAnswers
-    ): QuizRepository {
-        return QuizRepository(sharedPrefsManager, daoQuestions, daoAnswers)
-    }*/
+        daoBorn: DaoBorn
+    ): ParishRepository {
+        return ParishRepository(sharedPrefsManager, daoBorn)
+    }
 }

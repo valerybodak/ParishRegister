@@ -3,8 +3,7 @@ package com.parish.register.di
 import android.app.Application
 import androidx.room.Room
 import com.parish.register.db.AppDatabase
-import com.parish.register.db.dao.DaoAnswers
-import com.parish.register.db.dao.DaoQuestions
+import com.parish.register.db.dao.DaoBorn
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,13 +30,7 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideDaoQuestions(db: AppDatabase): DaoQuestions {
-        return db.daoQuestions()
-    }
-
-    @Singleton
-    @Provides
-    fun provideDaoAnswers(db: AppDatabase): DaoAnswers {
-        return db.daoAnswers()
+    fun provideDaoBorn(db: AppDatabase): DaoBorn {
+        return db.daoBorn()
     }
 }
