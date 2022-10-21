@@ -2,7 +2,6 @@ package com.parish.register.repository
 
 import com.parish.register.common.*
 import com.parish.register.db.dao.DaoBorn
-import com.parish.register.model.Category
 import com.parish.register.model.ListItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -12,17 +11,17 @@ class ParishRegisterRepository @Inject constructor(
     private val daoBorn: DaoBorn
 ) {
 
-    fun getBornList(category: Category = Category.ALL): Flow<Resource<List<ListItem>>> {
+    fun getBornList(): Flow<Resource<List<ListItem>>> {
         return FirebaseHelper.loadFileData(
             BORN_LIST_FILE_NAME,
             query = { daoBorn.getAllBorn().map { it.toBorn() } },
-            shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_PARISH_REGISTER)) },
+            shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_BORN_LIST)) },
             observeProgress = true,
-            saveFetchResponse = { rawItems -> saveRegister(rawItems) }
+            saveFetchResponse = { rawItems -> saveBornList(rawItems) }
         )
     }
 
-    private suspend fun saveRegister(rawItems: List<String>) {
+    private suspend fun saveBornList(rawItems: List<String>) {
         rawItems.forEach { line ->
             line.toBornEntity()?.let { remoteBorn ->
                 val localBorn = daoBorn.getBorn(remoteBorn.id)
@@ -33,13 +32,37 @@ class ParishRegisterRepository @Inject constructor(
                 }
             }
         }
-        sharedPrefsManager.saveLastSynced(TAG_PARISH_REGISTER)
+        sharedPrefsManager.saveLastSynced(TAG_BORN_LIST)
     }
+
+    /*fun getMarriageList(): Flow<Resource<List<ListItem>>> {
+        return FirebaseHelper.loadFileData(
+            BORN_LIST_FILE_NAME,
+            query = { daoBorn.getAllBorn().map { it.toBorn() } },
+            shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_BORN_LIST)) },
+            observeProgress = true,
+            saveFetchResponse = { rawItems -> saveBornList(rawItems) }
+        )
+    }
+
+    private suspend fun saveBornList(rawItems: List<String>) {
+        rawItems.forEach { line ->
+            line.toBornEntity()?.let { remoteBorn ->
+                val localBorn = daoBorn.getBorn(remoteBorn.id)
+                if (localBorn != null) {
+                    daoBorn.update(remoteBorn.copy(localId = localBorn.localId))
+                } else {
+                    daoBorn.insert(remoteBorn)
+                }
+            }
+        }
+        sharedPrefsManager.saveLastSynced(TAG_BORN_LIST)
+    }*/
 
     companion object {
         private const val BORN_LIST_FILE_NAME = "born.tsv"
         private const val MARRIAGE_LIST_FILE_NAME = "marriage.tsv"
         private const val DIED_LIST_FILE_NAME = "died.tsv"
-        private const val TAG_PARISH_REGISTER = "TAG_PARISH_REGISTER"
+        private const val TAG_BORN_LIST = "TAG_BORN_LIST"
     }
 }

@@ -11,7 +11,17 @@ fun String.toBornEntity(): BornEntity? {
             id = items[0],
             fundNumber = items[1],
             inventoryNumber = items[2],
-            caseNumber = items[3]
+            caseNumber = items[3],
+            page = items[4],
+            birthDate = items[7],
+            baptismDate = items[8],
+            gender = "m",
+            fullName = items[9],
+            parents = items[10],
+            godParents = items[11],
+            priest = items[12],
+            comments = items[13],
+            archiveVisitDate = items[14]
         )
     }
     return null
@@ -22,5 +32,15 @@ fun BornEntity.toBorn() = Born(
     id = id,
     fundNumber = fundNumber,
     inventoryNumber = inventoryNumber,
-    caseNumber = caseNumber
+    caseNumber = caseNumber,
+    page = page,
+    birthDate = birthDate,
+    baptismDate = baptismDate,
+    gender = gender,
+    fullName = fullName,
+    parents = parents,
+    godParents = godParents,
+    priest = priest,
+    comments = comments,
+    archiveVisitDate = archiveVisitDate
 )
