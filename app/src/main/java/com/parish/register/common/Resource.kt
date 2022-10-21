@@ -1,7 +1,7 @@
 package com.parish.register.common
 
 sealed class Resource<T>(
-    val data: T? = null,
+    var data: T? = null,
     val progress: ProgressData? = null,
     val message: String? = null,
     val errorCode: Int? = null,

@@ -13,12 +13,12 @@ class ParishRegisterRepository @Inject constructor(
     private val daoMarriage: DaoMarriage
 ) {
 
-    fun getBornList(): Flow<Resource<List<ListItem>>> {
+    fun getBornList(observeProgress: Boolean = false): Flow<Resource<List<ListItem>>> {
         return FirebaseHelper.loadFileData(
             BORN_LIST_FILE_NAME,
             query = { daoBorn.getAllBorn().map { it.toBorn() } },
             shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_BORN_LIST)) },
-            observeProgress = true,
+            observeProgress = observeProgress,
             saveFetchResponse = { rawItems -> saveBornList(rawItems) }
         )
     }
@@ -37,12 +37,12 @@ class ParishRegisterRepository @Inject constructor(
         sharedPrefsManager.saveLastSynced(TAG_BORN_LIST)
     }
 
-    fun getMarriageList(): Flow<Resource<List<ListItem>>> {
+    fun getMarriageList(observeProgress: Boolean = false): Flow<Resource<List<ListItem>>> {
         return FirebaseHelper.loadFileData(
             MARRIAGE_LIST_FILE_NAME,
             query = { daoMarriage.getAllMarriages().map { it.toMarriage() } },
             shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_MARRIAGE_LIST)) },
-            observeProgress = true,
+            observeProgress = observeProgress,
             saveFetchResponse = { rawItems -> saveMarriageList(rawItems) }
         )
     }

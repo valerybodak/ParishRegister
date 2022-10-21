@@ -44,7 +44,7 @@ object FirebaseHelper {
                 emit(Resource.Success(query()))
             } catch (throwable: Throwable) {
                 onFetchFailed(throwable)
-                emit(Resource.Error(0, throwable.message.toString(), query()))
+                emit(Resource.Error(0, throwable.message.toString(), data))
             }
         } else {
             emit(Resource.Success(data))

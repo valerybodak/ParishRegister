@@ -4,26 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.parish.register.common.Resource
 import com.parish.register.databinding.FragmentHomeBinding
+import com.parish.register.model.ListItem
 import com.parish.register.ui.base.BaseFragment
-import kotlinx.coroutines.Job
-
 
 class HomeFragment : BaseFragment() {
 
-    //private val args by navArgs<QuizFragmentArgs>()
     private val viewModel by viewModels<HomeViewModel>()
     private var binding: FragmentHomeBinding? = null
 
+    private var adapter: RegisterAdapter? = null
 
-    /*override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.initArgs(Category.getById(args.categoryId))
-    }*/
+        viewModel.getLists()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,14 +36,53 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //setupToolbar(binding?.toolbarDefault?.toolbar, false, getString(R.string.books))
-        //hideNavigationIcon(binding?.toolbarDefault?.toolbar)
-        // if (isNeedToInitViews()) {
-        //initViews()
-        //}
-        //initFields()
-        //initSubscribers()
-        //viewModel.getQuiz()
+        initViews()
+        initSubscribers()
         viewModel.getLists()
+    }
+
+    private fun initViews() {
+        if (adapter == null) {
+            adapter = RegisterAdapter(object :
+                RegisterAdapter.RegisterAdapterListener {
+                override fun onItemClick(item: ListItem) {
+                    TODO("Not yet implemented")
+                }
+            })
+            binding?.rvRegister?.apply {
+                layoutManager = LinearLayoutManager(context)
+            }
+            binding?.rvRegister?.adapter = adapter
+        }
+    }
+
+    private fun initSubscribers(){
+        viewModel.parishRegisterLiveData.observe(viewLifecycleOwner){ resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    //showLoading()
+                    resource.data?.let {
+                        //bindStorage(it)
+                    }
+                }
+                is Resource.Success -> {
+                    //hideLoading()
+                    resource.data?.let {
+                        bindRegister(it)
+                    }
+                }
+                is Resource.Error -> {
+                    /*hideLoading()
+                    showSnackBar(getString(R.string.storage_connection_error))
+                    resource.data?.let {
+                        bindStorage(it)
+                    }*/
+                }
+            }
+        }
+    }
+
+    private fun bindRegister(list: List<ListItem>){
+        adapter?.update(list)
     }
 }
