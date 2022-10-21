@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
             mergedFlows.collect { resource ->
                 parishRegisterLiveData.value?.data?.let {
                     resource.data =
-                        resource.data?.plus(it)
+                        it.plus(resource.data ?: emptyList())
                 }
                 parishRegisterLiveData.postValue(resource)
             }
