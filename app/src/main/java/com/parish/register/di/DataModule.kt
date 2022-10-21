@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.parish.register.db.AppDatabase
 import com.parish.register.db.dao.DaoBorn
+import com.parish.register.db.dao.DaoMarriage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,5 +33,11 @@ class DataModule {
     @Provides
     fun provideDaoBorn(db: AppDatabase): DaoBorn {
         return db.daoBorn()
+    }
+
+    @Singleton
+    @Provides
+    fun provideDaoMarriage(db: AppDatabase): DaoMarriage {
+        return db.daoMarriage()
     }
 }
