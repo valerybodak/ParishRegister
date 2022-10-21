@@ -46,7 +46,7 @@ class HomeFragment : BaseFragment() {
             adapter = RegisterAdapter(object :
                 RegisterAdapter.RegisterAdapterListener {
                 override fun onItemClick(item: ListItem) {
-                    TODO("Not yet implemented")
+                    //("Not yet implemented")
                 }
             })
             binding?.rvRegister?.apply {
