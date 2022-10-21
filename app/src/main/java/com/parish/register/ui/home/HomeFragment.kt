@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.parish.register.databinding.FragmentHomeBinding
+import com.parish.register.ui.base.BaseFragment
 import kotlinx.coroutines.Job
 
-class HomeFragment : Fragment() {
+
+class HomeFragment : BaseFragment() {
 
     //private val args by navArgs<QuizFragmentArgs>()
     private val viewModel by viewModels<HomeViewModel>()
@@ -44,5 +46,6 @@ class HomeFragment : Fragment() {
         //initFields()
         //initSubscribers()
         //viewModel.getQuiz()
+        viewModel.getLists()
     }
 }
