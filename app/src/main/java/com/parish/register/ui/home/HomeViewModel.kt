@@ -28,7 +28,10 @@ class HomeViewModel @Inject constructor(
     fun getLists() {
         viewModelScope.launch {
             val mergedFlows: Flow<Resource<List<ListItem>>> =
-                merge(parishRepository.getBornList(), parishRepository.getMarriageList())
+                merge(
+                    parishRepository.getBornList(),
+                    parishRepository.getMarriageList()
+                )
             // Trigger the flow and consume its elements using collect
             mergedFlows.collect { resource ->
                 Log.e("LOG-1: ", resource.data.toString())
