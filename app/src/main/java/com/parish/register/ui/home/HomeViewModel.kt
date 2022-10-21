@@ -25,13 +25,14 @@ class HomeViewModel @Inject constructor(
         parishRepository.getBornList().asLiveData()
     }*/
 
-    fun getLists(){
+    fun getLists() {
         viewModelScope.launch {
-            //val together: Flow<Resource<List<ListItem>>> = merge(parishRepository.getBornList(), parishRepository.getBornList())
+            val mergedFlows: Flow<Resource<List<ListItem>>> =
+                merge(parishRepository.getBornList(), parishRepository.getMarriageList())
             // Trigger the flow and consume its elements using collect
-            parishRepository.getBornList().collect { resource ->
+            mergedFlows.collect { resource ->
                 Log.e("LOG-1: ", resource.data.toString())
-                                // Update View with the latest favorite news
+                // Update View with the latest favorite news
                 //syncParishRegisterData.postValue(true)
             }
         }
