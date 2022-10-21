@@ -14,39 +14,6 @@ object FirebaseHelper {
 
     private const val FILE_LINES_DIVIDER = "\n"
 
-    suspend fun getFirebaseFileData(filePath: String): FileData =
-        suspendCancellableCoroutine { continuation ->
-
-            val storage = FirebaseStorage.getInstance()
-            val storageRef = storage.reference
-
-            val pathReference = storageRef.child(filePath)
-
-            val tempFileName = "temp_file_" + Calendar.getInstance().timeInMillis
-            val localFile: File = File.createTempFile(tempFileName, "txt")
-
-            pathReference.getFile(localFile)
-                .addOnSuccessListener {
-                    readFile(localFile,
-                        { linesNumber, fileText ->
-                            continuation.resume(
-                                FileData(
-                                    filePath,
-                                    fileText,
-                                    linesNumber
-                                )
-                            )
-                        },
-                        { exception ->
-                            continuation.cancel(exception)
-                        }
-                    )
-                }
-                .addOnFailureListener { exception ->
-                    continuation.cancel(exception)
-                }
-        }
-
     fun <ResultType> loadFileData(
         fileName: String,
         query: suspend () -> List<ResultType>,
@@ -83,6 +50,39 @@ object FirebaseHelper {
             emit(Resource.Success(data))
         }
     }
+
+    private suspend fun getFirebaseFileData(filePath: String): FileData =
+        suspendCancellableCoroutine { continuation ->
+
+            val storage = FirebaseStorage.getInstance()
+            val storageRef = storage.reference
+
+            val pathReference = storageRef.child(filePath)
+
+            val tempFileName = "temp_file_" + Calendar.getInstance().timeInMillis
+            val localFile: File = File.createTempFile(tempFileName, "txt")
+
+            pathReference.getFile(localFile)
+                .addOnSuccessListener {
+                    readFile(localFile,
+                        { linesNumber, fileText ->
+                            continuation.resume(
+                                FileData(
+                                    filePath,
+                                    fileText,
+                                    linesNumber
+                                )
+                            )
+                        },
+                        { exception ->
+                            continuation.cancel(exception)
+                        }
+                    )
+                }
+                .addOnFailureListener { exception ->
+                    continuation.cancel(exception)
+                }
+        }
 
     private fun readFile(
         file: File,

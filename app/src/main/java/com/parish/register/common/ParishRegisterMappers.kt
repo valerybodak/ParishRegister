@@ -9,9 +9,9 @@ fun String.toBornEntity(): BornEntity? {
     items[0].toIntOrNull()?.let {
         return BornEntity(
             id = items[0],
-            fund = items[1],
-            inventory = items[2],
-            volume = items[3]
+            fundNumber = items[1],
+            inventoryNumber = items[2],
+            caseNumber = items[3]
         )
     }
     return null
@@ -20,7 +20,7 @@ fun String.toBornEntity(): BornEntity? {
 fun BornEntity.toBorn() = Born(
     localId = localId,
     id = id,
-    fund = fund,
-    inventory = inventory,
-    volume = volume
+    fundNumber = fundNumber,
+    inventoryNumber = inventoryNumber,
+    caseNumber = caseNumber
 )

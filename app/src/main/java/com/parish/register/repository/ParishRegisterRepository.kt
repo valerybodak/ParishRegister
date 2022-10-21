@@ -12,17 +12,17 @@ class ParishRegisterRepository @Inject constructor(
     private val daoBorn: DaoBorn
 ) {
 
-    fun getQuiz(category: Category = Category.ALL): Flow<Resource<List<ListItem>>> {
+    fun getBornList(category: Category = Category.ALL): Flow<Resource<List<ListItem>>> {
         return FirebaseHelper.loadFileData(
             BORN_LIST_FILE_NAME,
             query = { daoBorn.getAllBorn().map { it.toBorn() } },
             shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_PARISH_REGISTER)) },
             observeProgress = true,
-            saveFetchResponse = { rawItems -> saveQuiz(rawItems) }
+            saveFetchResponse = { rawItems -> saveRegister(rawItems) }
         )
     }
 
-    private suspend fun saveQuiz(rawItems: List<String>) {
+    private suspend fun saveRegister(rawItems: List<String>) {
         rawItems.forEach { line ->
             line.toBornEntity()?.let { remoteBorn ->
                 val localBorn = daoBorn.getBorn(remoteBorn.id)
@@ -37,7 +37,9 @@ class ParishRegisterRepository @Inject constructor(
     }
 
     companion object {
-        private const val BORN_LIST_FILE_NAME = "quiz-19.tsv"
+        private const val BORN_LIST_FILE_NAME = "born.tsv"
+        private const val MARRIAGE_LIST_FILE_NAME = "marriage.tsv"
+        private const val DIED_LIST_FILE_NAME = "died.tsv"
         private const val TAG_PARISH_REGISTER = "TAG_PARISH_REGISTER"
     }
 }
