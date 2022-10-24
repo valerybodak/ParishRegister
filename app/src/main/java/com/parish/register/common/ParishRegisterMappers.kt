@@ -1,8 +1,10 @@
 package com.parish.register.common
 
 import com.parish.register.db.entity.BornEntity
+import com.parish.register.db.entity.DiedEntity
 import com.parish.register.db.entity.MarriageEntity
 import com.parish.register.model.Born
+import com.parish.register.model.Died
 import com.parish.register.model.Marriage
 
 fun String.toBornEntity(): BornEntity? {
@@ -85,6 +87,46 @@ fun MarriageEntity.toMarriage() = Marriage(
     witness1 = witness1,
     witness2 = witness2,
     priest = priest,
+    comments = comments,
+    archiveVisitDate = archiveVisitDate
+)
+
+fun String.toDiedEntity(): DiedEntity? {
+    val items = split("\t")
+    //check for Int because we have a headers in the TSV file in the first string
+    items[0].toIntOrNull()?.let {
+        return DiedEntity(
+            id = items[0],
+            fundNumber = items[1],
+            inventoryNumber = items[2],
+            caseNumber = items[3],
+            page = items[4],
+            deathDate = items[7],
+            burialDate = items[8],
+            gender = "m",
+            fullName = items[9],
+            parents = items[10],
+            causeOfDeath = items[11],
+            comments = items[12],
+            archiveVisitDate = items[13]
+        )
+    }
+    return null
+}
+
+fun DiedEntity.toDied() = Died(
+    localId = localId,
+    id = id,
+    fundNumber = fundNumber,
+    inventoryNumber = inventoryNumber,
+    caseNumber = caseNumber,
+    page = page,
+    deathDate = deathDate,
+    burialDate = burialDate,
+    gender = gender,
+    fullName = fullName,
+    parents = parents,
+    causeOfDeath = causeOfDeath,
     comments = comments,
     archiveVisitDate = archiveVisitDate
 )

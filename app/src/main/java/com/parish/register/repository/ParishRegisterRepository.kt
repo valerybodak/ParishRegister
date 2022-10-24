@@ -2,6 +2,7 @@ package com.parish.register.repository
 
 import com.parish.register.common.*
 import com.parish.register.db.dao.DaoBorn
+import com.parish.register.db.dao.DaoDied
 import com.parish.register.db.dao.DaoMarriage
 import com.parish.register.model.ListItem
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +11,8 @@ import javax.inject.Inject
 class ParishRegisterRepository @Inject constructor(
     private val sharedPrefsManager: SharedPrefsManager,
     private val daoBorn: DaoBorn,
-    private val daoMarriage: DaoMarriage
+    private val daoMarriage: DaoMarriage,
+    private val daoDied: DaoDied
 ) {
 
     fun getBornList(observeProgress: Boolean = false): Flow<Resource<List<ListItem>>> {
@@ -61,6 +63,30 @@ class ParishRegisterRepository @Inject constructor(
         sharedPrefsManager.saveLastSynced(TAG_MARRIAGE_LIST)
     }
 
+    fun getDiedList(observeProgress: Boolean = false): Flow<Resource<List<ListItem>>> {
+        return FirebaseHelper.loadFileData(
+            DIED_LIST_FILE_NAME,
+            query = { daoDied.getAllDied().map { it.toDied() } },
+            shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_DIED_LIST)) },
+            observeProgress = observeProgress,
+            saveFetchResponse = { rawItems -> saveDiedList(rawItems) }
+        )
+    }
+
+    private suspend fun saveDiedList(rawItems: List<String>) {
+        rawItems.forEach { line ->
+            line.toDiedEntity()?.let { remoteItem ->
+                val localItem = daoDied.getDied(remoteItem.id)
+                if (localItem != null) {
+                    daoDied.update(remoteItem.copy(localId = localItem.localId))
+                } else {
+                    daoDied.insert(remoteItem)
+                }
+            }
+        }
+        sharedPrefsManager.saveLastSynced(TAG_DIED_LIST)
+    }
+
     companion object {
         private const val BORN_LIST_FILE_NAME = "born.tsv"
         private const val MARRIAGE_LIST_FILE_NAME = "marriage.tsv"
@@ -68,5 +94,6 @@ class ParishRegisterRepository @Inject constructor(
 
         private const val TAG_BORN_LIST = "TAG_BORN_LIST"
         private const val TAG_MARRIAGE_LIST = "TAG_MARRIAGE_LIST"
+        private const val TAG_DIED_LIST = "TAG_DIED_LIST"
     }
 }

@@ -7,10 +7,7 @@ import com.parish.register.common.Resource
 import com.parish.register.model.ListItem
 import com.parish.register.repository.ParishRegisterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +18,8 @@ class HomeViewModel @Inject constructor(
 
     private var mergedListFlow: Flow<Resource<List<ListItem>>> = merge(
         parishRepository.getBornList(),
-        parishRepository.getMarriageList()
+        parishRepository.getMarriageList(),
+        parishRepository.getDiedList()
     )
     var parishRegisterLiveData = MutableLiveData<Resource<List<ListItem>>>()
 
