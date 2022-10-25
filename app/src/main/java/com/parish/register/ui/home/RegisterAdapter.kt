@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.parish.register.databinding.ItemBornBinding
+import com.parish.register.databinding.ItemDiedBinding
 import com.parish.register.databinding.ItemMarriageBinding
 import com.parish.register.model.Born
 import com.parish.register.model.Died
@@ -53,7 +54,7 @@ class RegisterAdapter(
             }
             else -> {
                 DiedItemHolder(
-                    ItemBornBinding.inflate(
+                    ItemDiedBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -165,7 +166,7 @@ class RegisterAdapter(
         }*/
     }
 
-    inner class DiedItemHolder(private val binding: ItemBornBinding) :
+    inner class DiedItemHolder(private val binding: ItemDiedBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Died) {
