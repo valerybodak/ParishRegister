@@ -65,28 +65,8 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initSubscribers(){
-        viewModel.parishRegisterLiveData.observe(viewLifecycleOwner){ resource ->
-            when (resource) {
-                is Resource.Loading -> {
-                    //showLoading()
-                    resource.data?.let {
-                        //bindStorage(it)
-                    }
-                }
-                is Resource.Success -> {
-                    //hideLoading()
-                    resource.data?.let {
-                        bindRegister(it)
-                    }
-                }
-                is Resource.Error -> {
-                    /*hideLoading()
-                    showSnackBar(getString(R.string.storage_connection_error))
-                    resource.data?.let {
-                        bindStorage(it)
-                    }*/
-                }
-            }
+        viewModel.parishRegisterLiveData.observe(viewLifecycleOwner){ list ->
+            bindRegister(list)
         }
     }
 
