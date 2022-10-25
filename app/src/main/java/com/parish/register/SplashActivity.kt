@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity(){
         alphaAnimation.duration = ANIMATION_DURATION
         alphaAnimation.startOffset = ANIMATION_DELAY
         alphaAnimation.fillAfter = true
-        binding.appLogo.startAnimation(alphaAnimation)
+        binding.logoContainer.startAnimation(alphaAnimation)
     }
 
     private fun startApp(){
