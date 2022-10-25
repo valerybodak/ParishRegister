@@ -13,6 +13,7 @@ import com.parish.register.common.Resource
 import com.parish.register.databinding.FragmentHomeBinding
 import com.parish.register.model.ListItem
 import com.parish.register.ui.base.BaseFragment
+import com.parish.register.ui.custom.CommonItemDecoration
 
 class HomeFragment : BaseFragment() {
 
@@ -58,6 +59,7 @@ class HomeFragment : BaseFragment() {
             val dividerDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
             dividerDecoration.setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.list_divider)!!)
             binding?.rvRegister?.addItemDecoration(dividerDecoration)
+            binding?.rvRegister?.addItemDecoration(CommonItemDecoration(requireContext()))
             binding?.rvRegister?.adapter = adapter
         }
     }
