@@ -15,4 +15,9 @@ data class Died(
     val causeOfDeath: String,
     val comments: String,
     val archiveVisitDate: String
-): ListItem
+) : ListItem {
+
+    override fun getSortDate(): String = deathDate
+
+    override fun getSortName(): String = fullName
+}

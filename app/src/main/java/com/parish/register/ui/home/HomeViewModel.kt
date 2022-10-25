@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
             mergedListFlow.collect { resource ->
                 parishRegisterLiveData.value?.data?.let {
                     resource.data =
-                        it.plus(resource.data ?: emptyList())
+                        it.plus(resource.data ?: emptyList()).sortedBy { item -> item.getSortDate() }
                 }
                 parishRegisterLiveData.postValue(resource)
             }

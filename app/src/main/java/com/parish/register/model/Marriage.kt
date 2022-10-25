@@ -16,4 +16,9 @@ data class Marriage(
     val priest: String,
     val comments: String,
     val archiveVisitDate: String
-): ListItem
+) : ListItem {
+
+    override fun getSortDate(): String = date
+
+    override fun getSortName(): String = groom
+}
