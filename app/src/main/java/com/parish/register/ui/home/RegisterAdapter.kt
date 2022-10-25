@@ -2,6 +2,7 @@ package com.parish.register.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.parish.register.databinding.ItemBornBinding
 import com.parish.register.databinding.ItemDiedBinding
@@ -10,11 +11,17 @@ import com.parish.register.model.Born
 import com.parish.register.model.Died
 import com.parish.register.model.ListItem
 import com.parish.register.model.Marriage
+import java.lang.String.format
+import java.text.DateFormat
+import java.text.MessageFormat.format
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RegisterAdapter(
     private val listener: RegisterAdapterListener?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     private val data: MutableList<ListItem> = mutableListOf()
 
     interface RegisterAdapterListener {
@@ -90,6 +97,23 @@ class RegisterAdapter(
         data.clear()
         data.addAll(newItems)
         notifyDataSetChanged()
+    }
+
+    private fun bindDate(dateString: String, textView: TextView){
+        //val formatter = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH)
+
+       // val dateInString = "7-Jun-2013"
+        //val date: Date = dateFormat.parse(dateString)
+
+        try {
+            val date: Date = dateFormat.parse(dateString)
+            textView.text = SimpleDateFormat("dd/MM\nyyyy").format(date)
+        }catch (e: Exception){
+            textView.text = dateString
+        }
+
+        //DateFormat.format("yyyy.MM.dd", date).toString();
+
     }
 
     inner class BornItemHolder(private val binding: ItemBornBinding) :
@@ -171,6 +195,7 @@ class RegisterAdapter(
 
         fun bind(item: Died) {
 
+            bindDate(item.deathDate, binding.tvDate)
             binding.tvName.text = item.fullName
 
             /*setBackgroundColor(item)
