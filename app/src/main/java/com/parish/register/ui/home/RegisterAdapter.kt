@@ -3,7 +3,8 @@ package com.parish.register.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.parish.register.databinding.ItemRegisterBinding
+import com.parish.register.databinding.ItemBornBinding
+import com.parish.register.databinding.ItemMarriageBinding
 import com.parish.register.model.Born
 import com.parish.register.model.Died
 import com.parish.register.model.ListItem
@@ -34,7 +35,7 @@ class RegisterAdapter(
         return when (viewType) {
             VIEW_TYPE_BORN -> {
                 BornItemHolder(
-                    ItemRegisterBinding.inflate(
+                    ItemBornBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -43,7 +44,7 @@ class RegisterAdapter(
             }
             VIEW_TYPE_MARRIAGE -> {
                 MarriageItemHolder(
-                    ItemRegisterBinding.inflate(
+                    ItemMarriageBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -52,7 +53,7 @@ class RegisterAdapter(
             }
             else -> {
                 DiedItemHolder(
-                    ItemRegisterBinding.inflate(
+                    ItemBornBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -90,7 +91,7 @@ class RegisterAdapter(
         notifyDataSetChanged()
     }
 
-    inner class BornItemHolder(private val binding: ItemRegisterBinding) :
+    inner class BornItemHolder(private val binding: ItemBornBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Born) {
@@ -127,7 +128,7 @@ class RegisterAdapter(
         }*/
     }
 
-    inner class MarriageItemHolder(private val binding: ItemRegisterBinding) :
+    inner class MarriageItemHolder(private val binding: ItemMarriageBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Marriage) {
@@ -164,7 +165,7 @@ class RegisterAdapter(
         }*/
     }
 
-    inner class DiedItemHolder(private val binding: ItemRegisterBinding) :
+    inner class DiedItemHolder(private val binding: ItemBornBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Died) {
