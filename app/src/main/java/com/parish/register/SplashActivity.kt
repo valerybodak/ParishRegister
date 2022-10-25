@@ -28,7 +28,7 @@ class SplashActivity : AppCompatActivity(){
             override fun onAnimationStart(animation: Animation) {}
 
             override fun onAnimationEnd(animation: Animation) {
-             //   startApp()
+                startApp()
             }
 
             override fun onAnimationRepeat(animation: Animation) {}
