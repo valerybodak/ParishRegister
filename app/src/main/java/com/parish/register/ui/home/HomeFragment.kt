@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.parish.register.R
 import com.parish.register.common.Resource
 import com.parish.register.databinding.FragmentHomeBinding
 import com.parish.register.model.ListItem
@@ -52,6 +55,9 @@ class HomeFragment : BaseFragment() {
             binding?.rvRegister?.apply {
                 layoutManager = LinearLayoutManager(context)
             }
+            val dividerDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+            dividerDecoration.setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.list_divider)!!)
+            binding?.rvRegister?.addItemDecoration(dividerDecoration)
             binding?.rvRegister?.adapter = adapter
         }
     }
