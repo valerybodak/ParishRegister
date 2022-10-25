@@ -20,4 +20,7 @@ abstract class DaoMarriage {
 
     @Query("SELECT * FROM marriage WHERE id == :id")
     abstract suspend fun getMarriage(id: String): MarriageEntity?
+
+    @Query("DELETE FROM marriage")
+    abstract suspend fun deleteAllMarriages()
 }

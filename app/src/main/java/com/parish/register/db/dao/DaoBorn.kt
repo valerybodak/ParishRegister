@@ -20,4 +20,7 @@ abstract class DaoBorn {
 
     @Query("SELECT * FROM born WHERE id == :id")
     abstract suspend fun getBorn(id: String): BornEntity?
+
+    @Query("DELETE FROM born")
+    abstract suspend fun deleteAllBorn()
 }

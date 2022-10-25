@@ -26,14 +26,10 @@ class ParishRegisterRepository @Inject constructor(
     }
 
     private suspend fun saveBornList(rawItems: List<String>) {
+        daoBorn.deleteAllBorn()
         rawItems.forEach { line ->
             line.toBornEntity()?.let { remoteItem ->
-                val localItem = daoBorn.getBorn(remoteItem.id)
-                if (localItem != null) {
-                    daoBorn.update(remoteItem.copy(localId = localItem.localId))
-                } else {
-                    daoBorn.insert(remoteItem)
-                }
+                daoBorn.insert(remoteItem)
             }
         }
         sharedPrefsManager.saveLastSynced(TAG_BORN_LIST)
@@ -50,14 +46,10 @@ class ParishRegisterRepository @Inject constructor(
     }
 
     private suspend fun saveMarriageList(rawItems: List<String>) {
+        daoMarriage.deleteAllMarriages()
         rawItems.forEach { line ->
             line.toMarriageEntity()?.let { remoteItem ->
-                val localItem = daoMarriage.getMarriage(remoteItem.id)
-                if (localItem != null) {
-                    daoMarriage.update(remoteItem.copy(localId = localItem.localId))
-                } else {
-                    daoMarriage.insert(remoteItem)
-                }
+                daoMarriage.insert(remoteItem)
             }
         }
         sharedPrefsManager.saveLastSynced(TAG_MARRIAGE_LIST)
@@ -74,14 +66,10 @@ class ParishRegisterRepository @Inject constructor(
     }
 
     private suspend fun saveDiedList(rawItems: List<String>) {
+        daoDied.deleteAllDied()
         rawItems.forEach { line ->
             line.toDiedEntity()?.let { remoteItem ->
-                val localItem = daoDied.getDied(remoteItem.id)
-                if (localItem != null) {
-                    daoDied.update(remoteItem.copy(localId = localItem.localId))
-                } else {
-                    daoDied.insert(remoteItem)
-                }
+                daoDied.insert(remoteItem)
             }
         }
         sharedPrefsManager.saveLastSynced(TAG_DIED_LIST)
