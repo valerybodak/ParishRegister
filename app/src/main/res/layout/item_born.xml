@@ -10,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_born"
-        android:layout_marginStart="@dimen/normal_padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -20,7 +19,6 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:layout_marginStart="@dimen/normal_padding"
-        android:layout_marginEnd="@dimen/normal_padding"
         app:layout_constraintStart_toEndOf="@id/ivIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/ivIcon" />

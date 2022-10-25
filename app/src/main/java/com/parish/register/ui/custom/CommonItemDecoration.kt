@@ -14,7 +14,7 @@ class CommonItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     )
 
     private var verticalMargin = dimenToPixels(
-        context, R.dimen.normal_padding
+        context, R.dimen.small_padding
     )
 
     override fun getItemOffsets(
@@ -22,13 +22,16 @@ class CommonItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         if (isFirstItem(view, parent)) {
-            outRect.top = horizontalMargin
+            outRect.top = verticalMargin * 2
+            outRect.bottom = verticalMargin
+        } else if (isLastItem(view, parent)) {
+            outRect.top = verticalMargin
+            outRect.bottom = verticalMargin * 2
         } else {
             outRect.top = verticalMargin
+            outRect.bottom = verticalMargin
         }
-        if (isLastItem(view, parent)) {
-            outRect.bottom = horizontalMargin
-        }
+
         outRect.left = horizontalMargin
         outRect.right = horizontalMargin
     }
