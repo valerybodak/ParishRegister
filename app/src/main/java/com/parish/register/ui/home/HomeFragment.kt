@@ -42,7 +42,6 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initSubscribers()
-        viewModel.getLists()
     }
 
     private fun initViews() {
