@@ -25,10 +25,5 @@ fun View.showView() {
     this.visibility = View.VISIBLE
 }
 
-fun View.hideKeyboard() {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(windowToken, 0)
-}
-
 fun dimenToPixels(context: Context, @DimenRes dimenId: Int): Int =
     context.resources.getDimension(dimenId).toInt()
