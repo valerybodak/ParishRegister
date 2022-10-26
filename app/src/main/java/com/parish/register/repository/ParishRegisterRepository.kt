@@ -6,7 +6,6 @@ import com.parish.register.db.dao.DaoDied
 import com.parish.register.db.dao.DaoMarriage
 import com.parish.register.model.Born
 import com.parish.register.model.Died
-import com.parish.register.model.ListItem
 import com.parish.register.model.Marriage
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
