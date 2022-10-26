@@ -2,7 +2,6 @@ package com.parish.register.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.annotation.StringRes
@@ -21,7 +20,7 @@ import java.util.*
 
 class RegisterAdapter(
     private val listener: RegisterAdapterListener?
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     private val items: MutableList<ListItem> = mutableListOf()
@@ -99,7 +98,8 @@ class RegisterAdapter(
     fun update(newItems: List<ListItem>) {
         items.clear()
         items.addAll(newItems)
-        filteredItems = items
+        filteredItems.clear()
+        filteredItems.addAll(items)
         notifyDataSetChanged()
     }
 
@@ -122,34 +122,20 @@ class RegisterAdapter(
         }
     }
 
-    override fun getFilter(): Filter {
-        return exampleFilter
-    }
-
-    private val exampleFilter: Filter = object : Filter() {
-        override fun performFiltering(constraint: CharSequence?): FilterResults? {
-            val filteredList: MutableList<ListItem> = ArrayList()
-            if (constraint == null || constraint.length == 0) {
-                filteredList.addAll(items)
-            } else {
-                val filterPattern =
-                    constraint.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
-                for (item in items) {
-                    if (item.getSortName().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(item)
-                    }
+    fun filter(text: String) {
+        filteredItems.clear()
+        if (text.isEmpty()) {
+            filteredItems.addAll(items)
+        } else {
+            for (item in items) {
+                if (item.getSortName().toLowerCase(Locale.getDefault())
+                        .contains(text.toLowerCase(Locale.getDefault()))
+                ) {
+                    filteredItems.add(item)
                 }
             }
-            val results = FilterResults()
-            results.values = filteredList
-            return results
         }
-
-        override fun publishResults(constraint: CharSequence?, results: FilterResults) {
-            filteredItems.clear()
-            filteredItems.addAll(results.values as List<ListItem>)
-            notifyDataSetChanged()
-        }
+        notifyDataSetChanged()
     }
 
     inner class BornItemHolder(private val binding: ItemBornBinding) :
@@ -171,8 +157,8 @@ class RegisterAdapter(
         fun bind(item: Marriage) {
 
             bindDate(binding.tvDate, R.string.marriage, item.date)
-            binding.tvGroomName.text = if(item.groom.isEmpty()) UNKNOWN_VALUE else item.groom
-            binding.tvBrideName.text = if(item.bride.isEmpty()) UNKNOWN_VALUE else item.bride
+            binding.tvGroomName.text = if (item.groom.isEmpty()) UNKNOWN_VALUE else item.groom
+            binding.tvBrideName.text = if (item.bride.isEmpty()) UNKNOWN_VALUE else item.bride
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
             }
