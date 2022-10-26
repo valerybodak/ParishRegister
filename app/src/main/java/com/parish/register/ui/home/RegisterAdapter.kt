@@ -104,6 +104,49 @@ class RegisterAdapter(
         notifyDataSetChanged()
     }
 
+    fun filter(text: String) {
+        filteredItems.clear()
+        if (text.isEmpty()) {
+            filteredItems.addAll(items)
+        } else {
+            for (item in items) {
+                when (item) {
+                    is Born -> {
+                        if (item.birthDate.containsIgnoreCase(text)
+                            || item.fullName.containsIgnoreCase(text)
+                            || item.parents.containsIgnoreCase(text)
+                            || item.godParents.containsIgnoreCase(text)
+                        ) {
+                            filteredItems.add(item)
+                        }
+                    }
+                    is Marriage -> {
+                        if (item.date.containsIgnoreCase(text)
+                            || item.groom.containsIgnoreCase(text)
+                            || item.bride.containsIgnoreCase(text)
+                            || item.witness1.containsIgnoreCase(text)
+                            || item.witness2.containsIgnoreCase(text)
+                        ) {
+                            filteredItems.add(item)
+                        }
+                    }
+                    is Died -> {
+                        if (item.deathDate.containsIgnoreCase(text)
+                            || item.fullName.containsIgnoreCase(text)
+                            || item.parents.containsIgnoreCase(text)
+                        ) {
+                            filteredItems.add(item)
+                        }
+                    }
+                }
+                if (item.getSortName().containsIgnoreCase(text)) {
+                    filteredItems.add(item)
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }
+
     private fun bindDate(textView: TextView, @StringRes label: Int, dateString: String) {
         val context = textView.context
         if (dateString.isNotEmpty()) {
@@ -112,7 +155,7 @@ class RegisterAdapter(
                 dateFormat.parse(dateString)?.let {
                     textView.text = context.getString(
                         label,
-                        SimpleDateFormat("dd.MM.yyyy").format(it)
+                        SimpleDateFormat(DATE_FORMAT_TO_DISPLAY).format(it)
                     )
                 }
             } catch (e: Exception) {
@@ -121,20 +164,6 @@ class RegisterAdapter(
         } else {
             textView.text = context.getString(label, UNKNOWN_VALUE)
         }
-    }
-
-    fun filter(text: String) {
-        filteredItems.clear()
-        if (text.isEmpty()) {
-            filteredItems.addAll(items)
-        } else {
-            for (item in items) {
-                if (item.getSortName().containsIgnoreCase(text)){
-                    filteredItems.add(item)
-                }
-            }
-        }
-        notifyDataSetChanged()
     }
 
     inner class BornItemHolder(private val binding: ItemBornBinding) :
@@ -183,5 +212,6 @@ class RegisterAdapter(
         private const val VIEW_TYPE_DIED = 2
 
         private const val UNKNOWN_VALUE = "???"
+        private const val DATE_FORMAT_TO_DISPLAY = "dd.MM.yyyy"
     }
 }
