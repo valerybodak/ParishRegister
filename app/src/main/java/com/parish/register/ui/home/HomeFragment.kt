@@ -71,7 +71,7 @@ class HomeFragment : BaseFragment() {
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Add menu items here
-                menuInflater.inflate(R.menu.home_menu, menu)
+                menuInflater.inflate(R.menu.menu_register, menu)
                 menu.findItem(R.id.action_search).let {
                     val searchView = it.actionView as SearchView
                     setupSearchView(searchView)

@@ -9,7 +9,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.parish.register.R
 import com.parish.register.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home
+                R.id.nav_register
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
