@@ -2,7 +2,6 @@ package com.parish.register.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Filterable
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
