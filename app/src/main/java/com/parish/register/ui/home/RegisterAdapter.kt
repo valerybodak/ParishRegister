@@ -3,7 +3,9 @@ package com.parish.register.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
+import com.parish.register.R
 import com.parish.register.databinding.ItemBornBinding
 import com.parish.register.databinding.ItemDiedBinding
 import com.parish.register.databinding.ItemMarriageBinding
@@ -11,9 +13,8 @@ import com.parish.register.model.Born
 import com.parish.register.model.Died
 import com.parish.register.model.ListItem
 import com.parish.register.model.Marriage
-import java.lang.String.format
-import java.text.DateFormat
-import java.text.MessageFormat.format
+import com.parish.register.utils.hideView
+import com.parish.register.utils.showView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -99,21 +100,22 @@ class RegisterAdapter(
         notifyDataSetChanged()
     }
 
-    private fun bindDate(dateString: String, textView: TextView){
-        //val formatter = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH)
-
-       // val dateInString = "7-Jun-2013"
-        //val date: Date = dateFormat.parse(dateString)
-
-        try {
-            val date: Date = dateFormat.parse(dateString)
-            textView.text = SimpleDateFormat("dd/MM\nyyyy").format(date)
-        }catch (e: Exception){
-            textView.text = dateString
+    private fun bindDate(textView: TextView, @StringRes label: Int, dateString: String) {
+        if (dateString.isNotEmpty()) {
+            textView.showView()
+            try {
+                dateFormat.parse(dateString)?.let {
+                    textView.text = textView.context.getString(
+                        label,
+                        SimpleDateFormat("dd.MM.yyyy").format(it)
+                    )
+                }
+            } catch (e: Exception) {
+                textView.text = textView.context.getString(label, dateString)
+            }
+        } else {
+            textView.hideView()
         }
-
-        //DateFormat.format("yyyy.MM.dd", date).toString();
-
     }
 
     inner class BornItemHolder(private val binding: ItemBornBinding) :
@@ -122,35 +124,11 @@ class RegisterAdapter(
         fun bind(item: Born) {
 
             binding.tvName.text = item.fullName
-
-            /*setBackgroundColor(item)
-
-            binding.title.text = item.titleRu
-            binding.author.text = item.authorRu
-
-            var imageUrl = DEFAULT_BOOK_IMAGE_URL
-            if (!item.imageUrl.isNullOrEmpty()) {
-                imageUrl = item.imageUrl ?: ""
-            }
-            Glide.with(itemView.context)
-                .load(imageUrl)
-                .transform(CenterCrop())
-                .into(binding.cover)*/
-
+            bindDate(binding.tvDate, R.string.born, item.birthDate)
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
             }
         }
-
-        /*private fun setBackgroundColor(item: Book) {
-            val colorId = if(item.backgroundColorId == 0) R.color.book_bg_color_1 else item.backgroundColorId
-            binding.coverBackground.backgroundTintList = ColorStateList.valueOf(
-                ContextCompat.getColor(
-                    itemView.context,
-                    colorId
-                )
-            )
-        }*/
     }
 
     inner class MarriageItemHolder(private val binding: ItemMarriageBinding) :
@@ -159,35 +137,10 @@ class RegisterAdapter(
         fun bind(item: Marriage) {
 
             binding.tvName.text = item.groom
-
-            /*setBackgroundColor(item)
-
-            binding.title.text = item.titleRu
-            binding.author.text = item.authorRu
-
-            var imageUrl = DEFAULT_BOOK_IMAGE_URL
-            if (!item.imageUrl.isNullOrEmpty()) {
-                imageUrl = item.imageUrl ?: ""
-            }
-            Glide.with(itemView.context)
-                .load(imageUrl)
-                .transform(CenterCrop())
-                .into(binding.cover)*/
-
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
             }
         }
-
-        /*private fun setBackgroundColor(item: Book) {
-            val colorId = if(item.backgroundColorId == 0) R.color.book_bg_color_1 else item.backgroundColorId
-            binding.coverBackground.backgroundTintList = ColorStateList.valueOf(
-                ContextCompat.getColor(
-                    itemView.context,
-                    colorId
-                )
-            )
-        }*/
     }
 
     inner class DiedItemHolder(private val binding: ItemDiedBinding) :
@@ -195,37 +148,12 @@ class RegisterAdapter(
 
         fun bind(item: Died) {
 
-            bindDate(item.deathDate, binding.tvDate)
             binding.tvName.text = item.fullName
-
-            /*setBackgroundColor(item)
-
-            binding.title.text = item.titleRu
-            binding.author.text = item.authorRu
-
-            var imageUrl = DEFAULT_BOOK_IMAGE_URL
-            if (!item.imageUrl.isNullOrEmpty()) {
-                imageUrl = item.imageUrl ?: ""
-            }
-            Glide.with(itemView.context)
-                .load(imageUrl)
-                .transform(CenterCrop())
-                .into(binding.cover)*/
-
+            bindDate(binding.tvDate, R.string.died, item.deathDate)
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
             }
         }
-
-        /*private fun setBackgroundColor(item: Book) {
-            val colorId = if(item.backgroundColorId == 0) R.color.book_bg_color_1 else item.backgroundColorId
-            binding.coverBackground.backgroundTintList = ColorStateList.valueOf(
-                ContextCompat.getColor(
-                    itemView.context,
-                    colorId
-                )
-            )
-        }*/
     }
 
     companion object {

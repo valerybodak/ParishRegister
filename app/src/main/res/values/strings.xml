@@ -13,4 +13,7 @@
 
     <string name="parish">Parish</string>
     <string name="register">Register</string>
+
+    <string name="born">Born: %1$s</string>
+    <string name="died">Died: %1$s</string>
 </resources>
