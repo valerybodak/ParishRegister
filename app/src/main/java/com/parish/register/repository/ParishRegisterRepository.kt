@@ -4,7 +4,10 @@ import com.parish.register.common.*
 import com.parish.register.db.dao.DaoBorn
 import com.parish.register.db.dao.DaoDied
 import com.parish.register.db.dao.DaoMarriage
+import com.parish.register.model.Born
+import com.parish.register.model.Died
 import com.parish.register.model.ListItem
+import com.parish.register.model.Marriage
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -15,7 +18,7 @@ class ParishRegisterRepository @Inject constructor(
     private val daoDied: DaoDied
 ) {
 
-    fun getBornList(observeProgress: Boolean = false): Flow<Resource<List<ListItem>>> {
+    fun getBornList(observeProgress: Boolean = false): Flow<Resource<List<Born>>> {
         return FirebaseHelper.loadFileData(
             BORN_LIST_FILE_NAME,
             query = { daoBorn.getAllBorn().map { it.toBorn() } },
@@ -35,7 +38,7 @@ class ParishRegisterRepository @Inject constructor(
         sharedPrefsManager.saveLastSynced(TAG_BORN_LIST)
     }
 
-    fun getMarriageList(observeProgress: Boolean = false): Flow<Resource<List<ListItem>>> {
+    fun getMarriageList(observeProgress: Boolean = false): Flow<Resource<List<Marriage>>> {
         return FirebaseHelper.loadFileData(
             MARRIAGE_LIST_FILE_NAME,
             query = { daoMarriage.getAllMarriages().map { it.toMarriage() } },
@@ -55,7 +58,7 @@ class ParishRegisterRepository @Inject constructor(
         sharedPrefsManager.saveLastSynced(TAG_MARRIAGE_LIST)
     }
 
-    fun getDiedList(observeProgress: Boolean = false): Flow<Resource<List<ListItem>>> {
+    fun getDiedList(observeProgress: Boolean = false): Flow<Resource<List<Died>>> {
         return FirebaseHelper.loadFileData(
             DIED_LIST_FILE_NAME,
             query = { daoDied.getAllDied().map { it.toDied() } },
