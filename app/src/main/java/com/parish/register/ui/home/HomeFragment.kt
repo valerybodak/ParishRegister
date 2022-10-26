@@ -1,15 +1,16 @@
 package com.parish.register.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.parish.register.R
-import com.parish.register.common.Resource
 import com.parish.register.databinding.FragmentHomeBinding
 import com.parish.register.model.ListItem
 import com.parish.register.ui.base.BaseFragment
@@ -45,6 +46,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initViews() {
+        setupMenu()
         if (adapter == null) {
             adapter = RegisterAdapter(object :
                 RegisterAdapter.RegisterAdapterListener {
@@ -62,6 +64,48 @@ class HomeFragment : BaseFragment() {
             binding?.rvRegister?.adapter = adapter
         }
     }
+
+    private fun setupMenu(){
+        // The usage of an interface lets you inject your own implementation
+        val menuHost: MenuHost = requireActivity()
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.home_menu, menu)
+                menu.findItem(R.id.action_search).let {
+                    val searchView = it.actionView as SearchView
+                    setupSearchView(searchView)
+                }
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                return when (menuItem.itemId) {
+                    R.id.action_search -> {
+                        // todo
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun setupSearchView(searchView: SearchView){
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                //TODO("Not yet implemented")
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                //TODO("Not yet implemented")
+                return true
+            }
+        })
+    }
+
 
     private fun initSubscribers(){
         viewModel.parishRegisterLiveData.observe(viewLifecycleOwner){ list ->
