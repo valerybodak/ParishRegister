@@ -32,4 +32,24 @@
         android:layout_marginTop="@dimen/small_padding"
         app:layout_constraintStart_toStartOf="@id/tvName"
         app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+    <TextView
+        android:id="@+id/tvParentsLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:text="@string/parents"
+        android:layout_marginTop="@dimen/small_padding"
+        app:layout_constraintStart_toStartOf="@id/tvDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDate" />
+
+    <TextView
+        android:id="@+id/tvParents"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@id/tvParentsLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvParentsLabel" />
 </androidx.constraintlayout.widget.ConstraintLayout>
