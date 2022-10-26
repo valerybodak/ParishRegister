@@ -66,7 +66,6 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupMenu(){
-        // The usage of an interface lets you inject your own implementation
         val menuHost: MenuHost = requireActivity()
 
         menuHost.addMenuProvider(object : MenuProvider {
@@ -96,12 +95,12 @@ class HomeFragment : BaseFragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 //TODO("Not yet implemented")
-                return true
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                //TODO("Not yet implemented")
-                return true
+                adapter?.getFilter().filter(newText);
+                return false
             }
         })
     }

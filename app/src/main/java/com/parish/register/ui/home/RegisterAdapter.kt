@@ -2,6 +2,8 @@ package com.parish.register.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
@@ -13,14 +15,13 @@ import com.parish.register.model.Born
 import com.parish.register.model.Died
 import com.parish.register.model.ListItem
 import com.parish.register.model.Marriage
-import com.parish.register.utils.invisibleView
 import com.parish.register.utils.showView
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisterAdapter(
     private val listener: RegisterAdapterListener?
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     private val data: MutableList<ListItem> = mutableListOf()
@@ -116,6 +117,36 @@ class RegisterAdapter(
             }
         } else {
             textView.text = context.getString(label, UNKNOWN_VALUE)
+        }
+    }
+
+    override fun getFilter(): Filter? {
+        return exampleFilter
+    }
+
+    private val exampleFilter: Filter = object : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults? {
+            val filteredList: MutableList<ExampleItem> = ArrayList()
+            if (constraint == null || constraint.length == 0) {
+                filteredList.addAll(exampleListFull)
+            } else {
+                val filterPattern =
+                    constraint.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
+                for (item in exampleListFull) {
+                    if (item.getText2().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults) {
+            exampleList.clear()
+            exampleList.addAll(results.values as List<*>)
+            notifyDataSetChanged()
         }
     }
 
