@@ -17,7 +17,7 @@
         android:id="@+id/tvDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
+        android:textSize="16sp"
         android:layout_marginTop="@dimen/small_padding"
         app:layout_constraintStart_toStartOf="@id/ivIcon"
         app:layout_constraintEnd_toEndOf="@id/ivIcon"
