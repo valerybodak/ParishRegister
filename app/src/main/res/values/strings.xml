@@ -17,5 +17,5 @@
 
     <string name="groom">Groom:</string>
     <string name="bride">Bride:</string>
-    <string name="parents">Parents:</string>
+    <string name="parents">Parents: %1$s</string>
 </resources>

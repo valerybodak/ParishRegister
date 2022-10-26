@@ -174,12 +174,10 @@ class RegisterAdapter(
             binding.tvName.text = item.fullName
             bindDate(binding.tvDate, R.string.born, item.birthDate)
             if (item.parents.isEmpty()) {
-                binding.tvParentsLabel.goneView()
                 binding.tvParents.goneView()
             } else {
-                binding.tvParentsLabel.showView()
                 binding.tvParents.showView()
-                binding.tvParents.text = item.parents
+                binding.tvParents.text = itemView.context.getString(R.string.parents, item.parents)
             }
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
