@@ -14,6 +14,7 @@ import com.parish.register.model.Born
 import com.parish.register.model.Died
 import com.parish.register.model.ListItem
 import com.parish.register.model.Marriage
+import com.parish.register.utils.containsIgnoreCase
 import com.parish.register.utils.showView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -128,9 +129,7 @@ class RegisterAdapter(
             filteredItems.addAll(items)
         } else {
             for (item in items) {
-                if (item.getSortName().toLowerCase(Locale.getDefault())
-                        .contains(text.toLowerCase(Locale.getDefault()))
-                ) {
+                if (item.getSortName().containsIgnoreCase(text)){
                     filteredItems.add(item)
                 }
             }
