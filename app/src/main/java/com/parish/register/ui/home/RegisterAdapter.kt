@@ -139,9 +139,6 @@ class RegisterAdapter(
                         }
                     }
                 }
-                if (item.getSortName().containsIgnoreCase(text)) {
-                    filteredItems.add(item)
-                }
             }
         }
         notifyDataSetChanged()
