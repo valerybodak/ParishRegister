@@ -99,7 +99,7 @@ class HomeFragment : BaseFragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                adapter?.getFilter().filter(newText);
+                adapter?.filter?.filter(newText);
                 return false
             }
         })

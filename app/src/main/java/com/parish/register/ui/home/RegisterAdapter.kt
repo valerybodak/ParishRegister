@@ -24,14 +24,15 @@ class RegisterAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-    private val data: MutableList<ListItem> = mutableListOf()
+    private val items: MutableList<ListItem> = mutableListOf()
+    private var filteredItems: MutableList<ListItem> = mutableListOf()
 
     interface RegisterAdapterListener {
         fun onItemClick(item: ListItem)
     }
 
     override fun getItemViewType(position: Int): Int {
-        val item = data[position]
+        val item = filteredItems[position]
         return if (item is Born) {
             VIEW_TYPE_BORN
         } else if (item is Marriage) {
@@ -74,11 +75,11 @@ class RegisterAdapter(
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return filteredItems.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = data[position]
+        val item = filteredItems[position]
         when (holder.itemViewType) {
             VIEW_TYPE_BORN -> {
                 val viewHolder = holder as BornItemHolder
@@ -96,8 +97,9 @@ class RegisterAdapter(
     }
 
     fun update(newItems: List<ListItem>) {
-        data.clear()
-        data.addAll(newItems)
+        items.clear()
+        items.addAll(newItems)
+        filteredItems = items
         notifyDataSetChanged()
     }
 
@@ -120,20 +122,20 @@ class RegisterAdapter(
         }
     }
 
-    override fun getFilter(): Filter? {
+    override fun getFilter(): Filter {
         return exampleFilter
     }
 
     private val exampleFilter: Filter = object : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults? {
-            val filteredList: MutableList<ExampleItem> = ArrayList()
+            val filteredList: MutableList<ListItem> = ArrayList()
             if (constraint == null || constraint.length == 0) {
-                filteredList.addAll(exampleListFull)
+                filteredList.addAll(items)
             } else {
                 val filterPattern =
                     constraint.toString().lowercase(Locale.getDefault()).trim { it <= ' ' }
-                for (item in exampleListFull) {
-                    if (item.getText2().toLowerCase().contains(filterPattern)) {
+                for (item in items) {
+                    if (item.getSortName().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item)
                     }
                 }
@@ -144,8 +146,8 @@ class RegisterAdapter(
         }
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults) {
-            exampleList.clear()
-            exampleList.addAll(results.values as List<*>)
+            filteredItems.clear()
+            filteredItems.addAll(results.values as List<ListItem>)
             notifyDataSetChanged()
         }
     }
