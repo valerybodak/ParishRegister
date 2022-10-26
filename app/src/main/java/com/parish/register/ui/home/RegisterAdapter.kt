@@ -13,7 +13,7 @@ import com.parish.register.model.Born
 import com.parish.register.model.Died
 import com.parish.register.model.ListItem
 import com.parish.register.model.Marriage
-import com.parish.register.utils.hideView
+import com.parish.register.utils.invisibleView
 import com.parish.register.utils.showView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -101,20 +101,21 @@ class RegisterAdapter(
     }
 
     private fun bindDate(textView: TextView, @StringRes label: Int, dateString: String) {
+        val context = textView.context
         if (dateString.isNotEmpty()) {
             textView.showView()
             try {
                 dateFormat.parse(dateString)?.let {
-                    textView.text = textView.context.getString(
+                    textView.text = context.getString(
                         label,
                         SimpleDateFormat("dd.MM.yyyy").format(it)
                     )
                 }
             } catch (e: Exception) {
-                textView.text = textView.context.getString(label, dateString)
+                textView.text = context.getString(label, dateString)
             }
         } else {
-            textView.hideView()
+            textView.text = context.getString(label, UNKNOWN_VALUE)
         }
     }
 
@@ -136,7 +137,9 @@ class RegisterAdapter(
 
         fun bind(item: Marriage) {
 
-            binding.tvName.text = item.groom
+            bindDate(binding.tvDate, R.string.marriage, item.date)
+            binding.tvGroomName.text = if(item.groom.isEmpty()) UNKNOWN_VALUE else item.groom
+            binding.tvBrideName.text = if(item.bride.isEmpty()) UNKNOWN_VALUE else item.bride
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
             }
@@ -160,5 +163,7 @@ class RegisterAdapter(
         private const val VIEW_TYPE_BORN = 0
         private const val VIEW_TYPE_MARRIAGE = 1
         private const val VIEW_TYPE_DIED = 2
+
+        private const val UNKNOWN_VALUE = "???"
     }
 }

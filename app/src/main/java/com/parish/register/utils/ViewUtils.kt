@@ -13,7 +13,7 @@ fun Window.getStatusBarHeight(): Int {
     return rect.top
 }
 
-fun View.hideView() {
+fun View.goneView() {
     this.visibility = View.GONE
 }
 
