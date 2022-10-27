@@ -8,6 +8,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.parish.register.R
@@ -58,14 +59,25 @@ class HomeFragment : BaseFragment() {
                 layoutManager = LinearLayoutManager(context)
             }
             val dividerDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-            dividerDecoration.setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.list_divider)!!)
+            dividerDecoration.setDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.list_divider
+                )!!
+            )
             binding?.rvRegister?.addItemDecoration(dividerDecoration)
             binding?.rvRegister?.addItemDecoration(CommonItemDecoration(requireContext(), true))
             binding?.rvRegister?.adapter = adapter
         }
+
+        binding?.fab?.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionRegisterFragmentToFilterFragment()
+            )
+        }
     }
 
-    private fun setupMenu(){
+    private fun setupMenu() {
         val menuHost: MenuHost = requireActivity()
 
         menuHost.addMenuProvider(object : MenuProvider {
@@ -91,8 +103,8 @@ class HomeFragment : BaseFragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun setupSearchView(searchView: SearchView){
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+    private fun setupSearchView(searchView: SearchView) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 //TODO("Not yet implemented")
                 return false
@@ -106,13 +118,13 @@ class HomeFragment : BaseFragment() {
     }
 
 
-    private fun initSubscribers(){
-        viewModel.parishRegisterLiveData.observe(viewLifecycleOwner){ list ->
+    private fun initSubscribers() {
+        viewModel.parishRegisterLiveData.observe(viewLifecycleOwner) { list ->
             bindRegister(list)
         }
     }
 
-    private fun bindRegister(list: List<ListItem>){
+    private fun bindRegister(list: List<ListItem>) {
         adapter?.update(list)
     }
 }

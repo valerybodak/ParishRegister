@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/nav_register">
+    app:startDestination="@+id/registerFragment">
 
     <fragment
-        android:id="@+id/nav_register"
+        android:id="@+id/registerFragment"
         android:name="com.parish.register.ui.home.HomeFragment"
         android:label="@string/menu_register"
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_global_addEditCardsCollectionFragment"
+            android:id="@+id/action_registerFragmentToFilterFragment"
             app:destination="@id/filterFragment" />
     </fragment>
 
