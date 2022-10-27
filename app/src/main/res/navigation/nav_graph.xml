@@ -9,5 +9,17 @@
         android:id="@+id/nav_register"
         android:name="com.parish.register.ui.home.HomeFragment"
         android:label="@string/menu_register"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_global_addEditCardsCollectionFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.parish.register.ui.filter.FilterFragment"
+        android:label="@string/menu_register"
+        tools:layout="@layout/fragment_filter">
+    </fragment>
 </navigation>
