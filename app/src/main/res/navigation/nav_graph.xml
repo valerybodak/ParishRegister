@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.parish.register.ui.filter.FilterFragment"
-        android:label="@string/menu_register"
+        android:label="@string/filter"
         tools:layout="@layout/fragment_filter">
     </fragment>
 </navigation>
