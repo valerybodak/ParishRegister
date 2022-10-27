@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.parish.register.R
 import com.parish.register.utils.dimenToPixels
 
-class CommonItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
+class CommonItemDecoration(
+    context: Context,
+    private val considerFloatingActionButton: Boolean = false
+) : RecyclerView.ItemDecoration() {
 
     private var horizontalMargin = dimenToPixels(
         context, R.dimen.normal_padding
@@ -15,6 +18,10 @@ class CommonItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
 
     private var verticalMargin = dimenToPixels(
         context, R.dimen.small_padding
+    )
+
+    private var floatingActionButtonPadding = dimenToPixels(
+        context, R.dimen.fab_space_padding
     )
 
     override fun getItemOffsets(
@@ -25,8 +32,13 @@ class CommonItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
             outRect.top = verticalMargin * 2
             outRect.bottom = verticalMargin
         } else if (isLastItem(view, parent)) {
-            outRect.top = verticalMargin
-            outRect.bottom = verticalMargin * 2
+            if (considerFloatingActionButton) {
+                outRect.top = verticalMargin
+                outRect.bottom = floatingActionButtonPadding
+            } else {
+                outRect.top = verticalMargin
+                outRect.bottom = verticalMargin * 2
+            }
         } else {
             outRect.top = verticalMargin
             outRect.bottom = verticalMargin

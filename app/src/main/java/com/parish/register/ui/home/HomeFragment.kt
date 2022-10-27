@@ -60,7 +60,7 @@ class HomeFragment : BaseFragment() {
             val dividerDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
             dividerDecoration.setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.list_divider)!!)
             binding?.rvRegister?.addItemDecoration(dividerDecoration)
-            binding?.rvRegister?.addItemDecoration(CommonItemDecoration(requireContext()))
+            binding?.rvRegister?.addItemDecoration(CommonItemDecoration(requireContext(), true))
             binding?.rvRegister?.adapter = adapter
         }
     }
