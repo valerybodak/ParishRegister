@@ -4,16 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.parish.register.ui.home.HomeFragment">
+    tools:context="com.parish.register.ui.filter.FilterFragment">
 
-    <TextView
-        android:id="@+id/tvHello"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="FILTER"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group_filter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_no_filters"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedIconEnabled="true"
+            android:text="@string/filter_no_filters" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_born"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedIconEnabled="true"
+            android:text="@string/filter_born" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_marriages"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedIconEnabled="true"
+            android:text="@string/filter_marriages" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_died"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedIconEnabled="true"
+            android:text="@string/filter_died" />
+
+    </com.google.android.material.chip.ChipGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

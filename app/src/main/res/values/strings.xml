@@ -19,4 +19,9 @@
     <string name="groom">Groom:</string>
     <string name="bride">Bride:</string>
     <string name="parents">Parents: %1$s</string>
+
+    <string name="filter_no_filters">No filters</string>
+    <string name="filter_born">Born</string>
+    <string name="filter_marriages">Marriages</string>
+    <string name="filter_died">Died</string>
 </resources>
