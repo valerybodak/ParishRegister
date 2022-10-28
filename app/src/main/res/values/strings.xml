@@ -8,7 +8,6 @@
 
     <string name="menu_register">@string/app_name</string>
 
-    <string name="filter">Filter</string>
     <string name="parish">Parish</string>
     <string name="register">Register</string>
 
@@ -20,8 +19,11 @@
     <string name="bride">Bride:</string>
     <string name="parents">Parents: %1$s</string>
 
+    <!--Filter-->
+    <string name="filter">Filter</string>
     <string name="filter_no_filters">No filters</string>
     <string name="filter_born">Born</string>
     <string name="filter_marriages">Marriages</string>
     <string name="filter_died">Died</string>
+    <string name="apply">Apply</string>
 </resources>
