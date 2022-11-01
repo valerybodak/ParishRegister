@@ -79,6 +79,7 @@ class FilterFragment : BaseFragment() {
 
     private fun setupRangeSlider(){
         //val slider: RangeSlider = findViewById(R.id.slider)
+        binding?.periodSlider?.stepSize = 1f
         binding?.periodSlider?.setValues(1700f, 2022f)
     }
 }
