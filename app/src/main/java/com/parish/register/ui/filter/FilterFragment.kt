@@ -6,7 +6,6 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import com.google.android.material.slider.RangeSlider
 import com.parish.register.R
 import com.parish.register.databinding.FragmentFilterBinding
 import com.parish.register.model.ListItem
@@ -78,7 +77,6 @@ class FilterFragment : BaseFragment() {
     }
 
     private fun setupRangeSlider(){
-        //val slider: RangeSlider = findViewById(R.id.slider)
         binding?.periodSlider?.stepSize = 1f
         binding?.periodSlider?.setValues(1700f, 2022f)
     }
