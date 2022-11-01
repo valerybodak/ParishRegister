@@ -6,10 +6,12 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import com.google.android.material.slider.RangeSlider
 import com.parish.register.R
 import com.parish.register.databinding.FragmentFilterBinding
 import com.parish.register.model.ListItem
 import com.parish.register.ui.base.BaseFragment
+
 
 class FilterFragment : BaseFragment() {
 
@@ -40,6 +42,7 @@ class FilterFragment : BaseFragment() {
 
     private fun initViews(){
         setupMenu()
+        setupRangeSlider()
     }
 
     private fun initSubscribers(){
@@ -72,5 +75,10 @@ class FilterFragment : BaseFragment() {
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun setupRangeSlider(){
+        //val slider: RangeSlider = findViewById(R.id.slider)
+        binding?.periodSlider?.setValues(1700f, 2022f)
     }
 }

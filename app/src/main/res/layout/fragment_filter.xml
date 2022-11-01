@@ -7,7 +7,7 @@
     tools:context="com.parish.register.ui.filter.FilterFragment">
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group_filter"
+        android:id="@+id/chipGroupFilter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,7 @@
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_no_filters"
+            android:id="@+id/chipNoFilters"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:text="@string/filter_no_filters" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_born"
+            android:id="@+id/chipBorn"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:text="@string/filter_born" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_marriages"
+            android:id="@+id/chipMarriages"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:text="@string/filter_marriages" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_died"
+            android:id="@+id/chipDied"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,5 +51,16 @@
             android:text="@string/filter_died" />
 
     </com.google.android.material.chip.ChipGroup>
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/periodSlider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:labelBehavior="withinBounds"
+        android:valueFrom="0"
+        android:valueTo="10000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chipGroupFilter"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
