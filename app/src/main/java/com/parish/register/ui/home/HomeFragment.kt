@@ -50,6 +50,10 @@ class HomeFragment : BaseFragment() {
         initSubscribers()
     }
 
+    private fun getLists(){
+        viewModel.getLists(sharedPrefsManager.getListFilter())
+    }
+
     private fun initViews() {
         setupMenu()
         if (adapter == null) {
@@ -130,10 +134,6 @@ class HomeFragment : BaseFragment() {
 
     private fun bindRegister(list: List<ListItem>) {
         adapter?.update(list)
-    }
-
-    private fun getLists(){
-        viewModel.getLists(sharedPrefsManager.getListFilter())
     }
 
     companion object{
