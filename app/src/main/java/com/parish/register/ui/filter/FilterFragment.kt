@@ -8,9 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import com.parish.register.R
 import com.parish.register.databinding.FragmentFilterBinding
-import com.parish.register.model.ListItem
+import com.parish.register.model.ListFilter
 import com.parish.register.ui.base.BaseFragment
-
 
 class FilterFragment : BaseFragment() {
 
@@ -19,7 +18,7 @@ class FilterFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getLists()
+        viewModel.getFilter()
     }
 
     override fun onCreateView(
@@ -39,19 +38,21 @@ class FilterFragment : BaseFragment() {
         initSubscribers()
     }
 
-    private fun initViews(){
+    private fun initViews() {
         setupMenu()
         setupRangeSlider()
     }
 
-    private fun initSubscribers(){
-        viewModel.parishRegisterLiveData.observe(viewLifecycleOwner){ list ->
-            bindRegister(list)
+    private fun initSubscribers() {
+        viewModel.filterLiveData.observe(viewLifecycleOwner) { filter ->
+            bindFilter(filter)
         }
     }
 
-    private fun bindRegister(list: List<ListItem>){
-        //adapter?.update(list)
+    private fun bindFilter(filter: ListFilter) {
+        val periodFrom = filter.periodFrom.toFloat()
+        val periodTo = filter.periodTo.toFloat()
+        binding?.periodSlider?.setValues(periodFrom, periodTo)
     }
 
     private fun setupMenu() {
@@ -59,15 +60,18 @@ class FilterFragment : BaseFragment() {
 
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
                 menuInflater.inflate(R.menu.menu_filter, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
                 return when (menuItem.itemId) {
                     R.id.action_apply -> {
-                        // todo
+                        sharedPrefsManager.saveListFilter(
+                            ListFilter(
+                                periodFrom = binding?.periodSlider?.values?.get(0)?.toInt() ?: 0,
+                                periodTo = binding?.periodSlider?.values?.get(1)?.toInt() ?: 0,
+                            )
+                        )
                         true
                     }
                     else -> false
@@ -76,8 +80,11 @@ class FilterFragment : BaseFragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun setupRangeSlider(){
-        binding?.periodSlider?.stepSize = 1f
-        binding?.periodSlider?.setValues(1700f, 2022f)
+    private fun setupRangeSlider() {
+        binding?.periodSlider?.stepSize = SLIDER_PERIOD_STEP_SIZE
+    }
+
+    companion object {
+        const val SLIDER_PERIOD_STEP_SIZE = 1f
     }
 }

@@ -82,7 +82,6 @@ class HomeFragment : BaseFragment() {
 
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
                 menuInflater.inflate(R.menu.menu_register, menu)
                 menu.findItem(R.id.action_search).let {
                     val searchView = it.actionView as SearchView
@@ -91,7 +90,6 @@ class HomeFragment : BaseFragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
                 return when (menuItem.itemId) {
                     R.id.action_search -> {
                         // todo
