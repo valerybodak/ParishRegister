@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
@@ -26,6 +27,9 @@ class HomeFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setFragmentResultListener(REQUEST_KEY_FILTER) { _, _ ->
+            //TODO filter
+        }
         viewModel.getLists()
     }
 
@@ -72,7 +76,9 @@ class HomeFragment : BaseFragment() {
 
         binding?.fab?.setOnClickListener {
             findNavController().navigate(
-                HomeFragmentDirections.actionRegisterFragmentToFilterFragment()
+                HomeFragmentDirections.actionRegisterFragmentToFilterFragment(
+                    requestKey = REQUEST_KEY_FILTER
+                )
             )
         }
     }
@@ -124,5 +130,9 @@ class HomeFragment : BaseFragment() {
 
     private fun bindRegister(list: List<ListItem>) {
         adapter?.update(list)
+    }
+
+    companion object{
+        const val REQUEST_KEY_FILTER = "REQUEST_KEY_FILTER"
     }
 }

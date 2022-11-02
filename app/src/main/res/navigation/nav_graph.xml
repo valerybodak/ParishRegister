@@ -21,5 +21,10 @@
         android:name="com.parish.register.ui.filter.FilterFragment"
         android:label="@string/filter"
         tools:layout="@layout/fragment_filter">
+
+        <argument
+            android:name="requestKey"
+            app:argType="string" />
+
     </fragment>
 </navigation>

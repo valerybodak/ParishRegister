@@ -2,10 +2,13 @@ package com.parish.register.ui.filter
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.os.bundleOf
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.navArgs
 import com.parish.register.R
 import com.parish.register.databinding.FragmentFilterBinding
 import com.parish.register.model.ListFilter
@@ -13,6 +16,7 @@ import com.parish.register.ui.base.BaseFragment
 
 class FilterFragment : BaseFragment() {
 
+    private val args by navArgs<FilterFragmentArgs>()
     private val viewModel by viewModels<FilterViewModel>()
     private var binding: FragmentFilterBinding? = null
 
@@ -66,12 +70,7 @@ class FilterFragment : BaseFragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.action_apply -> {
-                        sharedPrefsManager.saveListFilter(
-                            ListFilter(
-                                periodFrom = binding?.periodSlider?.values?.get(0)?.toInt() ?: 0,
-                                periodTo = binding?.periodSlider?.values?.get(1)?.toInt() ?: 0,
-                            )
-                        )
+                        saveFilter()
                         true
                     }
                     else -> false
@@ -82,6 +81,17 @@ class FilterFragment : BaseFragment() {
 
     private fun setupRangeSlider() {
         binding?.periodSlider?.stepSize = SLIDER_PERIOD_STEP_SIZE
+    }
+
+    private fun saveFilter(){
+        sharedPrefsManager.saveListFilter(
+            ListFilter(
+                periodFrom = binding?.periodSlider?.values?.get(0)?.toInt() ?: 0,
+                periodTo = binding?.periodSlider?.values?.get(1)?.toInt() ?: 0,
+            )
+        )
+        setFragmentResult(args.requestKey, bundleOf())
+        popBackStack()
     }
 
     companion object {
