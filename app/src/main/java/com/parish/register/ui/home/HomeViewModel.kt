@@ -4,10 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.parish.register.common.Resource
-import com.parish.register.model.Born
-import com.parish.register.model.Died
-import com.parish.register.model.ListItem
-import com.parish.register.model.Marriage
+import com.parish.register.model.*
 import com.parish.register.repository.ParishRegisterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.merge
@@ -22,7 +19,7 @@ class HomeViewModel @Inject constructor(
     private val resultList = mutableListOf<ListItem>()
     var parishRegisterLiveData = MutableLiveData<List<ListItem>>()
 
-    fun getLists() {
+    fun getLists(filter: ListFilter) {
         viewModelScope.launch {
             merge(
                 parishRepository.getBornList(),

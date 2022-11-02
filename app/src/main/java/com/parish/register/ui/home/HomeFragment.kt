@@ -28,9 +28,9 @@ class HomeFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFragmentResultListener(REQUEST_KEY_FILTER) { _, _ ->
-            //TODO filter
+            getLists()
         }
-        viewModel.getLists()
+        getLists()
     }
 
     override fun onCreateView(
@@ -130,6 +130,10 @@ class HomeFragment : BaseFragment() {
 
     private fun bindRegister(list: List<ListItem>) {
         adapter?.update(list)
+    }
+
+    private fun getLists(){
+        viewModel.getLists(sharedPrefsManager.getListFilter())
     }
 
     companion object{
