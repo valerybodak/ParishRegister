@@ -5,15 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingHorizontal="@dimen/normal_padding"
+    android:paddingVertical="@dimen/normal_padding"
     tools:context="com.parish.register.ui.filter.FilterFragment">
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroupFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_padding"
-        android:layout_marginTop="@dimen/normal_padding"
-        android:layout_marginEnd="@dimen/normal_padding"
+        android:layout_marginTop="@dimen/small_padding"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
@@ -21,41 +27,48 @@
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:checkedIconEnabled="true"
-            android:text="@string/filter_no_filters" />
+            android:text="@string/filter_no_filters"
+            app:checkedIconEnabled="true" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipBorn"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:checkedIconEnabled="true"
-            android:text="@string/filter_born" />
+            android:text="@string/filter_born"
+            app:checkedIconEnabled="true" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipMarriages"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:checkedIconEnabled="true"
-            android:text="@string/filter_marriages" />
+            android:text="@string/filter_marriages"
+            app:checkedIconEnabled="true" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipDied"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:checkedIconEnabled="true"
-            android:text="@string/filter_died" />
+            android:text="@string/filter_died"
+            app:checkedIconEnabled="true" />
 
     </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/period"
+        android:layout_marginTop="@dimen/medium_padding"/>
 
     <com.google.android.material.slider.RangeSlider
         android:id="@+id/periodSlider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:labelBehavior="withinBounds"
         android:valueFrom="0"
-        android:valueTo="10000"/>
+        android:valueTo="10000"
+        app:labelBehavior="withinBounds" />
 
 </LinearLayout>
