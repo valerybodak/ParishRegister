@@ -3,6 +3,8 @@ package com.parish.register.common
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.annotation.StyleRes
+import com.google.gson.GsonBuilder
+import com.parish.register.model.ListFilter
 import java.util.*
 import javax.inject.Inject
 
@@ -11,23 +13,12 @@ class SharedPrefsManager @Inject constructor(
 ) {
 
     companion object {
-        private const val APP_PREFERENCES = "app_preferences"
-        private const val BOOK_PREFIX = "book_"
-        private const val APP_THEME = "app_theme"
+        private const val APP_PREFERENCES = "APP_PREFERENCES"
+        private const val LIST_FILTER = "LIST_FILTER"
     }
 
     private fun getGlobalProperties(context: Context): SharedPreferences {
         return context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
-    }
-
-    fun getThemeId(): Int{
-        return getGlobalProperties(context).getInt(APP_THEME, 0)
-    }
-
-    fun saveThemeId(@StyleRes resId: Int) {
-        getGlobalProperties(context).edit()
-                .putInt(APP_THEME, resId)
-                .apply()
     }
 
     fun getLastSynced(tag: String): Long {
@@ -40,13 +31,25 @@ class SharedPrefsManager @Inject constructor(
             .apply()
     }
 
-    fun getBookVersion(bookId: String): Int {
-        return getGlobalProperties(context).getInt(BOOK_PREFIX + bookId, -1)
+    fun saveListFilter(listFilter: ListFilter) {
+        val builder = GsonBuilder()
+        builder.registerTypeAdapter(ListFilter::class.java, GsonListFilterAdapter())
+        builder.setPrettyPrinting()
+        val gson = builder.create()
+        getGlobalProperties(context).edit()
+            .putString(LIST_FILTER, gson.toJson(listFilter))
+            .apply()
     }
 
-    fun saveBookVersion(bookId: String, version: Int) {
-        getGlobalProperties(context).edit()
-            .putInt(BOOK_PREFIX + bookId, version)
-            .apply()
+    fun getListFilter(): ListFilter {
+        val builder = GsonBuilder()
+        builder.registerTypeAdapter(ListFilter::class.java, GsonListFilterAdapter())
+        val gson = builder.create()
+        val jsonAppSettings = getGlobalProperties(context).getString(LIST_FILTER, null)
+        return if (jsonAppSettings == null) {
+            ListFilter()
+        } else {
+            gson.fromJson(jsonAppSettings, ListFilter::class.java)
+        }
     }
 }
