@@ -12,20 +12,19 @@ fun String.toBornEntity(): BornEntity? {
     //check for Int because we have a headers in the TSV file in the first string
     items[0].toIntOrNull()?.let {
         return BornEntity(
-            id = items[0],
-            fundNumber = items[1],
-            inventoryNumber = items[2],
-            caseNumber = items[3],
-            page = items[4],
-            birthDate = items[7],
-            baptismDate = items[8],
+            fundNumber = items[0],
+            inventoryNumber = items[1],
+            caseNumber = items[2],
+            page = items[3],
+            birthDate = items[6],
+            baptismDate = items[7],
             gender = "m",
-            fullName = items[9],
-            parents = items[10],
-            godParents = items[11],
-            priest = items[12],
-            comments = items[13],
-            archiveVisitDate = items[14]
+            fullName = items[8],
+            parents = items[9],
+            godParents = items[10],
+            priest = items[11],
+            comments = items[12],
+            archiveVisitDate = items[13]
         )
     }
     return null
@@ -33,7 +32,6 @@ fun String.toBornEntity(): BornEntity? {
 
 fun BornEntity.toBorn() = Born(
     localId = localId,
-    id = id,
     fundNumber = fundNumber,
     inventoryNumber = inventoryNumber,
     caseNumber = caseNumber,
@@ -54,20 +52,19 @@ fun String.toMarriageEntity(): MarriageEntity? {
     //check for Int because we have a headers in the TSV file in the first string
     items[0].toIntOrNull()?.let {
         return MarriageEntity(
-            id = items[0],
-            fundNumber = items[1],
-            inventoryNumber = items[2],
-            caseNumber = items[3],
-            page = items[4],
-            marriageNumber = items[5],
-            date = items[6],
-            groom = items[7],
-            bride = items[8],
-            witness1 = items[9],
-            witness2 = items[10],
-            priest = items[11],
-            comments = items[12],
-            archiveVisitDate = items[13]
+            fundNumber = items[0],
+            inventoryNumber = items[1],
+            caseNumber = items[2],
+            page = items[3],
+            marriageNumber = items[4],
+            date = items[5],
+            groom = items[6],
+            bride = items[7],
+            witness1 = items[8],
+            witness2 = items[9],
+            priest = items[10],
+            comments = items[11],
+            archiveVisitDate = items[12]
         )
     }
     return null
@@ -75,7 +72,6 @@ fun String.toMarriageEntity(): MarriageEntity? {
 
 fun MarriageEntity.toMarriage() = Marriage(
     localId = localId,
-    id = id,
     fundNumber = fundNumber,
     inventoryNumber = inventoryNumber,
     caseNumber = caseNumber,
@@ -96,19 +92,18 @@ fun String.toDiedEntity(): DiedEntity? {
     //check for Int because we have a headers in the TSV file in the first string
     items[0].toIntOrNull()?.let {
         return DiedEntity(
-            id = items[0],
-            fundNumber = items[1],
-            inventoryNumber = items[2],
-            caseNumber = items[3],
-            page = items[4],
-            deathDate = items[7],
-            burialDate = items[8],
+            fundNumber = items[0],
+            inventoryNumber = items[1],
+            caseNumber = items[2],
+            page = items[3],
+            deathDate = items[4],
+            burialDate = items[5],
             gender = "m",
-            fullName = items[9],
-            parents = items[10],
-            causeOfDeath = items[11],
-            comments = items[12],
-            archiveVisitDate = items[13]
+            fullName = items[8],
+            parents = items[9],
+            causeOfDeath = items[10],
+            comments = items[11],
+            archiveVisitDate = items[12]
         )
     }
     return null
@@ -116,7 +111,6 @@ fun String.toDiedEntity(): DiedEntity? {
 
 fun DiedEntity.toDied() = Died(
     localId = localId,
-    id = id,
     fundNumber = fundNumber,
     inventoryNumber = inventoryNumber,
     caseNumber = caseNumber,

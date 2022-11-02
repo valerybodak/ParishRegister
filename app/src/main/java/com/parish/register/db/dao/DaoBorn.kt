@@ -18,8 +18,8 @@ abstract class DaoBorn {
     @Query("SELECT * FROM born")
     abstract suspend fun getAllBorn(): List<BornEntity>
 
-    @Query("SELECT * FROM born WHERE id == :id")
-    abstract suspend fun getBorn(id: String): BornEntity?
+    @Query("SELECT * FROM born WHERE localId == :localId")
+    abstract suspend fun getBornByLocalId(localId: String): BornEntity?
 
     @Query("DELETE FROM born")
     abstract suspend fun deleteAllBorn()

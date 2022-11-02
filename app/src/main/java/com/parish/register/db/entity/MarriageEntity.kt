@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 data class MarriageEntity(
     @PrimaryKey(autoGenerate = true)
     val localId: Long = 0L,
-    val id: String,
     val fundNumber: String,
     val inventoryNumber: String,
     val caseNumber: String,

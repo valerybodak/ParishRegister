@@ -18,8 +18,8 @@ abstract class DaoDied {
     @Query("SELECT * FROM died")
     abstract suspend fun getAllDied(): List<DiedEntity>
 
-    @Query("SELECT * FROM died WHERE id == :id")
-    abstract suspend fun getDied(id: String): DiedEntity?
+    @Query("SELECT * FROM died WHERE localId == :localId")
+    abstract suspend fun getDiedByLocalId(localId: String): DiedEntity?
 
     @Query("DELETE FROM died")
     abstract suspend fun deleteAllDied()
