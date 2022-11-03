@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.navArgs
 import com.parish.register.R
 import com.parish.register.databinding.FragmentFilterBinding
+import com.parish.register.model.FilterType
 import com.parish.register.model.ListFilter
 import com.parish.register.ui.base.BaseFragment
 
@@ -44,7 +45,7 @@ class FilterFragment : BaseFragment() {
 
     private fun initViews() {
         setupMenu()
-        setupRangeSlider()
+        setupPeriodSlider()
     }
 
     private fun initSubscribers() {
@@ -54,6 +55,7 @@ class FilterFragment : BaseFragment() {
     }
 
     private fun bindFilter(filter: ListFilter) {
+        bindChips(filter.filterType)
         val periodFrom = filter.periodFrom.toFloat()
         val periodTo = filter.periodTo.toFloat()
         binding?.periodSlider?.setValues(periodFrom, periodTo)
@@ -79,13 +81,28 @@ class FilterFragment : BaseFragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun setupRangeSlider() {
+    private fun bindChips(filterType: FilterType) {
+        when (filterType) {
+            FilterType.BORN -> binding?.chipBorn?.isChecked = true
+            FilterType.MARRIAGE -> binding?.chipMarriages?.isChecked = true
+            FilterType.DIED -> binding?.chipDied?.isChecked = true
+            else -> binding?.chipNoFilters?.isChecked = true
+        }
+    }
+
+    private fun setupPeriodSlider() {
         binding?.periodSlider?.stepSize = SLIDER_PERIOD_STEP_SIZE
     }
 
-    private fun saveFilter(){
+    private fun saveFilter() {
         sharedPrefsManager.saveListFilter(
             ListFilter(
+                filterType = when (binding?.chipGroupFilter?.checkedChipId) {
+                    R.id.chipBorn -> FilterType.BORN
+                    R.id.chipMarriages -> FilterType.MARRIAGE
+                    R.id.chipDied -> FilterType.DIED
+                    else -> FilterType.NO_FILTERS
+                },
                 periodFrom = binding?.periodSlider?.values?.get(0)?.toInt() ?: 0,
                 periodTo = binding?.periodSlider?.values?.get(1)?.toInt() ?: 0,
             )
