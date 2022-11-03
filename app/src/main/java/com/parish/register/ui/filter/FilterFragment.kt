@@ -90,7 +90,7 @@ class FilterFragment : BaseFragment() {
     private fun bindFilterType(type: FilterType) {
         when (type) {
             FilterType.BORN -> binding?.chipBorn?.isChecked = true
-            FilterType.MARRIAGE -> binding?.chipMarriages?.isChecked = true
+            FilterType.MARRIAGES -> binding?.chipMarriages?.isChecked = true
             FilterType.DIED -> binding?.chipDied?.isChecked = true
             else -> binding?.chipNoFilters?.isChecked = true
         }
@@ -118,7 +118,7 @@ class FilterFragment : BaseFragment() {
     private fun getSelectedFilterType(): FilterType {
         return when (binding?.chipGroupFilter?.checkedChipId) {
             R.id.chipBorn -> FilterType.BORN
-            R.id.chipMarriages -> FilterType.MARRIAGE
+            R.id.chipMarriages -> FilterType.MARRIAGES
             R.id.chipDied -> FilterType.DIED
             else -> FilterType.NO_FILTERS
         }

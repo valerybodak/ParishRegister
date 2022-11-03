@@ -3,7 +3,7 @@ package com.parish.register.db.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "marriage")
+@Entity(tableName = "marriages")
 data class MarriageEntity(
     @PrimaryKey(autoGenerate = true)
     val localId: Long = 0L,

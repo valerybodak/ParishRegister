@@ -3,7 +3,7 @@ package com.parish.register.model
 enum class FilterType(val id: Int) {
     NO_FILTERS(0),
     BORN(1),
-    MARRIAGE(2),
+    MARRIAGES(2),
     DIED(3);
 
     companion object {

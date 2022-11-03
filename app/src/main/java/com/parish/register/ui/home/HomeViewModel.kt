@@ -60,7 +60,7 @@ class HomeViewModel @Inject constructor(
             } else {
                 when (listItem) {
                     is Born -> filterType == FilterType.BORN
-                    is Marriage -> filterType == FilterType.MARRIAGE
+                    is Marriage -> filterType == FilterType.MARRIAGES
                     is Died -> filterType == FilterType.DIED
                     else -> true
                 }

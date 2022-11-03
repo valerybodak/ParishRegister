@@ -15,12 +15,12 @@ abstract class DaoMarriage {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(items: List<MarriageEntity>): LongArray
 
-    @Query("SELECT * FROM marriage")
+    @Query("SELECT * FROM marriages")
     abstract suspend fun getAllMarriages(): List<MarriageEntity>
 
-    @Query("SELECT * FROM marriage WHERE localId == :localId")
+    @Query("SELECT * FROM marriages WHERE localId == :localId")
     abstract suspend fun getMarriageByLocalId(localId: String): MarriageEntity?
 
-    @Query("DELETE FROM marriage")
+    @Query("DELETE FROM marriages")
     abstract suspend fun deleteAllMarriages()
 }
