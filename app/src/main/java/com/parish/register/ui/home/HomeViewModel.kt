@@ -1,5 +1,6 @@
 package com.parish.register.ui.home
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -70,11 +71,12 @@ class HomeViewModel @Inject constructor(
                 dateFormat.parse(listItem.getSortDate())?.let { date ->
                     year = date.parseYear()
                 }
-            } catch (e: Exception) { }
+            } catch (e: Exception) {
+            }
             val periodMatched = year != 0 && year >= filter.periodFrom && year <= filter.periodTo
             typeMatched && periodMatched
         }
-        filteredList = filteredList.sortedBy { item -> item.getSortDate() }.toMutableList()
+        filteredList = filteredList.sortedBy { item -> item.getSortDate() }
         parishRegisterLiveData.postValue(filteredList)
     }
 }
