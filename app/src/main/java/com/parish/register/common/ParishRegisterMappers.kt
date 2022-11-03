@@ -24,7 +24,7 @@ fun String.toBornEntity(): BornEntity? {
             godParents = items[10],
             priest = items[11],
             comments = items[12],
-            archiveVisitDate = items[13]
+            createdDate = items[13]
         )
     }
     return null
@@ -44,7 +44,7 @@ fun BornEntity.toBorn() = Born(
     godParents = godParents,
     priest = priest,
     comments = comments,
-    archiveVisitDate = archiveVisitDate
+    createdDate = createdDate
 )
 
 fun String.toMarriageEntity(): MarriageEntity? {
@@ -64,7 +64,7 @@ fun String.toMarriageEntity(): MarriageEntity? {
             witness2 = items[9],
             priest = items[10],
             comments = items[11],
-            archiveVisitDate = items[12]
+            createdDate = items[12]
         )
     }
     return null
@@ -84,7 +84,7 @@ fun MarriageEntity.toMarriage() = Marriage(
     witness2 = witness2,
     priest = priest,
     comments = comments,
-    archiveVisitDate = archiveVisitDate
+    createdDate = createdDate
 )
 
 fun String.toDiedEntity(): DiedEntity? {
@@ -103,7 +103,7 @@ fun String.toDiedEntity(): DiedEntity? {
             parents = items[9],
             causeOfDeath = items[10],
             comments = items[11],
-            archiveVisitDate = items[12]
+            createdDate = items[12]
         )
     }
     return null
@@ -122,5 +122,5 @@ fun DiedEntity.toDied() = Died(
     parents = parents,
     causeOfDeath = causeOfDeath,
     comments = comments,
-    archiveVisitDate = archiveVisitDate
+    createdDate = createdDate
 )

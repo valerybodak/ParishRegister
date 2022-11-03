@@ -13,7 +13,7 @@ data class Died(
     val parents: String,
     val causeOfDeath: String,
     val comments: String,
-    val archiveVisitDate: String
+    val createdDate: String
 ) : ListItem {
 
     override fun getSortDate(): String = deathDate

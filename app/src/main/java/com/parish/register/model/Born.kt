@@ -14,7 +14,7 @@ data class Born(
     val godParents: String,
     val priest: String,
     val comments: String,
-    val archiveVisitDate: String
+    val createdDate: String
 ) : ListItem {
 
     override fun getSortDate(): String = birthDate

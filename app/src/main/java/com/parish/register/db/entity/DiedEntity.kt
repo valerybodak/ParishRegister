@@ -18,5 +18,5 @@ data class DiedEntity(
     val parents: String,
     val causeOfDeath: String,
     val comments: String,
-    val archiveVisitDate: String
+    val createdDate: String
 )
