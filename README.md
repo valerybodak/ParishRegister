@@ -14,13 +14,15 @@ Parish Register is an Open Source Android application. This application serves a
 
 ### Features / Libraries
 
-1. MVVM
-2. Hilt
-3. Coroutines, Flows
-4. Room database
-5. Firebase Storage, Crashlytics, Analytics
-6. Navigation framework for navigating between 'destinations'
-7. Gson
+- [MVVM](https://www.digitalocean.com/community/tutorials/android-mvvm-design-pattern)
+- [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+- [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
+- [Flows](https://developer.android.com/kotlin/flow)
+- [Gson](https://github.com/google/gson)
+- [Room database](https://developer.android.com/training/data-storage/room)
+- [Firebase Storage](https://firebase.google.com/docs/storage)
+- [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics)
+- [Firebase Analytics](https://firebase.google.com/docs/analytics)
 
 ### Developed By
 
