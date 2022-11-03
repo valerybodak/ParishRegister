@@ -95,17 +95,15 @@ class FilterFragment : BaseFragment() {
     }
 
     private fun saveFilter() {
-        sharedPrefsManager.saveListFilter(
-            ListFilter(
-                filterType = when (binding?.chipGroupFilter?.checkedChipId) {
-                    R.id.chipBorn -> FilterType.BORN
-                    R.id.chipMarriages -> FilterType.MARRIAGE
-                    R.id.chipDied -> FilterType.DIED
-                    else -> FilterType.NO_FILTERS
-                },
-                periodFrom = binding?.periodSlider?.values?.get(0)?.toInt() ?: 0,
-                periodTo = binding?.periodSlider?.values?.get(1)?.toInt() ?: 0,
-            )
+        viewModel.saveFilter(
+            when (binding?.chipGroupFilter?.checkedChipId) {
+                R.id.chipBorn -> FilterType.BORN
+                R.id.chipMarriages -> FilterType.MARRIAGE
+                R.id.chipDied -> FilterType.DIED
+                else -> FilterType.NO_FILTERS
+            },
+            binding?.periodSlider?.values?.get(0)?.toInt() ?: 0,
+            binding?.periodSlider?.values?.get(1)?.toInt() ?: 0,
         )
         setFragmentResult(args.requestKey, bundleOf())
         popBackStack()
