@@ -13,6 +13,7 @@ import com.parish.register.R
 import com.parish.register.databinding.FragmentFilterBinding
 import com.parish.register.model.FilterType
 import com.parish.register.model.ListFilter
+import com.parish.register.model.SortingType
 import com.parish.register.ui.base.BaseFragment
 
 class FilterFragment : BaseFragment() {
@@ -54,13 +55,6 @@ class FilterFragment : BaseFragment() {
         }
     }
 
-    private fun bindFilter(filter: ListFilter) {
-        bindChips(filter.type)
-        val periodFrom = filter.periodFrom.toFloat()
-        val periodTo = filter.periodTo.toFloat()
-        binding?.periodSlider?.setValues(periodFrom, periodTo)
-    }
-
     private fun setupMenu() {
         val menuHost: MenuHost = requireActivity()
 
@@ -81,8 +75,20 @@ class FilterFragment : BaseFragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun bindChips(filterType: FilterType) {
-        when (filterType) {
+    private fun setupPeriodSlider() {
+        binding?.periodSlider?.stepSize = SLIDER_PERIOD_STEP_SIZE
+    }
+
+    private fun bindFilter(filter: ListFilter) {
+        bindFilterType(filter.type)
+        val periodFrom = filter.periodFrom.toFloat()
+        val periodTo = filter.periodTo.toFloat()
+        binding?.periodSlider?.setValues(periodFrom, periodTo)
+        bindSortingType(filter.sortingType)
+    }
+
+    private fun bindFilterType(type: FilterType) {
+        when (type) {
             FilterType.BORN -> binding?.chipBorn?.isChecked = true
             FilterType.MARRIAGE -> binding?.chipMarriages?.isChecked = true
             FilterType.DIED -> binding?.chipDied?.isChecked = true
@@ -90,23 +96,40 @@ class FilterFragment : BaseFragment() {
         }
     }
 
-    private fun setupPeriodSlider() {
-        binding?.periodSlider?.stepSize = SLIDER_PERIOD_STEP_SIZE
+    private fun bindSortingType(type: SortingType) {
+        when (type) {
+            SortingType.BY_DATE_ASC -> binding?.sortingByDateAsc?.isChecked = true
+            SortingType.BY_DATE_DESC -> binding?.sortingByDateDesc?.isChecked = true
+            else -> binding?.sortingByName?.isChecked = true
+        }
     }
 
     private fun saveFilter() {
         viewModel.saveFilter(
-            when (binding?.chipGroupFilter?.checkedChipId) {
-                R.id.chipBorn -> FilterType.BORN
-                R.id.chipMarriages -> FilterType.MARRIAGE
-                R.id.chipDied -> FilterType.DIED
-                else -> FilterType.NO_FILTERS
-            },
+            getSelectedFilterType(),
             binding?.periodSlider?.values?.get(0)?.toInt() ?: 0,
             binding?.periodSlider?.values?.get(1)?.toInt() ?: 0,
+            getSelectedSortingType()
         )
         setFragmentResult(args.requestKey, bundleOf())
         popBackStack()
+    }
+
+    private fun getSelectedFilterType(): FilterType {
+        return when (binding?.chipGroupFilter?.checkedChipId) {
+            R.id.chipBorn -> FilterType.BORN
+            R.id.chipMarriages -> FilterType.MARRIAGE
+            R.id.chipDied -> FilterType.DIED
+            else -> FilterType.NO_FILTERS
+        }
+    }
+
+    private fun getSelectedSortingType(): SortingType {
+        return when (binding?.sortingRadioGroup?.checkedRadioButtonId) {
+            R.id.sortingByDateAsc -> SortingType.BY_DATE_ASC
+            R.id.sortingByDateDesc -> SortingType.BY_DATE_DESC
+            else -> SortingType.BY_NAME
+        }
     }
 
     companion object {

@@ -78,4 +78,30 @@
         android:text="@string/sorting"
         android:layout_marginTop="@dimen/medium_padding"/>
 
+    <RadioGroup
+        android:id="@+id/sortingRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_padding"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/sortingByDateAsc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sorting_by_date_asc" />
+
+        <RadioButton
+            android:id="@+id/sortingByDateDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sorting_by_date_desc" />
+
+        <RadioButton
+            android:id="@+id/sortingByName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sorting_by_name" />
+    </RadioGroup>
+
 </LinearLayout>

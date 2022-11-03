@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.parish.register.common.SharedPrefsManager
 import com.parish.register.model.FilterType
 import com.parish.register.model.ListFilter
+import com.parish.register.model.SortingType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -19,12 +20,13 @@ class FilterViewModel @Inject constructor(
         filterLiveData.value = sharedPrefsManager.getListFilter()
     }
 
-    fun saveFilter(selectedFilterType: FilterType, periodFrom: Int, periodTo: Int) {
+    fun saveFilter(filterType: FilterType, periodFrom: Int, periodTo: Int, sortingType: SortingType) {
         sharedPrefsManager.saveListFilter(
             ListFilter(
-                type = selectedFilterType,
+                type = filterType,
                 periodFrom = periodFrom,
                 periodTo = periodTo,
+                sortingType = sortingType
             )
         )
     }

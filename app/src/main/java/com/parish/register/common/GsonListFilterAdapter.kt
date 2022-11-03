@@ -6,6 +6,7 @@ import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
 import com.parish.register.model.FilterType
 import com.parish.register.model.ListFilter
+import com.parish.register.model.SortingType
 
 class GsonListFilterAdapter : TypeAdapter<ListFilter>() {
 
@@ -13,6 +14,7 @@ class GsonListFilterAdapter : TypeAdapter<ListFilter>() {
         private const val FILTER_TYPE = "FILTER_TYPE"
         private const val PERIOD_FROM = "PERIOD_FROM"
         private const val PERIOD_TO = "PERIOD_TO"
+        private const val SORTING_TYPE = "SORTING_TYPE"
     }
 
     override fun write(writer: JsonWriter, value: ListFilter) {
@@ -23,6 +25,8 @@ class GsonListFilterAdapter : TypeAdapter<ListFilter>() {
         writer.value(value.periodFrom)
         writer.name(PERIOD_TO)
         writer.value(value.periodTo)
+        writer.name(SORTING_TYPE)
+        writer.value(value.sortingType.id)
         writer.endObject()
     }
 
@@ -51,6 +55,11 @@ class GsonListFilterAdapter : TypeAdapter<ListFilter>() {
                 //move to next token
                 token = reader.peek()
                 filter.periodTo = reader.nextInt()
+            }
+            if (SORTING_TYPE == fieldName) {
+                //move to next token
+                token = reader.peek()
+                filter.sortingType = SortingType.getById(reader.nextInt())
             }
         }
         reader.endObject()
