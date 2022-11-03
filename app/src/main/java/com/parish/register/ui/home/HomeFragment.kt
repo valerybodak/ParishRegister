@@ -28,9 +28,9 @@ class HomeFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFragmentResultListener(REQUEST_KEY_FILTER) { _, _ ->
-            getLists()
+            viewModel.getLists()
         }
-        getLists()
+        viewModel.getLists()
     }
 
     override fun onCreateView(
@@ -48,10 +48,6 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initSubscribers()
-    }
-
-    private fun getLists(){
-        viewModel.getLists(sharedPrefsManager.getListFilter())
     }
 
     private fun initViews() {

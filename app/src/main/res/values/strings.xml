@@ -26,5 +26,6 @@
     <string name="filter_marriages">Marriages</string>
     <string name="filter_died">Died</string>
     <string name="period">Period</string>
+    <string name="sorting">Sorting</string>
     <string name="apply">Apply</string>
 </resources>

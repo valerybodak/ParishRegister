@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.parish.register.common.CommonConsts
 import com.parish.register.common.Resource
+import com.parish.register.common.SharedPrefsManager
 import com.parish.register.model.*
 import com.parish.register.repository.ParishRegisterRepository
 import com.parish.register.utils.parseYear
@@ -17,6 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val sharedPrefsManager: SharedPrefsManager,
     private val parishRepository: ParishRegisterRepository
 ) : ViewModel() {
 
@@ -25,7 +27,7 @@ class HomeViewModel @Inject constructor(
 
     var parishRegisterLiveData = MutableLiveData<List<ListItem>>()
 
-    fun getLists(filter: ListFilter) {
+    fun getLists() {
         viewModelScope.launch {
             merge(
                 parishRepository.getBornList(),
@@ -35,7 +37,7 @@ class HomeViewModel @Inject constructor(
                 if (resource is Resource.Success) {
                     combinedList.addAll(resource.data ?: emptyList())
                     if (areAllListsReceived()) {
-                        submitList(filter)
+                        submitList(sharedPrefsManager.getListFilter())
                     }
                 }
             }

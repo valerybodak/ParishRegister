@@ -71,4 +71,11 @@
         android:valueTo="1945"
         app:labelBehavior="visible" />
 
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sorting"
+        android:layout_marginTop="@dimen/medium_padding"/>
+
 </LinearLayout>
