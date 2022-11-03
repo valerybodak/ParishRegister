@@ -1,7 +1,7 @@
 package com.parish.register.model
 
 data class ListFilter(
-    var filterType: FilterType = FilterType.NO_FILTERS,
+    var type: FilterType = FilterType.NO_FILTERS,
     var periodFrom: Int = DEFAULT_PERIOD_FROM,
     var periodTo: Int = DEFAULT_PERIOD_TO
 )

@@ -22,7 +22,7 @@ class FilterViewModel @Inject constructor(
     fun saveFilter(selectedFilterType: FilterType, periodFrom: Int, periodTo: Int) {
         sharedPrefsManager.saveListFilter(
             ListFilter(
-                filterType = selectedFilterType,
+                type = selectedFilterType,
                 periodFrom = periodFrom,
                 periodTo = periodTo,
             )

@@ -18,7 +18,7 @@ class GsonListFilterAdapter : TypeAdapter<ListFilter>() {
     override fun write(writer: JsonWriter, value: ListFilter) {
         writer.beginObject()
         writer.name(FILTER_TYPE)
-        writer.value(value.filterType.id)
+        writer.value(value.type.id)
         writer.name(PERIOD_FROM)
         writer.value(value.periodFrom)
         writer.name(PERIOD_TO)
@@ -40,7 +40,7 @@ class GsonListFilterAdapter : TypeAdapter<ListFilter>() {
             if (FILTER_TYPE == fieldName) {
                 //move to next token
                 token = reader.peek()
-                filter.filterType = FilterType.getById(reader.nextInt())
+                filter.type = FilterType.getById(reader.nextInt())
             }
             if (PERIOD_FROM == fieldName) {
                 //move to next token

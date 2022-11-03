@@ -55,7 +55,7 @@ class FilterFragment : BaseFragment() {
     }
 
     private fun bindFilter(filter: ListFilter) {
-        bindChips(filter.filterType)
+        bindChips(filter.type)
         val periodFrom = filter.periodFrom.toFloat()
         val periodTo = filter.periodTo.toFloat()
         binding?.periodSlider?.setValues(periodFrom, periodTo)

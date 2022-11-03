@@ -52,13 +52,27 @@ class HomeViewModel @Inject constructor(
 
     private fun submitList(filter: ListFilter) {
         var filteredList = combinedList.filter { listItem ->
+            //check filter type
+            val filterType = filter.type
+            val typeMatched = if (filterType == FilterType.NO_FILTERS) {
+                true
+            } else {
+                when (listItem) {
+                    is Born -> filterType == FilterType.BORN
+                    is Marriage -> filterType == FilterType.MARRIAGE
+                    is Died -> filterType == FilterType.DIED
+                    else -> true
+                }
+            }
+            //check period
             var year = 0
             try {
                 dateFormat.parse(listItem.getSortDate())?.let { date ->
                     year = date.parseYear()
                 }
             } catch (e: Exception) { }
-            year != 0 && year >= filter.periodFrom && year <= filter.periodTo
+            val periodMatched = year != 0 && year >= filter.periodFrom && year <= filter.periodTo
+            typeMatched && periodMatched
         }
         filteredList = filteredList.sortedBy { item -> item.getSortDate() }.toMutableList()
         parishRegisterLiveData.postValue(filteredList)
