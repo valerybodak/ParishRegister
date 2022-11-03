@@ -1,6 +1,5 @@
 package com.parish.register.ui.home
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,6 +28,7 @@ class HomeViewModel @Inject constructor(
     var parishRegisterLiveData = MutableLiveData<List<ListItem>>()
 
     fun getLists() {
+        combinedList.clear()
         viewModelScope.launch {
             merge(
                 parishRepository.getBornList(),
