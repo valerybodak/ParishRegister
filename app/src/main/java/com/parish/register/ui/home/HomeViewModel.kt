@@ -76,7 +76,13 @@ class HomeViewModel @Inject constructor(
             val periodMatched = year != 0 && year >= filter.periodFrom && year <= filter.periodTo
             typeMatched && periodMatched
         }
-        filteredList = filteredList.sortedBy { item -> item.getSortDate() }
+        //sorting
+        filteredList = when (filter.sortingType) {
+            SortingType.BY_DATE_ASC -> filteredList.sortedBy { item -> item.getSortDate() }
+            SortingType.BY_DATE_DESC -> filteredList.sortedByDescending { item -> item.getSortDate() }
+            else -> filteredList.sortedBy { item -> item.getSortName() }
+        }
+
         parishRegisterLiveData.postValue(filteredList)
     }
 }
