@@ -3,12 +3,16 @@ package com.parish.register.ui.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.parish.register.common.CommonConsts
 import com.parish.register.common.Resource
 import com.parish.register.model.*
 import com.parish.register.repository.ParishRegisterRepository
+import com.parish.register.utils.parseYear
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,7 +20,9 @@ class HomeViewModel @Inject constructor(
     private val parishRepository: ParishRegisterRepository
 ) : ViewModel() {
 
-    private val resultList = mutableListOf<ListItem>()
+    private var combinedList = mutableListOf<ListItem>()
+    private val dateFormat = SimpleDateFormat(CommonConsts.BACKEND_DATE_FORMAT, Locale.ENGLISH)
+
     var parishRegisterLiveData = MutableLiveData<List<ListItem>>()
 
     fun getLists(filter: ListFilter) {
@@ -27,9 +33,9 @@ class HomeViewModel @Inject constructor(
                 parishRepository.getDiedList()
             ).collect { resource ->
                 if (resource is Resource.Success) {
-                    resultList.addAll(resource.data ?: emptyList())
+                    combinedList.addAll(resource.data ?: emptyList())
                     if (areAllListsReceived()) {
-                        parishRegisterLiveData.postValue(resultList.sortedBy { item -> item.getSortDate() })
+                        submitList(filter)
                     }
                 }
             }
@@ -37,8 +43,22 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun areAllListsReceived(): Boolean {
-        return resultList.firstOrNull { it is Born } != null
-                && resultList.firstOrNull { it is Marriage } != null
-                && resultList.firstOrNull { it is Died } != null
+        return combinedList.firstOrNull { it is Born } != null
+                && combinedList.firstOrNull { it is Marriage } != null
+                && combinedList.firstOrNull { it is Died } != null
+    }
+
+    private fun submitList(filter: ListFilter) {
+        var filteredList = combinedList.filter { listItem ->
+            var year = 0
+            try {
+                dateFormat.parse(listItem.getSortDate())?.let { date ->
+                    year = date.parseYear()
+                }
+            } catch (e: Exception) { }
+            year != 0 && year >= filter.periodFrom && year <= filter.periodTo
+        }
+        filteredList = filteredList.sortedBy { item -> item.getSortDate() }.toMutableList()
+        parishRegisterLiveData.postValue(filteredList)
     }
 }

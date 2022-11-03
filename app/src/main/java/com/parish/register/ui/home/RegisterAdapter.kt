@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.parish.register.R
+import com.parish.register.common.CommonConsts.BACKEND_DATE_FORMAT
 import com.parish.register.databinding.ItemBornBinding
 import com.parish.register.databinding.ItemDiedBinding
 import com.parish.register.databinding.ItemMarriageBinding
@@ -23,7 +24,7 @@ class RegisterAdapter(
     private val listener: RegisterAdapterListener?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    private val dateFormat = SimpleDateFormat(BACKEND_DATE_FORMAT, Locale.ENGLISH)
     private val items: MutableList<ListItem> = mutableListOf()
     private var filteredItems: MutableList<ListItem> = mutableListOf()
 
