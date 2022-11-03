@@ -12,6 +12,31 @@ By using parish registers it's possible to trace your ancestors back as far as t
 
 Parish Register is an Open Source Android application. This application serves as a fully functional prototype of the search people by parish registers.
 
-# License
+### Features / Libraries
 
-This project uses the following license: Apache-2.0.
+1. MVVM
+2. Hilt
+3. Room database
+4. Firebase Storage, Crashlytics, Analytics
+5. Navigation framework for navigating between 'destinations'
+6. Gson
+
+### Developed By
+
+* Valery Bodak  - <valerybodak@gmail.com> 
+
+### License
+
+    Copyright 2022 Valery Bodak
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
