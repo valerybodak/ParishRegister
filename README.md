@@ -11,3 +11,7 @@ By using parish registers it's possible to trace your ancestors back as far as t
 # Android app
 
 Parish Register is an Open Source Android application. This application serves as a fully functional prototype of the search people by parish registers.
+
+# License
+
+This project uses the following license: Apache-2.0.
