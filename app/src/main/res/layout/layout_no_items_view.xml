@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container_no_farm"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -9,25 +9,26 @@
 
     <ImageView
         android:id="@+id/ivEmptyIcon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_empty" />
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_empty"
+        app:tint="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/normal_padding"
         android:text="@string/no_records_found" />
 
     <TextView
         android:id="@+id/txt_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:gravity="center"
+        android:textSize="15sp"
+        android:layout_marginTop="@dimen/small_padding"
         android:text="@string/adjust_filters_and_try_again" />
 
 </LinearLayout>
