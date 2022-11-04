@@ -25,7 +25,7 @@ class HomeViewModel @Inject constructor(
     private var combinedList = mutableListOf<ListItem>()
     private val dateFormat = SimpleDateFormat(CommonConsts.BACKEND_DATE_FORMAT, Locale.ENGLISH)
 
-    var parishRegisterLiveData = MutableLiveData<List<ListItem>>()
+    var parishRegisterResourceLiveData = MutableLiveData<Resource<out List<ListItem>>>()
 
     fun getLists(forceSync: Boolean = false) {
         combinedList.clear()
@@ -35,12 +35,23 @@ class HomeViewModel @Inject constructor(
                 parishRepository.getMarriageList(forceSync),
                 parishRepository.getDiedList(forceSync)
             ).collect { resource ->
-                if (resource is Resource.Success) {
-                    combinedList.addAll(resource.data ?: emptyList())
-                    if (areAllListsReceived()) {
-                        submitFilteredList()
-                    }
-                }
+                mapResource(resource)
+            }
+        }
+    }
+
+    private fun mapResource(resource: Resource<out List<ListItem>>) {
+        if (resource is Resource.Error) {
+            parishRegisterResourceLiveData.postValue(resource)
+        } else if (resource is Resource.Success) {
+            combinedList.addAll(resource.data ?: emptyList())
+            if (areAllListsReceived()) {
+                submitFilteredList()
+            }
+        } else {
+            //Loading
+            if (parishRegisterResourceLiveData.value !is Resource.Loading) {
+                parishRegisterResourceLiveData.postValue(resource)
             }
         }
     }
@@ -84,6 +95,6 @@ class HomeViewModel @Inject constructor(
             else -> filteredList.sortedBy { item -> item.getSortName() }
         }
 
-        parishRegisterLiveData.postValue(filteredList)
+        parishRegisterResourceLiveData.postValue(Resource.Success(data = filteredList))
     }
 }

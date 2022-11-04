@@ -28,6 +28,7 @@
                 android:id="@+id/noItemsView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 app:description="@string/adjust_filters_and_try_again"
                 app:title="@string/no_records_found" />
 

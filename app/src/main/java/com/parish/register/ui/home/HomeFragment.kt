@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.parish.register.R
+import com.parish.register.common.Resource
 import com.parish.register.databinding.FragmentHomeBinding
 import com.parish.register.model.ListItem
 import com.parish.register.ui.base.BaseFragment
@@ -30,7 +31,6 @@ class HomeFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFragmentResultListener(REQUEST_KEY_FILTER) { _, _ ->
-            showLoading()
             viewModel.getLists()
         }
         viewModel.getLists()
@@ -117,7 +117,7 @@ class HomeFragment : BaseFragment() {
         })
     }
 
-    private fun initListeners(){
+    private fun initListeners() {
         binding?.swipeRefresh?.setOnRefreshListener {
             viewModel.getLists(forceSync = true)
         }
@@ -132,8 +132,20 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initSubscribers() {
-        viewModel.parishRegisterLiveData.observe(viewLifecycleOwner) { list ->
-            bindRegister(list)
+        viewModel.parishRegisterResourceLiveData.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    showLoading()
+                }
+                is Resource.Success ->
+                    resource.data?.let {
+                        bindRegister(it)
+                    }
+                is Resource.Error -> {
+                    hideLoading()
+                    showToast(resource.message)
+                }
+            }
         }
     }
 
@@ -149,11 +161,11 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun showLoading(){
+    private fun showLoading() {
         binding?.swipeRefresh?.isRefreshing = true
     }
 
-    private fun hideLoading(){
+    private fun hideLoading() {
         binding?.swipeRefresh?.isRefreshing = false
     }
 
