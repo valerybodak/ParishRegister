@@ -46,7 +46,7 @@ class HomeViewModel @Inject constructor(
         } else if (resource is Resource.Success) {
             combinedList.addAll(resource.data ?: emptyList())
             if (areAllListsReceived()) {
-                submitFilteredList()
+                parishRegisterLiveData.postValue(Resource.Success(data = filterList()))
             }
         } else {
             //Loading
@@ -62,9 +62,9 @@ class HomeViewModel @Inject constructor(
                 && combinedList.firstOrNull { it is Died } != null
     }
 
-    private fun submitFilteredList() {
+    private fun filterList(): List<ListItem> {
         val filter = sharedPrefsManager.getListFilter()
-        var filteredList = combinedList.filter { listItem ->
+        val filteredList = combinedList.filter { listItem ->
             //check filter type
             val filterType = filter.type
             val typeMatched = if (filterType == FilterType.NO_FILTERS) {
@@ -89,12 +89,10 @@ class HomeViewModel @Inject constructor(
             typeMatched && periodMatched
         }
         //sorting
-        filteredList = when (filter.sortingType) {
+        return when (filter.sortingType) {
             SortingType.BY_DATE_ASC -> filteredList.sortedBy { item -> item.getSortDate() }
             SortingType.BY_DATE_DESC -> filteredList.sortedByDescending { item -> item.getSortDate() }
             else -> filteredList.sortedBy { item -> item.getSortName() }
         }
-
-        parishRegisterLiveData.postValue(Resource.Success(data = filteredList))
     }
 }
