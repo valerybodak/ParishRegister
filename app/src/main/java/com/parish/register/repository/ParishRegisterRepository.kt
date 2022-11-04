@@ -17,11 +17,20 @@ class ParishRegisterRepository @Inject constructor(
     private val daoDied: DaoDied
 ) {
 
-    fun getBornList(observeProgress: Boolean = false): Flow<Resource<List<Born>>> {
+    fun getBornList(
+        forceSync: Boolean = false,
+        observeProgress: Boolean = false
+    ): Flow<Resource<List<Born>>> {
         return FirebaseHelper.loadFileData(
             BORN_LIST_FILE_NAME,
             query = { daoBorn.getAllBorn().map { it.toBorn() } },
-            shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_BORN_LIST)) },
+            shouldFetch = {
+                if (forceSync) true else SyncHelper.isSyncNeed(
+                    sharedPrefsManager.getLastSynced(
+                        TAG_BORN_LIST
+                    )
+                )
+            },
             observeProgress = observeProgress,
             saveFetchResponse = { rawItems -> saveBornList(rawItems) }
         )
@@ -37,11 +46,20 @@ class ParishRegisterRepository @Inject constructor(
         sharedPrefsManager.saveLastSynced(TAG_BORN_LIST)
     }
 
-    fun getMarriageList(observeProgress: Boolean = false): Flow<Resource<List<Marriage>>> {
+    fun getMarriageList(
+        forceSync: Boolean = false,
+        observeProgress: Boolean = false
+    ): Flow<Resource<List<Marriage>>> {
         return FirebaseHelper.loadFileData(
             MARRIAGE_LIST_FILE_NAME,
             query = { daoMarriage.getAllMarriages().map { it.toMarriage() } },
-            shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_MARRIAGE_LIST)) },
+            shouldFetch = {
+                if (forceSync) true else SyncHelper.isSyncNeed(
+                    sharedPrefsManager.getLastSynced(
+                        TAG_MARRIAGE_LIST
+                    )
+                )
+            },
             observeProgress = observeProgress,
             saveFetchResponse = { rawItems -> saveMarriageList(rawItems) }
         )
@@ -57,11 +75,20 @@ class ParishRegisterRepository @Inject constructor(
         sharedPrefsManager.saveLastSynced(TAG_MARRIAGE_LIST)
     }
 
-    fun getDiedList(observeProgress: Boolean = false): Flow<Resource<List<Died>>> {
+    fun getDiedList(
+        forceSync: Boolean = false,
+        observeProgress: Boolean = false
+    ): Flow<Resource<List<Died>>> {
         return FirebaseHelper.loadFileData(
             DIED_LIST_FILE_NAME,
             query = { daoDied.getAllDied().map { it.toDied() } },
-            shouldFetch = { SyncHelper.isSyncNeed(sharedPrefsManager.getLastSynced(TAG_DIED_LIST)) },
+            shouldFetch = {
+                if (forceSync) true else SyncHelper.isSyncNeed(
+                    sharedPrefsManager.getLastSynced(
+                        TAG_DIED_LIST
+                    )
+                )
+            },
             observeProgress = observeProgress,
             saveFetchResponse = { rawItems -> saveDiedList(rawItems) }
         )

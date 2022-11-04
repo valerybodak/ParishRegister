@@ -119,7 +119,7 @@ class HomeFragment : BaseFragment() {
 
     private fun initListeners(){
         binding?.swipeRefresh?.setOnRefreshListener {
-            viewModel.getLists()
+            viewModel.getLists(forceSync = true)
         }
 
         binding?.fab?.setOnClickListener {

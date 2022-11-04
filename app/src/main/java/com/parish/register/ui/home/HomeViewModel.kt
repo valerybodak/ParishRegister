@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
 
     var parishRegisterLiveData = MutableLiveData<List<ListItem>>()
 
-    fun getLists() {
+    fun getLists(forceSync: Boolean = false) {
         combinedList.clear()
         viewModelScope.launch {
             merge(
