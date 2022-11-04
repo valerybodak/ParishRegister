@@ -17,6 +17,8 @@ import com.parish.register.databinding.FragmentHomeBinding
 import com.parish.register.model.ListItem
 import com.parish.register.ui.base.BaseFragment
 import com.parish.register.ui.custom.CommonItemDecoration
+import com.parish.register.utils.goneView
+import com.parish.register.utils.showView
 
 class HomeFragment : BaseFragment() {
 
@@ -129,10 +131,17 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun bindRegister(list: List<ListItem>) {
-        adapter?.update(list)
+        if (list.isEmpty()) {
+            binding?.noItemsView?.showView()
+            binding?.rvRegister?.goneView()
+        } else {
+            binding?.noItemsView?.goneView()
+            binding?.rvRegister?.showView()
+            adapter?.update(list)
+        }
     }
 
-    companion object{
+    companion object {
         const val REQUEST_KEY_FILTER = "REQUEST_KEY_FILTER"
     }
 }

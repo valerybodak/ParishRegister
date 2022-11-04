@@ -15,6 +15,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.parish.register.ui.custom.NoItemsView
+        android:id="@+id/noItemsView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:title="@string/no_records_found"
+        app:description="@string/adjust_filters_and_try_again"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
