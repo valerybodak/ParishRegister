@@ -31,9 +31,9 @@ class HomeViewModel @Inject constructor(
         combinedList.clear()
         viewModelScope.launch {
             merge(
-                parishRepository.getBornList(),
-                parishRepository.getMarriageList(),
-                parishRepository.getDiedList()
+                parishRepository.getBornList(forceSync),
+                parishRepository.getMarriageList(forceSync),
+                parishRepository.getDiedList(forceSync)
             ).collect { resource ->
                 if (resource is Resource.Success) {
                     combinedList.addAll(resource.data ?: emptyList())
