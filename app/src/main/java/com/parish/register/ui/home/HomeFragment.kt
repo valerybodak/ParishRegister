@@ -30,6 +30,7 @@ class HomeFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFragmentResultListener(REQUEST_KEY_FILTER) { _, _ ->
+            showLoading()
             viewModel.getLists()
         }
         viewModel.getLists()
@@ -49,6 +50,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        initListeners()
         initSubscribers()
     }
 
@@ -74,14 +76,6 @@ class HomeFragment : BaseFragment() {
             binding?.rvRegister?.addItemDecoration(dividerDecoration)
             binding?.rvRegister?.addItemDecoration(CommonItemDecoration(requireContext(), true))
             binding?.rvRegister?.adapter = adapter
-        }
-
-        binding?.fab?.setOnClickListener {
-            findNavController().navigate(
-                HomeFragmentDirections.actionRegisterFragmentToFilterFragment(
-                    requestKey = REQUEST_KEY_FILTER
-                )
-            )
         }
     }
 
@@ -123,6 +117,19 @@ class HomeFragment : BaseFragment() {
         })
     }
 
+    private fun initListeners(){
+        binding?.swipeRefresh?.setOnRefreshListener {
+            viewModel.getLists()
+        }
+
+        binding?.fab?.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionRegisterFragmentToFilterFragment(
+                    requestKey = REQUEST_KEY_FILTER
+                )
+            )
+        }
+    }
 
     private fun initSubscribers() {
         viewModel.parishRegisterLiveData.observe(viewLifecycleOwner) { list ->
@@ -131,6 +138,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun bindRegister(list: List<ListItem>) {
+        hideLoading()
         if (list.isEmpty()) {
             binding?.noItemsView?.showView()
             binding?.rvRegister?.goneView()
@@ -139,6 +147,14 @@ class HomeFragment : BaseFragment() {
             binding?.rvRegister?.showView()
             adapter?.update(list)
         }
+    }
+
+    private fun showLoading(){
+        binding?.swipeRefresh?.isRefreshing = true
+    }
+
+    private fun hideLoading(){
+        binding?.swipeRefresh?.isRefreshing = false
     }
 
     companion object {
