@@ -35,12 +35,12 @@ class HomeViewModel @Inject constructor(
                 parishRepository.getMarriageList(forceSync),
                 parishRepository.getDiedList(forceSync)
             ).collect { resource ->
-                combineResource(resource)
+                mergeResource(resource)
             }
         }
     }
 
-    private fun combineResource(resource: Resource<out List<ListItem>>) {
+    private fun mergeResource(resource: Resource<out List<ListItem>>) {
         if (resource is Resource.Error) {
             parishRegisterLiveData.postValue(resource)
         } else if (resource is Resource.Success) {
