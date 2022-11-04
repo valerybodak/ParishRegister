@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
                 if (resource is Resource.Success) {
                     combinedList.addAll(resource.data ?: emptyList())
                     if (areAllListsReceived()) {
-                        submitList(sharedPrefsManager.getListFilter())
+                        submitFilteredList()
                     }
                 }
             }
@@ -51,7 +51,8 @@ class HomeViewModel @Inject constructor(
                 && combinedList.firstOrNull { it is Died } != null
     }
 
-    private fun submitList(filter: ListFilter) {
+    private fun submitFilteredList() {
+        val filter = sharedPrefsManager.getListFilter()
         var filteredList = combinedList.filter { listItem ->
             //check filter type
             val filterType = filter.type
