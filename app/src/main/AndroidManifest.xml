@@ -17,7 +17,6 @@
 
         <activity
             android:name=".SplashActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/Theme.ParishRegister.NoActionBar">
@@ -31,7 +30,6 @@
         <activity
             android:name="com.parish.register.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.ParishRegister.NoActionBar"/>
     </application>
