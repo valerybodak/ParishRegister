@@ -23,6 +23,7 @@ Parish Register is an Open Source Android application. This application serves a
 - [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
 - [Flows](https://developer.android.com/kotlin/flow)
 - [Gson](https://github.com/google/gson)
+- [SwipeRefreshLayout](https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout)
 
 ### Developed By
 
