@@ -34,8 +34,8 @@ object FirebaseHelper {
                 for (index in fileLines.indices) {
                     val line = fileLines[index]
                     if (observeProgress) {
-                        //we set the small delay just to avoid too fast progress
-                        delay(1)
+                        //we can set the small delay here just to avoid too fast progress
+                        //delay(1)
                         emit(Resource.Loading(ProgressData(index, fileLines.size)))
                     }
                     resultItems.add(line)
