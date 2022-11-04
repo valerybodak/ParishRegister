@@ -1,7 +1,7 @@
 package com.parish.register.model
 
 enum class FilterType(val id: Int) {
-    NO_FILTERS(0),
+    ALL(0),
     BORN(1),
     MARRIAGES(2),
     DIED(3);
@@ -9,10 +9,10 @@ enum class FilterType(val id: Int) {
     companion object {
         fun getById(id: Int?): FilterType {
             if (id == null) {
-                return NO_FILTERS
+                return ALL
             }
             return values()
-                .find { it.id == id } ?: NO_FILTERS
+                .find { it.id == id } ?: ALL
         }
     }
 }

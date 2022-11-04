@@ -92,7 +92,7 @@ class FilterFragment : BaseFragment() {
             FilterType.BORN -> binding?.chipBorn?.isChecked = true
             FilterType.MARRIAGES -> binding?.chipMarriages?.isChecked = true
             FilterType.DIED -> binding?.chipDied?.isChecked = true
-            else -> binding?.chipNoFilters?.isChecked = true
+            else -> binding?.chipAll?.isChecked = true
         }
     }
 
@@ -120,7 +120,7 @@ class FilterFragment : BaseFragment() {
             R.id.chipBorn -> FilterType.BORN
             R.id.chipMarriages -> FilterType.MARRIAGES
             R.id.chipDied -> FilterType.DIED
-            else -> FilterType.NO_FILTERS
+            else -> FilterType.ALL
         }
     }
 

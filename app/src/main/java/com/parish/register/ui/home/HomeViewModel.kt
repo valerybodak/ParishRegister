@@ -67,7 +67,7 @@ class HomeViewModel @Inject constructor(
         val filteredList = combinedList.filter { listItem ->
             //check filter type
             val filterType = filter.type
-            val typeMatched = if (filterType == FilterType.NO_FILTERS) {
+            val typeMatched = if (filterType == FilterType.ALL) {
                 true
             } else {
                 when (listItem) {

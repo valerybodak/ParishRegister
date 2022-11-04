@@ -22,7 +22,7 @@
 
     <!--Filter-->
     <string name="filter">Filter</string>
-    <string name="filter_no_filters">No filters</string>
+    <string name="filter_all">All</string>
     <string name="filter_born">Born</string>
     <string name="filter_marriages">Marriages</string>
     <string name="filter_died">Died</string>
