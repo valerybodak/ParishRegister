@@ -132,7 +132,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initSubscribers() {
-        viewModel.parishRegisterResourceLiveData.observe(viewLifecycleOwner) { resource ->
+        viewModel.parishRegisterLiveData.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     showLoading()
