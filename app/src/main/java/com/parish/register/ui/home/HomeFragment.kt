@@ -144,6 +144,9 @@ class HomeFragment : BaseFragment() {
                 is Resource.Error -> {
                     hideLoading()
                     showToast(resource.message)
+                    resource.data?.let {
+                        bindRegister(it)
+                    }
                 }
             }
         }
