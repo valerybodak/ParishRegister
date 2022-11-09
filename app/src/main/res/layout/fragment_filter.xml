@@ -117,7 +117,7 @@
 
         </LinearLayout>
     </ScrollView>
-    
+
     <TextView
         android:id="@+id/btnReset"
         android:layout_width="0dp"

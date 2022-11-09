@@ -11,9 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.navArgs
 import com.parish.register.R
 import com.parish.register.databinding.FragmentFilterBinding
-import com.parish.register.model.FilterType
-import com.parish.register.model.ListFilter
-import com.parish.register.model.SortingType
+import com.parish.register.model.*
 import com.parish.register.ui.base.BaseFragment
 
 class FilterFragment : BaseFragment() {
@@ -41,12 +39,19 @@ class FilterFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        initListeners()
         initSubscribers()
     }
 
     private fun initViews() {
         setupMenu()
         setupPeriodSlider()
+    }
+
+    private fun initListeners() {
+        binding?.btnReset?.setOnClickListener {
+            resetFilters()
+        }
     }
 
     private fun initSubscribers() {
@@ -130,6 +135,12 @@ class FilterFragment : BaseFragment() {
             R.id.sortingByDateDesc -> SortingType.BY_DATE_DESC
             else -> SortingType.BY_NAME
         }
+    }
+
+    private fun resetFilters(){
+        binding?.chipAll?.isChecked = true
+        binding?.periodSlider?.setValues(DEFAULT_PERIOD_FROM.toFloat(), DEFAULT_PERIOD_TO.toFloat())
+        binding?.sortingByDateAsc?.isChecked = true
     }
 
     companion object {
