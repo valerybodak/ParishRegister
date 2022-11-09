@@ -22,9 +22,9 @@ object FirebaseHelper {
         saveFetchResponse: suspend (List<String>) -> Unit,
         onFetchFailed: (Throwable) -> Unit = { },
     ): Flow<Resource<List<ResultType>>> = flow {
-        emit(Resource.Loading())
 
         val data = query()
+        emit(Resource.Loading(data = data))
 
         if (shouldFetch(data)) {
             try {
@@ -36,7 +36,7 @@ object FirebaseHelper {
                     if (observeProgress) {
                         //we can set the small delay here just to avoid too fast progress
                         //delay(1)
-                        emit(Resource.Loading(ProgressData(index, fileLines.size)))
+                        emit(Resource.Loading(progress = ProgressData(index, fileLines.size)))
                     }
                     resultItems.add(line)
                 }

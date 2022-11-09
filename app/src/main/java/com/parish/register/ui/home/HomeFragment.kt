@@ -136,6 +136,9 @@ class HomeFragment : BaseFragment() {
             when (resource) {
                 is Resource.Loading -> {
                     showLoading()
+                    resource.data?.let {
+                        bindRegister(it)
+                    }
                 }
                 is Resource.Success ->
                     resource.data?.let {
@@ -144,9 +147,6 @@ class HomeFragment : BaseFragment() {
                 is Resource.Error -> {
                     hideLoading()
                     showToast(resource.message)
-                    resource.data?.let {
-                        bindRegister(it)
-                    }
                 }
             }
         }

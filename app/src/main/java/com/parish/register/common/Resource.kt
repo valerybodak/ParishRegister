@@ -7,7 +7,7 @@ sealed class Resource<T>(
     val errorCode: Int? = null,
 ) {
     class Success<T>(data: T?) : Resource<T>(data)
-    class Loading<T>(progress: ProgressData? = null) : Resource<T>(progress = progress)
+    class Loading<T>(data: T? = null, progress: ProgressData? = null) : Resource<T>(data = data, progress = progress)
     class Error<T>(errorCode: Int, message: String, data: T? = null) : Resource<T>(data, null, message, errorCode)
 }
 
