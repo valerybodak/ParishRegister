@@ -131,6 +131,7 @@
         android:layout_marginHorizontal="@dimen/normal_padding"
         android:layout_marginVertical="@dimen/normal_padding"
         android:gravity="center"
+        android:elevation="@dimen/micro_padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
