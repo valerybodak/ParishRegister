@@ -9,6 +9,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.parish.register.R
 import com.parish.register.databinding.FragmentFilterBinding
 import com.parish.register.model.*
@@ -50,7 +51,7 @@ class FilterFragment : BaseFragment() {
 
     private fun initListeners() {
         binding?.btnReset?.setOnClickListener {
-            resetFilters()
+            showResetFiltersDialog()
         }
     }
 
@@ -137,7 +138,17 @@ class FilterFragment : BaseFragment() {
         }
     }
 
-    private fun resetFilters(){
+    private fun showResetFiltersDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(getString(R.string.reset_filters_dialog_message))
+            .setPositiveButton(R.string.yes) { _, _ ->
+                resetFilters()
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+    }
+
+    private fun resetFilters() {
         binding?.chipAll?.isChecked = true
         binding?.periodSlider?.setValues(DEFAULT_PERIOD_FROM.toFloat(), DEFAULT_PERIOD_TO.toFloat())
         binding?.sortingByDateAsc?.isChecked = true
