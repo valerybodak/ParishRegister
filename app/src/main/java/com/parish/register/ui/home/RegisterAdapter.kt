@@ -16,6 +16,7 @@ import com.parish.register.model.ListItem
 import com.parish.register.model.Marriage
 import com.parish.register.utils.containsIgnoreCase
 import com.parish.register.utils.goneView
+import com.parish.register.utils.setHighlightedText
 import com.parish.register.utils.showView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,6 +25,7 @@ class RegisterAdapter(
     private val listener: RegisterAdapterListener?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var searchString: String? = null
     private val dateFormat = SimpleDateFormat(BACKEND_DATE_FORMAT, Locale.ENGLISH)
     private val items: MutableList<ListItem> = mutableListOf()
     private var filteredItems: MutableList<ListItem> = mutableListOf()
@@ -105,36 +107,37 @@ class RegisterAdapter(
         notifyDataSetChanged()
     }
 
-    fun filter(text: String) {
+    fun search(str: String) {
+        searchString = str
         filteredItems.clear()
-        if (text.isEmpty()) {
+        if (str.isEmpty()) {
             filteredItems.addAll(items)
         } else {
             for (item in items) {
                 when (item) {
                     is Born -> {
-                        if (item.birthDate.containsIgnoreCase(text)
-                            || item.fullName.containsIgnoreCase(text)
-                            || item.parents.containsIgnoreCase(text)
-                            || item.godParents.containsIgnoreCase(text)
+                        if (item.birthDate.containsIgnoreCase(str)
+                            || item.fullName.containsIgnoreCase(str)
+                            || item.parents.containsIgnoreCase(str)
+                            || item.godParents.containsIgnoreCase(str)
                         ) {
                             filteredItems.add(item)
                         }
                     }
                     is Marriage -> {
-                        if (item.date.containsIgnoreCase(text)
-                            || item.groom.containsIgnoreCase(text)
-                            || item.bride.containsIgnoreCase(text)
-                            || item.witness1.containsIgnoreCase(text)
-                            || item.witness2.containsIgnoreCase(text)
+                        if (item.date.containsIgnoreCase(str)
+                            || item.groom.containsIgnoreCase(str)
+                            || item.bride.containsIgnoreCase(str)
+                            || item.witness1.containsIgnoreCase(str)
+                            || item.witness2.containsIgnoreCase(str)
                         ) {
                             filteredItems.add(item)
                         }
                     }
                     is Died -> {
-                        if (item.deathDate.containsIgnoreCase(text)
-                            || item.fullName.containsIgnoreCase(text)
-                            || item.parents.containsIgnoreCase(text)
+                        if (item.deathDate.containsIgnoreCase(str)
+                            || item.fullName.containsIgnoreCase(str)
+                            || item.parents.containsIgnoreCase(str)
                         ) {
                             filteredItems.add(item)
                         }
@@ -168,14 +171,13 @@ class RegisterAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Born) {
-
-            binding.tvName.text = item.fullName
+            binding.tvName.setHighlightedText(item.fullName, searchString)
             bindDate(binding.tvDate, R.string.born, item.birthDate)
             if (item.parents.isEmpty()) {
                 binding.tvParents.goneView()
             } else {
                 binding.tvParents.showView()
-                binding.tvParents.text = itemView.context.getString(R.string.parents, item.parents)
+                binding.tvParents.setHighlightedText(itemView.context.getString(R.string.parents, item.parents), searchString)
             }
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
@@ -187,10 +189,9 @@ class RegisterAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Marriage) {
-
             bindDate(binding.tvDate, R.string.marriage, item.date)
-            binding.tvGroomName.text = item.groom.ifEmpty { UNKNOWN_VALUE }
-            binding.tvBrideName.text = item.bride.ifEmpty { UNKNOWN_VALUE }
+            binding.tvGroomName.setHighlightedText(item.groom.ifEmpty { UNKNOWN_VALUE }, searchString)
+            binding.tvBrideName.setHighlightedText(item.bride.ifEmpty { UNKNOWN_VALUE }, searchString)
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
             }
@@ -201,8 +202,7 @@ class RegisterAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Died) {
-
-            binding.tvName.text = item.fullName
+            binding.tvName.setHighlightedText(item.fullName, searchString)
             bindDate(binding.tvDate, R.string.died, item.deathDate)
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
