@@ -204,6 +204,12 @@ class RegisterAdapter(
         fun bind(item: Died) {
             binding.tvName.setHighlightedText(item.fullName, searchString)
             bindDate(binding.tvDate, R.string.died, item.deathDate)
+            if (item.parents.isEmpty()) {
+                binding.tvParents.goneView()
+            } else {
+                binding.tvParents.showView()
+                binding.tvParents.setHighlightedText(itemView.context.getString(R.string.parents, item.parents), searchString)
+            }
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
             }
