@@ -26,7 +26,7 @@ class HomeFragment : BaseFragment() {
     private val viewModel by viewModels<HomeViewModel>()
     private var binding: FragmentHomeBinding? = null
 
-    private var adapter: RegisterAdapter? = null
+    private var registerAdapter: RegisterAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +56,8 @@ class HomeFragment : BaseFragment() {
 
     private fun initViews() {
         setupMenu()
-        if (adapter == null) {
-            adapter = RegisterAdapter(object :
+        if (registerAdapter == null) {
+            registerAdapter = RegisterAdapter(object :
                 RegisterAdapter.RegisterAdapterListener {
                 override fun onItemClick(item: ListItem) {
                     //("Not yet implemented")
@@ -65,17 +65,18 @@ class HomeFragment : BaseFragment() {
             })
             binding?.rvRegister?.apply {
                 layoutManager = LinearLayoutManager(context)
+                val dividerDecoration =
+                    DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+                dividerDecoration.setDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.list_divider
+                    )!!
+                )
+                addItemDecoration(dividerDecoration)
+                addItemDecoration(CommonItemDecoration(requireContext(), true))
+                adapter = registerAdapter
             }
-            val dividerDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-            dividerDecoration.setDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.list_divider
-                )!!
-            )
-            binding?.rvRegister?.addItemDecoration(dividerDecoration)
-            binding?.rvRegister?.addItemDecoration(CommonItemDecoration(requireContext(), true))
-            binding?.rvRegister?.adapter = adapter
         }
     }
 
@@ -111,7 +112,7 @@ class HomeFragment : BaseFragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                adapter?.search(newText ?: "")
+                registerAdapter?.search(newText ?: "")
                 return false
             }
         })
@@ -160,7 +161,7 @@ class HomeFragment : BaseFragment() {
         } else {
             binding?.noItemsView?.goneView()
             binding?.rvRegister?.showView()
-            adapter?.update(list)
+            registerAdapter?.update(list)
         }
     }
 
