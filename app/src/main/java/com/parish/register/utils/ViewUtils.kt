@@ -1,23 +1,13 @@
 package com.parish.register.utils
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Rect
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
 import android.view.View
-import android.view.Window
 import android.widget.TextView
 import androidx.annotation.DimenRes
 import androidx.core.content.ContextCompat
 import com.parish.register.R
-
-
-fun Window.getStatusBarHeight(): Int {
-    val rect = Rect()
-    decorView.getWindowVisibleDisplayFrame(rect)
-    return rect.top
-}
 
 fun View.goneView() {
     this.visibility = View.GONE
