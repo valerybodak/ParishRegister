@@ -1,4 +1,4 @@
-package com.parish.register.ui.home
+package com.parish.register.ui.register
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +17,7 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class RegisterViewModel @Inject constructor(
     private val sharedPrefsManager: SharedPrefsManager,
     private val parishRepository: ParishRegisterRepository
 ) : ViewModel() {

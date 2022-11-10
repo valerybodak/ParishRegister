@@ -1,4 +1,4 @@
-package com.parish.register.ui.home
+package com.parish.register.ui.register
 
 import android.os.Bundle
 import android.view.*
@@ -14,17 +14,17 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.parish.register.R
 import com.parish.register.common.Resource
-import com.parish.register.databinding.FragmentHomeBinding
+import com.parish.register.databinding.FragmentRegisterBinding
 import com.parish.register.model.ListItem
 import com.parish.register.ui.base.BaseFragment
 import com.parish.register.ui.custom.CommonItemDecoration
 import com.parish.register.utils.goneView
 import com.parish.register.utils.showView
 
-class HomeFragment : BaseFragment() {
+class RegisterFragment : BaseFragment() {
 
-    private val viewModel by viewModels<HomeViewModel>()
-    private var binding: FragmentHomeBinding? = null
+    private val viewModel by viewModels<RegisterViewModel>()
+    private var binding: FragmentRegisterBinding? = null
 
     private var registerAdapter: RegisterAdapter? = null
 
@@ -42,7 +42,7 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         if (binding == null) {
-            binding = FragmentHomeBinding.inflate(inflater, container, false)
+            binding = FragmentRegisterBinding.inflate(inflater, container, false)
         }
         return binding?.root
     }
@@ -125,7 +125,7 @@ class HomeFragment : BaseFragment() {
 
         binding?.fab?.setOnClickListener {
             findNavController().navigate(
-                HomeFragmentDirections.actionRegisterFragmentToFilterFragment(
+                RegisterFragmentDirections.actionRegisterFragmentToFilterFragment(
                     requestKey = REQUEST_KEY_FILTER
                 )
             )

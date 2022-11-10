@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.parish.register.ui.home.HomeFragment"
+        android:name="com.parish.register.ui.register.RegisterFragment"
         android:label="@string/menu_register"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_register">
 
         <action
             android:id="@+id/action_registerFragmentToFilterFragment"

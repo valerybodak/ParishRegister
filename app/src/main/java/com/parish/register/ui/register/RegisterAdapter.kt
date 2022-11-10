@@ -1,4 +1,4 @@
-package com.parish.register.ui.home
+package com.parish.register.ui.register
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
