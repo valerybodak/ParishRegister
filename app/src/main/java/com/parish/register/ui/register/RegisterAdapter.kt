@@ -183,7 +183,7 @@ class RegisterAdapter(
                 binding.tvGodparents.goneView()
             } else {
                 binding.tvGodparents.showView()
-                binding.tvGodparents.setHighlightedText(itemView.context.getString(R.string.godparents, item.parents), searchString)
+                binding.tvGodparents.setHighlightedText(itemView.context.getString(R.string.godparents, item.godParents), searchString)
             }
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
