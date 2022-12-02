@@ -8,7 +8,7 @@ data class Died(
     val page: String,
     val deathDate: String,
     val burialDate: String,
-    val gender: String,
+    val gender: Gender,
     val fullName: String,
     val parents: String,
     val causeOfDeath: String,

@@ -2,6 +2,7 @@ package com.parish.register.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.parish.register.model.Gender
 
 @Entity(tableName = "born")
 data class BornEntity(
@@ -13,7 +14,7 @@ data class BornEntity(
     val page: String,
     val birthDate: String,
     val baptismDate: String,
-    val gender: String,
+    val gender: Gender,
     val fullName: String,
     val parents: String,
     val godParents: String,

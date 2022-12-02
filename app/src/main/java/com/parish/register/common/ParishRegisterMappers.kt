@@ -5,6 +5,7 @@ import com.parish.register.db.entity.DiedEntity
 import com.parish.register.db.entity.MarriageEntity
 import com.parish.register.model.Born
 import com.parish.register.model.Died
+import com.parish.register.model.Gender
 import com.parish.register.model.Marriage
 
 fun String.toBornEntity(): BornEntity? {
@@ -16,9 +17,9 @@ fun String.toBornEntity(): BornEntity? {
             inventoryNumber = items[1],
             caseNumber = items[2],
             page = items[3],
+            gender = if (items[4].isNotEmpty()) Gender.MALE else if (items[5].isNotEmpty()) Gender.FEMALE else Gender.UNKNOWN,
             birthDate = items[6],
             baptismDate = items[7],
-            gender = "m",
             fullName = items[8],
             parents = items[9],
             godParents = items[10],
@@ -96,9 +97,9 @@ fun String.toDiedEntity(): DiedEntity? {
             inventoryNumber = items[1],
             caseNumber = items[2],
             page = items[3],
+            gender = if (items[4].isNotEmpty()) Gender.MALE else if (items[5].isNotEmpty()) Gender.FEMALE else Gender.UNKNOWN,
             deathDate = items[6],
             burialDate = items[7],
-            gender = "m",
             fullName = items[8],
             parents = items[9],
             causeOfDeath = items[10],

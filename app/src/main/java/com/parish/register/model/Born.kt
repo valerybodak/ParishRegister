@@ -8,7 +8,7 @@ data class Born(
     val page: String,
     val birthDate: String,
     val baptismDate: String,
-    val gender: String,
+    val gender: Gender,
     val fullName: String,
     val parents: String,
     val godParents: String,
