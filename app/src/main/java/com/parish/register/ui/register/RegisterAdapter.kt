@@ -179,6 +179,12 @@ class RegisterAdapter(
                 binding.tvParents.showView()
                 binding.tvParents.setHighlightedText(itemView.context.getString(R.string.parents, item.parents), searchString)
             }
+            if (item.godParents.isEmpty()) {
+                binding.tvGodparents.goneView()
+            } else {
+                binding.tvGodparents.showView()
+                binding.tvGodparents.setHighlightedText(itemView.context.getString(R.string.godparents, item.parents), searchString)
+            }
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
             }

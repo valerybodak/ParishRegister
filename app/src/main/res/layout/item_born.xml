@@ -42,4 +42,15 @@
         app:layout_constraintStart_toStartOf="@id/tvDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDate" />
+
+    <TextView
+        android:id="@+id/tvGodparents"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:layout_marginTop="@dimen/small_padding"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/tvParents"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvParents" />
 </androidx.constraintlayout.widget.ConstraintLayout>
