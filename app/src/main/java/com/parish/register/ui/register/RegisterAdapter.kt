@@ -177,13 +177,23 @@ class RegisterAdapter(
                 binding.tvParents.goneView()
             } else {
                 binding.tvParents.showView()
-                binding.tvParents.setHighlightedText(itemView.context.getString(R.string.parents, item.parents), searchString)
+                binding.tvParents.setHighlightedText(
+                    itemView.context.getString(
+                        R.string.parents,
+                        item.parents
+                    ), searchString
+                )
             }
             if (item.godParents.isEmpty()) {
                 binding.tvGodparents.goneView()
             } else {
                 binding.tvGodparents.showView()
-                binding.tvGodparents.setHighlightedText(itemView.context.getString(R.string.godparents, item.godParents), searchString)
+                binding.tvGodparents.setHighlightedText(
+                    itemView.context.getString(
+                        R.string.godparents,
+                        item.godParents
+                    ), searchString
+                )
             }
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
@@ -196,10 +206,48 @@ class RegisterAdapter(
 
         fun bind(item: Marriage) {
             bindDate(binding.tvDate, R.string.marriage, item.date)
-            binding.tvGroomName.setHighlightedText(item.groom.ifEmpty { UNKNOWN_VALUE }, searchString)
-            binding.tvBrideName.setHighlightedText(item.bride.ifEmpty { UNKNOWN_VALUE }, searchString)
+            binding.tvGroomName.setHighlightedText(
+                item.groom.ifEmpty { UNKNOWN_VALUE },
+                searchString
+            )
+            binding.tvBrideName.setHighlightedText(
+                item.bride.ifEmpty { UNKNOWN_VALUE },
+                searchString
+            )
+            bindWitnesses(item)
             itemView.setOnClickListener {
                 listener?.onItemClick(item)
+            }
+        }
+
+        private fun bindWitnesses(item: Marriage) {
+            if (item.witness1.trim().isNotEmpty() && item.witness2.trim().isNotEmpty()) {
+                binding.tvWitnesses1.showView()
+                binding.tvWitnesses1.setHighlightedText(
+                    itemView.context.getString(
+                        R.string.witnesses_of_groom,
+                        item.witness1
+                    ), searchString
+                )
+                binding.tvWitnesses2.showView()
+                binding.tvWitnesses2.setHighlightedText(
+                    itemView.context.getString(
+                        R.string.witnesses_of_bride,
+                        item.witness2
+                    ), searchString
+                )
+            } else if (item.witness1.trim().isNotEmpty() && item.witness2.trim().isEmpty()) {
+                binding.tvWitnesses1.showView()
+                binding.tvWitnesses1.setHighlightedText(
+                    itemView.context.getString(
+                        R.string.witnesses_of_groom,
+                        item.witness1
+                    ), searchString
+                )
+                binding.tvWitnesses2.goneView()
+            } else {
+                binding.tvWitnesses1.goneView()
+                binding.tvWitnesses2.goneView()
             }
         }
     }
@@ -214,7 +262,12 @@ class RegisterAdapter(
                 binding.tvParents.goneView()
             } else {
                 binding.tvParents.showView()
-                binding.tvParents.setHighlightedText(itemView.context.getString(R.string.parents, item.parents), searchString)
+                binding.tvParents.setHighlightedText(
+                    itemView.context.getString(
+                        R.string.parents,
+                        item.parents
+                    ), searchString
+                )
             }
             itemView.setOnClickListener {
                 listener?.onItemClick(item)

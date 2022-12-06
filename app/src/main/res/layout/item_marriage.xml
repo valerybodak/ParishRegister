@@ -62,4 +62,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvBrideLabel" />
 
+    <TextView
+        android:id="@+id/tvWitnesses1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:layout_marginTop="@dimen/small_padding"
+        app:layout_constraintStart_toStartOf="@id/tvBrideName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvBrideName" />
+
+    <TextView
+        android:id="@+id/tvWitnesses2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:layout_marginTop="@dimen/small_padding"
+        app:layout_constraintStart_toStartOf="@id/tvWitnesses1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvWitnesses1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

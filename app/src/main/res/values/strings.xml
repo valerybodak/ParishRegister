@@ -22,6 +22,9 @@
     <string name="bride">Bride:</string>
     <string name="parents">Parents: %1$s</string>
     <string name="godparents">Godparents: %1$s</string>
+    <string name="witnesses_of_groom">Witnesses of the groom: %1$s</string>
+    <string name="witnesses_of_bride">Witnesses of the bride: %1$s</string>
+    <string name="witnesses">Witnesses: %1$s</string>
 
     <!--Filter-->
     <string name="filter">Filter</string>
