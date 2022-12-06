@@ -240,7 +240,7 @@ class RegisterAdapter(
                 binding.tvWitnesses1.showView()
                 binding.tvWitnesses1.setHighlightedText(
                     itemView.context.getString(
-                        R.string.witnesses_of_groom,
+                        R.string.witnesses,
                         item.witness1
                     ), searchString
                 )
