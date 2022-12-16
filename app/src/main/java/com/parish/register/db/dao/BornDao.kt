@@ -4,7 +4,7 @@ import androidx.room.*
 import com.parish.register.db.entity.BornEntity
 
 @Dao
-interface DaoBorn {
+interface BornDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: BornEntity): Long

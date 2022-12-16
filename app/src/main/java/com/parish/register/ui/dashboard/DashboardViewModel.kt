@@ -3,19 +3,18 @@ package com.parish.register.ui.dashboard
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.parish.register.common.SharedPrefsManager
-import com.parish.register.db.dao.DaoBorn
-import com.parish.register.db.dao.DaoDied
-import com.parish.register.db.dao.DaoMarriage
+import com.parish.register.db.dao.BornDao
+import com.parish.register.db.dao.DiedDao
+import com.parish.register.db.dao.MarriageDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
-    private val bornDao: DaoBorn,
-    private val marriageDao: DaoMarriage,
-    private val diedDao: DaoDied
+    private val bornDao: BornDao,
+    private val marriageDao: MarriageDao,
+    private val diedDao: DiedDao
 ) : ViewModel() {
 
     val dashboardLiveData = MutableLiveData<DashboardUiState>()

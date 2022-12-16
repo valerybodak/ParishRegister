@@ -4,7 +4,7 @@ import androidx.room.*
 import com.parish.register.db.entity.MarriageEntity
 
 @Dao
-interface DaoMarriage {
+interface MarriageDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: MarriageEntity): Long

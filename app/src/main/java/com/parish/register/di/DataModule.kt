@@ -3,9 +3,9 @@ package com.parish.register.di
 import android.app.Application
 import androidx.room.Room
 import com.parish.register.db.AppDatabase
-import com.parish.register.db.dao.DaoBorn
-import com.parish.register.db.dao.DaoDied
-import com.parish.register.db.dao.DaoMarriage
+import com.parish.register.db.dao.BornDao
+import com.parish.register.db.dao.DiedDao
+import com.parish.register.db.dao.MarriageDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,19 +32,19 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideDaoBorn(db: AppDatabase): DaoBorn {
-        return db.daoBorn()
+    fun provideDaoBorn(db: AppDatabase): BornDao {
+        return db.bornDao()
     }
 
     @Singleton
     @Provides
-    fun provideDaoMarriage(db: AppDatabase): DaoMarriage {
-        return db.daoMarriage()
+    fun provideDaoMarriage(db: AppDatabase): MarriageDao {
+        return db.marriageDao()
     }
 
     @Singleton
     @Provides
-    fun provideDaoDied(db: AppDatabase): DaoDied {
-        return db.daoDied()
+    fun provideDaoDied(db: AppDatabase): DiedDao {
+        return db.diedDao()
     }
 }

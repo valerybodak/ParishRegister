@@ -4,7 +4,7 @@ import androidx.room.*
 import com.parish.register.db.entity.DiedEntity
 
 @Dao
-interface DaoDied {
+interface DiedDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: DiedEntity): Long
