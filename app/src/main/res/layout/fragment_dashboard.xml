@@ -11,34 +11,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnReset">
+        app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/normal_padding"
-            android:paddingVertical="@dimen/normal_padding"
-            tools:context="com.parish.register.ui.filter.FilterFragment">
+            android:paddingVertical="@dimen/normal_padding">
 
+            <com.parish.register.ui.custom.dashboard.DashboardView
+                android:id="@+id/dashboardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/btnReset"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/reset"
-        android:textAllCaps="true"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:padding="@dimen/normal_padding"
-        android:background="@drawable/bg_btn_reset"
-        android:layout_marginHorizontal="@dimen/normal_padding"
-        android:layout_marginVertical="@dimen/normal_padding"
-        android:gravity="center"
-        android:elevation="@dimen/micro_padding"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
