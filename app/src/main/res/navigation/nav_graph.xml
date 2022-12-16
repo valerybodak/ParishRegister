@@ -27,4 +27,11 @@
             app:argType="string" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.parish.register.ui.dashboard.DashboardFragment"
+        android:label="@string/dashboard"
+        tools:layout="@layout/fragment_dashboard">
+    </fragment>
 </navigation>
