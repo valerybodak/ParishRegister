@@ -22,43 +22,44 @@ class DashboardView @JvmOverloads constructor(
             val outerRadius = height.toFloat() / 2
             var arcOffset = 0F
             var arcSweep = 0F
+            val sumValues = items!!.sumOf { it.value.toDouble() }
             for (index in items!!.indices) {
                 val item = items!![index]
-                arcOffset = arcOffset + arcSweep
-                arcSweep = (COMPLETE_ANGLE * item.value) / 100
-                /*if (items!!.lastIndex == index) {
-                    arcSweep = COMPLETE_ANGLE -
-                }*/
+                arcOffset += arcSweep
+                arcSweep = (COMPLETE_ANGLE * item.value) / sumValues.toFloat()
                 val innerRadius = 130F
 
-                val outer_rect = RectF(
-                    center.x - outerRadius,
-                    center.y - outerRadius,
-                    center.x + outerRadius,
-                    center.y + outerRadius
-                )
-                val inner_rect = RectF(
-                    center.x - innerRadius,
-                    center.y - innerRadius,
-                    center.x + innerRadius,
-                    center.y + innerRadius
-                )
+                val outerRect = createOuterRect(center, outerRadius)
+                val innerRect = createInnerRect(center, innerRadius)
 
                 val path = Path()
-                path.arcTo(outer_rect, arcOffset, arcSweep)
-                path.arcTo(inner_rect, arcOffset + arcSweep, -arcSweep)
+                path.arcTo(outerRect, arcOffset, arcSweep)
+                path.arcTo(innerRect, arcOffset + arcSweep, -arcSweep)
                 path.close()
 
                 val fill = Paint()
                 fill.setColor(ContextCompat.getColor(context, item.colorId))
                 canvas?.drawPath(path, fill)
-
-                /*val border = Paint()
-            border.setStyle(Paint.Style.STROKE)
-            border.setStrokeWidth(2F)
-            canvas?.drawPath(path, border)*/
             }
         }
+    }
+
+    private fun createInnerRect(center: Point, innerRadius: Float): RectF {
+        return RectF(
+            center.x - innerRadius,
+            center.y - innerRadius,
+            center.x + innerRadius,
+            center.y + innerRadius
+        )
+    }
+
+    private fun createOuterRect(center: Point, outerRadius: Float): RectF {
+        return RectF(
+            center.x - outerRadius,
+            center.y - outerRadius,
+            center.x + outerRadius,
+            center.y + outerRadius
+        )
     }
 
     fun bind(items: List<DashboardItem>?) {
@@ -67,6 +68,6 @@ class DashboardView @JvmOverloads constructor(
     }
 
     companion object {
-        private const val COMPLETE_ANGLE = 360
+        private const val COMPLETE_ANGLE = 360F
     }
 }
