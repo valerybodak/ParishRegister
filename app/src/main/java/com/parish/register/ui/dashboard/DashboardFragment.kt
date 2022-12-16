@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.parish.register.R
 import com.parish.register.databinding.FragmentDashboardBinding
 import com.parish.register.ui.base.BaseFragment
+import com.parish.register.ui.custom.dashboard.DashboardItem
 
 class DashboardFragment : BaseFragment() {
 
@@ -37,7 +39,11 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun initViews() {
-
+        binding?.dashboardView?.bind(listOf(
+            DashboardItem(60F, R.color.yellow),
+            DashboardItem(30F, R.color.black),
+            DashboardItem(10F, R.color.light_grey)
+        ))
     }
 
     private fun initListeners() {
