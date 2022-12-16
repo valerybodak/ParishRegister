@@ -4,23 +4,27 @@ import androidx.room.*
 import com.parish.register.db.entity.BornEntity
 
 @Dao
-abstract class DaoBorn {
+interface DaoBorn {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insert(item: BornEntity): Long
+    suspend fun insert(item: BornEntity): Long
 
     @Update
-    abstract suspend fun update(item: BornEntity)
+    suspend fun update(item: BornEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insertAll(items: List<BornEntity>): LongArray
+    suspend fun insertAll(items: List<BornEntity>): LongArray
 
     @Query("SELECT * FROM born")
-    abstract suspend fun getAllBorn(): List<BornEntity>
+    suspend fun getAllBorn(): List<BornEntity>
 
     @Query("SELECT * FROM born WHERE localId == :localId")
-    abstract suspend fun getBornByLocalId(localId: String): BornEntity?
+    suspend fun getBornByLocalId(localId: String): BornEntity?
 
     @Query("DELETE FROM born")
-    abstract suspend fun deleteAllBorn()
+    suspend fun deleteAllBorn()
+
+    @Query("SELECT COUNT(localId) FROM born")
+    suspend fun getBornCount(): Int
+
 }

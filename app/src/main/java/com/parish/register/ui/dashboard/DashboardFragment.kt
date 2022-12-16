@@ -17,7 +17,7 @@ class DashboardFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getFilter()
+        viewModel.getDashboard()
     }
 
     override fun onCreateView(
@@ -33,24 +33,20 @@ class DashboardFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
-        initListeners()
         initSubscribers()
     }
 
-    private fun initViews() {
-        binding?.dashboardView?.bind(40, listOf(
-            DashboardItem(300F, R.color.yellow),
-            DashboardItem(80F, R.color.black),
-            DashboardItem(500F, R.color.light_grey)
-        ))
-    }
-
-    private fun initListeners() {
-
-    }
-
     private fun initSubscribers() {
+        viewModel.dashboardLiveData.observe(viewLifecycleOwner) { state ->
+            bindState(state)
+        }
+    }
 
+    private fun bindState(state: DashboardUiState){
+        binding?.dashboardView?.bind(60, listOf(
+            DashboardItem(state.bornCount.toFloat(), R.color.yellow),
+            DashboardItem(state.marriageCount.toFloat(), R.color.black),
+            DashboardItem(state.diedCount.toFloat(), R.color.light_grey)
+        ))
     }
 }

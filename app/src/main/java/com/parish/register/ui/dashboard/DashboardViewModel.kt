@@ -2,32 +2,35 @@ package com.parish.register.ui.dashboard
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.parish.register.common.SharedPrefsManager
-import com.parish.register.model.FilterType
-import com.parish.register.model.ListFilter
-import com.parish.register.model.SortingType
+import com.parish.register.db.dao.DaoBorn
+import com.parish.register.db.dao.DaoDied
+import com.parish.register.db.dao.DaoMarriage
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
-    private val sharedPrefsManager: SharedPrefsManager
+    private val bornDao: DaoBorn,
+    private val marriageDao: DaoMarriage,
+    private val diedDao: DaoDied
 ) : ViewModel() {
 
-    val filterLiveData = MutableLiveData<ListFilter>()
+    val dashboardLiveData = MutableLiveData<DashboardUiState>()
 
-    fun getFilter() {
-        filterLiveData.value = sharedPrefsManager.getListFilter()
-    }
+    fun getDashboard() {
+        viewModelScope.launch {
+            val bornCount = bornDao.getBornCount()
+            val marriageCount = marriageDao.getMarriageCount()
+            val diedCount = diedDao.getDiedCount()
 
-    fun saveFilter(filterType: FilterType, periodFrom: Int, periodTo: Int, sortingType: SortingType) {
-        sharedPrefsManager.saveListFilter(
-            ListFilter(
-                type = filterType,
-                periodFrom = periodFrom,
-                periodTo = periodTo,
-                sortingType = sortingType
+            dashboardLiveData.value = DashboardUiState(
+                bornCount = bornCount,
+                marriageCount = marriageCount,
+                diedCount = diedCount
             )
-        )
+        }
     }
 }
