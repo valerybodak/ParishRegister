@@ -45,7 +45,7 @@ class DashboardFragment : BaseFragment() {
     private fun bindState(state: DashboardUiState){
         binding?.dashboardView?.bind(60, listOf(
             DashboardItem(state.bornCount.toFloat(), R.color.yellow),
-            DashboardItem(state.marriageCount.toFloat(), R.color.black),
+            DashboardItem(state.marriageCount.toFloat(), R.color.colorPrimary),
             DashboardItem(state.diedCount.toFloat(), R.color.light_grey)
         ))
     }
