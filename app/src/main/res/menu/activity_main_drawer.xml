@@ -8,5 +8,10 @@
             android:id="@+id/registerFragment"
             android:icon="@drawable/ic_menu_register"
             android:title="@string/menu_register" />
+
+        <item
+            android:id="@+id/dashboardFragment"
+            android:icon="@drawable/ic_menu_dashboard"
+            android:title="@string/menu_dashboard" />
     </group>
 </menu>

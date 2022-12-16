@@ -10,6 +10,7 @@
     <string name="yes">Yes</string>
 
     <string name="menu_register">@string/app_name</string>
+    <string name="menu_dashboard">@string/dashboard</string>
 
     <string name="parish">Parish</string>
     <string name="register">Register</string>
@@ -40,7 +41,9 @@
     <string name="apply">Apply</string>
     <string name="reset">Reset</string>
     <string name="reset_filters_dialog_message">Are you sure you want to reset all filters?</string>
-
     <string name="no_records_found">No records found</string>
     <string name="adjust_filters_and_try_again">Adjust the filters and try again</string>
+
+    <!--Dashboard-->
+    <string name="dashboard">Dashboard</string>
 </resources>

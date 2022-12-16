@@ -1,9 +1,9 @@
 package com.parish.register.repository
 
 import com.parish.register.common.*
-import com.parish.register.db.dao.DaoBorn
-import com.parish.register.db.dao.DaoDied
-import com.parish.register.db.dao.DaoMarriage
+import com.parish.register.db.dao.BornDao
+import com.parish.register.db.dao.DiedDao
+import com.parish.register.db.dao.MarriageDao
 import com.parish.register.model.Born
 import com.parish.register.model.Died
 import com.parish.register.model.Marriage
@@ -12,9 +12,9 @@ import javax.inject.Inject
 
 class ParishRegisterRepository @Inject constructor(
     private val sharedPrefsManager: SharedPrefsManager,
-    private val daoBorn: DaoBorn,
-    private val daoMarriage: DaoMarriage,
-    private val daoDied: DaoDied
+    private val daoBorn: BornDao,
+    private val daoMarriage: MarriageDao,
+    private val daoDied: DiedDao
 ) {
 
     fun getBornList(
