@@ -40,9 +40,9 @@ class DashboardFragment : BaseFragment() {
 
     private fun initViews() {
         binding?.dashboardView?.bind(listOf(
-            DashboardItem(60F, R.color.yellow),
-            DashboardItem(30F, R.color.black),
-            DashboardItem(10F, R.color.light_grey)
+            DashboardItem(80F, R.color.white),
+            DashboardItem(17F, R.color.black),
+            DashboardItem(3F, R.color.light_grey)
         ))
     }
 

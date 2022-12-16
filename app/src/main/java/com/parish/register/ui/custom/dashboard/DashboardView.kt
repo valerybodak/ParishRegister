@@ -19,28 +19,34 @@ class DashboardView @JvmOverloads constructor(
 
         if (canvas != null && items != null) {
             val center = Point(width / 2, height / 2)
-            items?.forEach { item ->
-                val inner_radius = 130F
-                val outer_radius = height.toFloat() / 2
-                val arc_sweep = 90F
-                val arc_ofset = 30F
+            val outerRadius = height.toFloat() / 2
+            var arcOffset = 0F
+            var arcSweep = 0F
+            for (index in items!!.indices) {
+                val item = items!![index]
+                arcOffset = arcOffset + arcSweep
+                arcSweep = (COMPLETE_ANGLE * item.value) / 100
+                /*if (items!!.lastIndex == index) {
+                    arcSweep = COMPLETE_ANGLE -
+                }*/
+                val innerRadius = 130F
 
                 val outer_rect = RectF(
-                    center.x - outer_radius,
-                    center.y - outer_radius,
-                    center.x + outer_radius,
-                    center.y + outer_radius
+                    center.x - outerRadius,
+                    center.y - outerRadius,
+                    center.x + outerRadius,
+                    center.y + outerRadius
                 )
                 val inner_rect = RectF(
-                    center.x - inner_radius,
-                    center.y - inner_radius,
-                    center.x + inner_radius,
-                    center.y + inner_radius
+                    center.x - innerRadius,
+                    center.y - innerRadius,
+                    center.x + innerRadius,
+                    center.y + innerRadius
                 )
 
                 val path = Path()
-                path.arcTo(outer_rect, arc_ofset, arc_sweep)
-                path.arcTo(inner_rect, arc_ofset + arc_sweep, -arc_sweep)
+                path.arcTo(outer_rect, arcOffset, arcSweep)
+                path.arcTo(inner_rect, arcOffset + arcSweep, -arcSweep)
                 path.close()
 
                 val fill = Paint()
@@ -48,9 +54,9 @@ class DashboardView @JvmOverloads constructor(
                 canvas?.drawPath(path, fill)
 
                 /*val border = Paint()
-                border.setStyle(Paint.Style.STROKE)
-                border.setStrokeWidth(2F)
-                canvas?.drawPath(path, border)*/
+            border.setStyle(Paint.Style.STROKE)
+            border.setStrokeWidth(2F)
+            canvas?.drawPath(path, border)*/
             }
         }
     }
@@ -58,5 +64,9 @@ class DashboardView @JvmOverloads constructor(
     fun bind(items: List<DashboardItem>?) {
         this.items = items
         invalidate()
+    }
+
+    companion object {
+        private const val COMPLETE_ANGLE = 360
     }
 }
