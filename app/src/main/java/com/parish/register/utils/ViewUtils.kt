@@ -3,6 +3,7 @@ package com.parish.register.utils
 import android.content.Context
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
+import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.DimenRes
@@ -23,6 +24,10 @@ fun View.showView() {
 
 fun dimenToPixels(context: Context, @DimenRes dimenId: Int): Int =
     context.resources.getDimension(dimenId).toInt()
+
+fun dpToPixels(context: Context, dp: Int): Int = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics
+).toInt()
 
 fun TextView.setHighlightedText(source: String, textToHighlight: String?) {
     text = if (!textToHighlight.isNullOrEmpty() && source.containsIgnoreCase(textToHighlight)) {
