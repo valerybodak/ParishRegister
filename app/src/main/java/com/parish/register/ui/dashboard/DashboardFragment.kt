@@ -1,24 +1,17 @@
 package com.parish.register.ui.dashboard
 
 import android.os.Bundle
-import android.view.*
-import androidx.core.os.bundleOf
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
-import androidx.fragment.app.setFragmentResult
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.navArgs
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.parish.register.R
-import com.parish.register.databinding.FragmentFilterBinding
-import com.parish.register.model.*
+import com.parish.register.databinding.FragmentDashboardBinding
 import com.parish.register.ui.base.BaseFragment
 
 class DashboardFragment : BaseFragment() {
 
     private val viewModel by viewModels<DashboardViewModel>()
-    private var binding: FragmentFilterBinding? = null
+    private var binding: FragmentDashboardBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +24,7 @@ class DashboardFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         if (binding == null) {
-            binding = FragmentFilterBinding.inflate(inflater, container, false)
+            binding = FragmentDashboardBinding.inflate(inflater, container, false)
         }
         return binding?.root
     }
@@ -44,109 +37,14 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun initViews() {
-        setupMenu()
-        setupPeriodSlider()
+
     }
 
     private fun initListeners() {
-        binding?.btnReset?.setOnClickListener {
-            showResetFiltersDialog()
-        }
+
     }
 
     private fun initSubscribers() {
-        viewModel.filterLiveData.observe(viewLifecycleOwner) { filter ->
-            bindFilter(filter)
-        }
-    }
 
-    private fun setupMenu() {
-        val menuHost: MenuHost = requireActivity()
-
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.menu_filter, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    R.id.action_apply -> {
-                        saveFilter()
-                        true
-                    }
-                    else -> false
-                }
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    }
-
-    private fun setupPeriodSlider() {
-        binding?.periodSlider?.stepSize = SLIDER_PERIOD_STEP_SIZE
-    }
-
-    private fun bindFilter(filter: ListFilter) {
-        bindFilterType(filter.type)
-        val periodFrom = filter.periodFrom.toFloat()
-        val periodTo = filter.periodTo.toFloat()
-        binding?.periodSlider?.setValues(periodFrom, periodTo)
-        bindSortingType(filter.sortingType)
-    }
-
-    private fun bindFilterType(type: FilterType) {
-        when (type) {
-            FilterType.BORN -> binding?.chipBorn?.isChecked = true
-            FilterType.MARRIAGES -> binding?.chipMarriages?.isChecked = true
-            FilterType.DIED -> binding?.chipDied?.isChecked = true
-            else -> binding?.chipAll?.isChecked = true
-        }
-    }
-
-    private fun bindSortingType(type: SortingType) {
-        when (type) {
-            SortingType.BY_DATE_ASC -> binding?.sortingByDateAsc?.isChecked = true
-            SortingType.BY_DATE_DESC -> binding?.sortingByDateDesc?.isChecked = true
-            else -> binding?.sortingByName?.isChecked = true
-        }
-    }
-
-    private fun saveFilter() {
-
-    }
-
-    private fun getSelectedFilterType(): FilterType {
-        return when (binding?.chipGroupFilter?.checkedChipId) {
-            R.id.chipBorn -> FilterType.BORN
-            R.id.chipMarriages -> FilterType.MARRIAGES
-            R.id.chipDied -> FilterType.DIED
-            else -> FilterType.ALL
-        }
-    }
-
-    private fun getSelectedSortingType(): SortingType {
-        return when (binding?.sortingRadioGroup?.checkedRadioButtonId) {
-            R.id.sortingByDateAsc -> SortingType.BY_DATE_ASC
-            R.id.sortingByDateDesc -> SortingType.BY_DATE_DESC
-            else -> SortingType.BY_NAME
-        }
-    }
-
-    private fun showResetFiltersDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setMessage(getString(R.string.reset_filters_dialog_message))
-            .setPositiveButton(R.string.yes) { _, _ ->
-                resetFilters()
-            }
-            .setNegativeButton(R.string.cancel, null)
-            .show()
-    }
-
-    private fun resetFilters() {
-        binding?.chipAll?.isChecked = true
-        binding?.periodSlider?.setValues(DEFAULT_PERIOD_FROM.toFloat(), DEFAULT_PERIOD_TO.toFloat())
-        binding?.sortingByDateAsc?.isChecked = true
-    }
-
-    companion object {
-        const val SLIDER_PERIOD_STEP_SIZE = 1f
     }
 }
