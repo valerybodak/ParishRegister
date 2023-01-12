@@ -42,11 +42,43 @@ class DashboardFragment : BaseFragment() {
         }
     }
 
-    private fun bindState(state: DashboardUiState){
-        binding?.dashboardView?.bind(60, listOf(
-            DashboardItem(state.bornCount.toFloat(), R.color.yellow),
-            DashboardItem(state.marriageCount.toFloat(), R.color.colorPrimary),
-            DashboardItem(state.diedCount.toFloat(), R.color.light_grey)
-        ))
+    private fun bindState(state: DashboardUiState) {
+        binding?.apply {
+            dashboardView.bind(
+                DASHBOARD_THICKNESS_DP, listOf(
+                    DashboardItem(state.bornCount.toFloat(), DASHBOARD_BORN_COLOR),
+                    DashboardItem(state.marriageCount.toFloat(), DASHBOARD_MARRIAGES_COLOR),
+                    DashboardItem(state.diedCount.toFloat(), DASHBOARD_DIED_COLOR)
+                )
+            )
+            bornItem.bind(
+                DASHBOARD_BORN_COLOR,
+                getString(
+                    R.string.dashboard_born,
+                    state.bornCount
+                )
+            )
+            marriagesItem.bind(
+                DASHBOARD_MARRIAGES_COLOR,
+                getString(
+                    R.string.dashboard_marriages,
+                    state.marriageCount
+                )
+            )
+            diedItem.bind(
+                DASHBOARD_DIED_COLOR,
+                getString(
+                    R.string.dashboard_died,
+                    state.diedCount
+                )
+            )
+        }
+    }
+
+    companion object {
+        private const val DASHBOARD_THICKNESS_DP = 60
+        private const val DASHBOARD_BORN_COLOR = R.color.yellow
+        private const val DASHBOARD_MARRIAGES_COLOR = R.color.colorPrimary
+        private const val DASHBOARD_DIED_COLOR = R.color.light_grey
     }
 }

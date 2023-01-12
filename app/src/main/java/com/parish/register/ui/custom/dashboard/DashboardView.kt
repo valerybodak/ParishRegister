@@ -4,8 +4,6 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import androidx.annotation.DimenRes
-import androidx.appcompat.widget.ViewUtils
 import androidx.core.content.ContextCompat
 import com.parish.register.utils.dpToPixels
 
@@ -15,7 +13,7 @@ class DashboardView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private var widthDp: Int = 0
+    private var thicknessDp: Int = 0
     private var items: List<DashboardItem>? = null
 
     override fun onDraw(canvas: Canvas?) {
@@ -24,7 +22,7 @@ class DashboardView @JvmOverloads constructor(
         if (canvas != null && items != null) {
             val center = Point(width / 2, height / 2)
             val outerRadius = height.toFloat() / 2
-            val innerRadius = outerRadius - dpToPixels(context, widthDp)
+            val innerRadius = outerRadius - dpToPixels(context, thicknessDp)
             var arcOffset = 0F
             var arcSweep = 0F
             val sumValues = items!!.sumOf { it.value.toDouble() }
@@ -43,7 +41,7 @@ class DashboardView @JvmOverloads constructor(
 
                 val fill = Paint()
                 fill.setColor(ContextCompat.getColor(context, item.colorId))
-                canvas?.drawPath(path, fill)
+                canvas.drawPath(path, fill)
             }
         }
     }
@@ -66,8 +64,8 @@ class DashboardView @JvmOverloads constructor(
         )
     }
 
-    fun bind(widthDp: Int, items: List<DashboardItem>?) {
-        this.widthDp = widthDp
+    fun bind(thicknessDp: Int, items: List<DashboardItem>?) {
+        this.thicknessDp = thicknessDp
         this.items = items
         invalidate()
     }
