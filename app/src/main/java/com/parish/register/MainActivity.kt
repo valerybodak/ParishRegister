@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.registerFragment,
-                R.id.dashboardFragment
+                R.id.dashboardFragment,
+                R.id.settingsFragment
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

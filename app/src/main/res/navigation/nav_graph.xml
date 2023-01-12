@@ -34,4 +34,11 @@
         android:label="@string/dashboard"
         tools:layout="@layout/fragment_dashboard">
     </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.parish.register.ui.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings">
+    </fragment>
 </navigation>

@@ -13,5 +13,10 @@
             android:id="@+id/dashboardFragment"
             android:icon="@drawable/ic_menu_dashboard"
             android:title="@string/menu_dashboard" />
+
+        <item
+            android:id="@+id/settingsFragment"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="@string/menu_settings" />
     </group>
 </menu>
