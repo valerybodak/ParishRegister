@@ -9,11 +9,11 @@
         android:id="@+id/dashboardView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/normal_padding"
+        android:layout_marginTop="@dimen/big_padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHeight_percent="0.5"/>
+        app:layout_constraintHeight_percent="0.45"/>
 
     <com.parish.register.ui.custom.dashboard.DashboardItemView
         android:id="@+id/bornItem"
