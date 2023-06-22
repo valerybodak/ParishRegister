@@ -12,7 +12,7 @@ import com.parish.register.databinding.ItemDiedBinding
 import com.parish.register.databinding.ItemMarriageBinding
 import com.parish.register.model.Born
 import com.parish.register.model.Died
-import com.parish.register.model.ListItem
+import com.parish.register.model.RegisterItem
 import com.parish.register.model.Marriage
 import com.parish.register.utils.containsIgnoreCase
 import com.parish.register.utils.goneView
@@ -27,11 +27,11 @@ class RegisterAdapter(
 
     private var searchString: String? = null
     private val dateFormat = SimpleDateFormat(BACKEND_DATE_FORMAT, Locale.ENGLISH)
-    private val items: MutableList<ListItem> = mutableListOf()
-    private var filteredItems: MutableList<ListItem> = mutableListOf()
+    private val items: MutableList<RegisterItem> = mutableListOf()
+    private var filteredItems: MutableList<RegisterItem> = mutableListOf()
 
     interface RegisterAdapterListener {
-        fun onItemClick(item: ListItem)
+        fun onItemClick(item: RegisterItem)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -99,7 +99,7 @@ class RegisterAdapter(
         }
     }
 
-    fun update(newItems: List<ListItem>) {
+    fun update(newItems: List<RegisterItem>) {
         items.clear()
         items.addAll(newItems)
         filteredItems.clear()

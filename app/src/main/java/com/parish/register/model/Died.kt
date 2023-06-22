@@ -14,7 +14,7 @@ data class Died(
     val causeOfDeath: String,
     val comments: String,
     val createdDate: String
-) : ListItem {
+) : RegisterItem {
 
     override fun getSortDate(): String = deathDate
 

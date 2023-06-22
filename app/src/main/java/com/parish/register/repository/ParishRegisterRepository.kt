@@ -17,7 +17,7 @@ class ParishRegisterRepository @Inject constructor(
     private val daoDied: DiedDao
 ) {
 
-    fun getBornList(
+    fun getBornListFlow(
         forceSync: Boolean = false,
         observeProgress: Boolean = false
     ): Flow<Resource<List<Born>>> {
@@ -46,7 +46,7 @@ class ParishRegisterRepository @Inject constructor(
         sharedPrefsManager.saveLastSynced(TAG_BORN_LIST)
     }
 
-    fun getMarriageList(
+    fun getMarriageListFlow(
         forceSync: Boolean = false,
         observeProgress: Boolean = false
     ): Flow<Resource<List<Marriage>>> {
@@ -75,7 +75,7 @@ class ParishRegisterRepository @Inject constructor(
         sharedPrefsManager.saveLastSynced(TAG_MARRIAGE_LIST)
     }
 
-    fun getDiedList(
+    fun getDiedListFlow(
         forceSync: Boolean = false,
         observeProgress: Boolean = false
     ): Flow<Resource<List<Died>>> {
@@ -102,6 +102,18 @@ class ParishRegisterRepository @Inject constructor(
             }
         }
         sharedPrefsManager.saveLastSynced(TAG_DIED_LIST)
+    }
+
+    suspend fun getBornList(): List<Born> {
+        return daoBorn.getAllBorn().map { it.toBorn() }
+    }
+
+    suspend fun getMarriageList(): List<Marriage> {
+        return daoMarriage.getAllMarriages().map { it.toMarriage() }
+    }
+
+    suspend fun getDiedList(): List<Died> {
+        return daoDied.getAllDied().map { it.toDied() }
     }
 
     companion object {

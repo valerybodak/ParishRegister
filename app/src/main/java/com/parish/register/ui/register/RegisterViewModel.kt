@@ -22,25 +22,25 @@ class RegisterViewModel @Inject constructor(
     private val parishRepository: ParishRegisterRepository
 ) : ViewModel() {
 
-    private var combinedList = mutableListOf<ListItem>()
+    private var combinedList = mutableListOf<RegisterItem>()
     private val dateFormat = SimpleDateFormat(CommonConsts.BACKEND_DATE_FORMAT, Locale.ENGLISH)
 
-    var parishRegisterLiveData = MutableLiveData<Resource<out List<ListItem>>>()
+    var parishRegisterLiveData = MutableLiveData<Resource<out List<RegisterItem>>>()
 
     fun getLists(forceSync: Boolean = false) {
         combinedList.clear()
         viewModelScope.launch {
             merge(
-                parishRepository.getBornList(forceSync),
-                parishRepository.getMarriageList(forceSync),
-                parishRepository.getDiedList(forceSync)
+                parishRepository.getBornListFlow(forceSync),
+                parishRepository.getMarriageListFlow(forceSync),
+                parishRepository.getDiedListFlow(forceSync)
             ).collect { resource ->
                 mergeResource(resource)
             }
         }
     }
 
-    private fun mergeResource(resource: Resource<out List<ListItem>>) {
+    private fun mergeResource(resource: Resource<out List<RegisterItem>>) {
         if (resource is Resource.Error) {
             parishRegisterLiveData.postValue(resource)
         } else if (resource is Resource.Success) {
@@ -62,7 +62,7 @@ class RegisterViewModel @Inject constructor(
                 && combinedList.firstOrNull { it is Died } != null
     }
 
-    private fun filterList(): List<ListItem> {
+    private fun filterList(): List<RegisterItem> {
         val filter = sharedPrefsManager.getListFilter()
         val filteredList = combinedList.filter { listItem ->
             //check filter type

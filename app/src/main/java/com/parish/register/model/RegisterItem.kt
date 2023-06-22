@@ -1,6 +1,6 @@
 package com.parish.register.model
 
-interface ListItem{
+interface RegisterItem{
     fun getSortDate(): String
     fun getSortName(): String
 }

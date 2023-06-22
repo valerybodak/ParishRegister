@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.parish.register.R
 import com.parish.register.common.Resource
 import com.parish.register.databinding.FragmentRegisterBinding
-import com.parish.register.model.ListItem
+import com.parish.register.model.RegisterItem
 import com.parish.register.ui.base.BaseFragment
 import com.parish.register.ui.custom.CommonItemDecoration
 import com.parish.register.utils.goneView
@@ -59,7 +59,7 @@ class RegisterFragment : BaseFragment() {
         if (registerAdapter == null) {
             registerAdapter = RegisterAdapter(object :
                 RegisterAdapter.RegisterAdapterListener {
-                override fun onItemClick(item: ListItem) {
+                override fun onItemClick(item: RegisterItem) {
                     //("Not yet implemented")
                 }
             })
@@ -153,7 +153,7 @@ class RegisterFragment : BaseFragment() {
         }
     }
 
-    private fun bindRegister(list: List<ListItem>) {
+    private fun bindRegister(list: List<RegisterItem>) {
         hideLoading()
         if (list.isEmpty()) {
             binding?.noItemsView?.showView()
