@@ -41,4 +41,11 @@
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings">
     </fragment>
+
+    <fragment
+        android:id="@+id/inspectorFragment"
+        android:name="com.parish.register.ui.inspector.InspectorFragment"
+        android:label="@string/inspector"
+        tools:layout="@layout/fragment_inspector">
+    </fragment>
 </navigation>

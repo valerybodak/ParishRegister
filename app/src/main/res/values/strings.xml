@@ -11,6 +11,7 @@
 
     <string name="menu_register">@string/app_name</string>
     <string name="menu_dashboard">@string/dashboard</string>
+    <string name="menu_inspector">@string/inspector</string>
     <string name="menu_settings">@string/settings</string>
 
     <string name="parish">Parish</string>
@@ -50,6 +51,9 @@
     <string name="dashboard_born">Born:\n%1$d</string>
     <string name="dashboard_marriages">Marriages:\n%1$d</string>
     <string name="dashboard_died">Died:\n%1$d</string>
+
+    <!--Inspector-->
+    <string name="inspector">Inspector</string>
 
     <!--Settings-->
     <string name="settings">Settings</string>
