@@ -20,6 +20,7 @@ Parish Register is an Open Source Android application. This application serves a
 
 ### Features / Libraries
 
+- [View binding](https://developer.android.com/topic/libraries/view-binding)
 - [MVVM](https://www.digitalocean.com/community/tutorials/android-mvvm-design-pattern)
 - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 - [Room database](https://developer.android.com/training/data-storage/room)
