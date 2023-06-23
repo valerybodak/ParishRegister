@@ -125,12 +125,15 @@ class InspectorViewModel @Inject constructor(
     private fun removeCommonItems(str: String): String{
         return str.toLowerCaseLocalized()
             .replace(" ", "")
+            .replace(";", "")
             .replace("крестьянин", "")
             .replace("крестьянка", "")
             .replace("д.", "")
             .replace(",", "")
             .replace("1-й", "")
+            .replace("1й", "")
             .replace("2-й", "")
+            .replace("2й", "")
             .replace("брак", "")
             .replace("лет", "")
             .replace("года", "")
@@ -138,6 +141,8 @@ class InspectorViewModel @Inject constructor(
             .replace("исповедания", "")
             .replace("прихожанин", "")
             .replace("церкви", "")
+            .replace("вдовец", "")
+            .replace("после", "")
     }
 
     companion object {
