@@ -54,6 +54,7 @@
 
     <!--Inspector-->
     <string name="inspector">Inspector</string>
+    <string name="possible_duplicates">Possible Duplicates</string>
 
     <!--Settings-->
     <string name="settings">Settings</string>

@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvFund"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="17sp"
@@ -30,8 +30,8 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:layout_marginTop="@dimen/small_padding"
-        app:layout_constraintStart_toStartOf="@id/tvName"
-        app:layout_constraintTop_toBottomOf="@id/tvName" />
+        app:layout_constraintStart_toStartOf="@id/tvFund"
+        app:layout_constraintTop_toBottomOf="@id/tvFund" />
 
     <TextView
         android:id="@+id/tvParents"

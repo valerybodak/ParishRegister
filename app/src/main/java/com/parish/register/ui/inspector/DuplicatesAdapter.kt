@@ -43,7 +43,7 @@ class DuplicatesAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DuplicateItem) {
-            binding.tvName.text = item.item1.getSortName()
+            binding.tvFund.text = item.item1.getSortName()
             /*binding.tvName.setHighlightedText(item.fullName, searchString)
             bindDate(binding.tvDate, R.string.died, item.deathDate)
             if (item.parents.isEmpty()) {

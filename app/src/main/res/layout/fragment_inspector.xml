@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/possible_duplicates"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:padding="@dimen/normal_padding"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/list_divider"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDuplicates"
         android:layout_width="match_parent"
