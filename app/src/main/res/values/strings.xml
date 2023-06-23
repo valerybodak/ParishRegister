@@ -55,6 +55,7 @@
     <!--Inspector-->
     <string name="inspector">Inspector</string>
     <string name="possible_duplicates">Possible Duplicates</string>
+    <string name="fund_format">Fund: %1$s. Inventory: %2$s. Case: %3$s. Page: %4$s</string>
 
     <!--Settings-->
     <string name="settings">Settings</string>
