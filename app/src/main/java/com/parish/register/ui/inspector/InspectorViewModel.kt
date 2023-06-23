@@ -167,6 +167,6 @@ class InspectorViewModel @Inject constructor(
     }
 
     companion object {
-        private const val SIMILARITY_INDEX = 0.5
+        private const val SIMILARITY_INDEX = 0.6
     }
 }
