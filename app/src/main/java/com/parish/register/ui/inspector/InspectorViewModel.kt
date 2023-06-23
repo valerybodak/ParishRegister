@@ -144,11 +144,11 @@ class InspectorViewModel @Inject constructor(
     private fun removeCommonItems(str: String): String{
         return str.toLowerCaseLocalized()
             .replace(" ", "")
+            .replace(",", "")
             .replace(";", "")
             .replace("крестьянин", "")
             .replace("крестьянка", "")
             .replace("д.", "")
-            .replace(",", "")
             .replace("1-й", "")
             .replace("1й", "")
             .replace("2-й", "")
