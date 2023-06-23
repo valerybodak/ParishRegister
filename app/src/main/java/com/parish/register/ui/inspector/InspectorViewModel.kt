@@ -41,13 +41,16 @@ class InspectorViewModel @Inject constructor(
                         && item1.birthDate == item2.birthDate
                         && item1.gender == item2.gender
                     ) {
-                        duplicates.add(
-                            DuplicateItem(
-                                similarity = calculateSimilarity(item1.fullName, item2.fullName),
-                                item1 = item1,
-                                item2 = item2
+                        val similarity = calculateSimilarity(item1.fullName, item2.fullName)
+                        if(similarity > SIMILARITY_INDEX) {
+                            duplicates.add(
+                                DuplicateItem(
+                                    similarity = similarity,
+                                    item1 = item1,
+                                    item2 = item2
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
@@ -68,13 +71,16 @@ class InspectorViewModel @Inject constructor(
                         && item1.page == item2.page
                         && item1.date == item2.date
                     ) {
-                        duplicates.add(
-                            DuplicateItem(
-                                similarity = calculateSimilarity(item1.groom, item2.groom),
-                                item1 = item1,
-                                item2 = item2
+                        val similarity = calculateSimilarity(item1.groom, item2.groom)
+                        if(similarity > SIMILARITY_INDEX) {
+                            duplicates.add(
+                                DuplicateItem(
+                                    similarity = similarity,
+                                    item1 = item1,
+                                    item2 = item2
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
@@ -95,13 +101,16 @@ class InspectorViewModel @Inject constructor(
                         && item1.page == item2.page
                         && item1.deathDate == item2.deathDate
                     ) {
-                        duplicates.add(
-                            DuplicateItem(
-                                similarity = calculateSimilarity(item1.fullName, item2.fullName),
-                                item1 = item1,
-                                item2 = item2
+                        val similarity = calculateSimilarity(item1.fullName, item2.fullName)
+                        if(similarity > SIMILARITY_INDEX) {
+                            duplicates.add(
+                                DuplicateItem(
+                                    similarity = similarity,
+                                    item1 = item1,
+                                    item2 = item2
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
@@ -129,5 +138,9 @@ class InspectorViewModel @Inject constructor(
             .replace("исповедания", "")
             .replace("прихожанин", "")
             .replace("церкви", "")
+    }
+
+    companion object {
+        private const val SIMILARITY_INDEX = 0.5
     }
 }
