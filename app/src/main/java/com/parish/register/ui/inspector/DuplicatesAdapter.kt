@@ -44,16 +44,17 @@ class DuplicatesAdapter(
 
         fun bind(duplicate: DuplicateItem) {
             if (duplicate.item1 is Born) {
-                bindBornDuplicates(duplicate.item1, duplicate.item2 as Born)
+                bindBornDuplicates(duplicate.item1, duplicate.item2 as Born, duplicate.similarity)
             } else if (duplicate.item1 is Marriage) {
                 bindMarriageDuplicates(duplicate.item1, duplicate.item2 as Marriage, duplicate.similarity)
             } else if (duplicate.item1 is Died) {
-                bindDiedDuplicates(duplicate.item1, duplicate.item2 as Died)
+                bindDiedDuplicates(duplicate.item1, duplicate.item2 as Died, duplicate.similarity)
             }
         }
 
-        private fun bindBornDuplicates(item1: Born, item2: Born) {
+        private fun bindBornDuplicates(item1: Born, item2: Born, similarity: Double) {
             binding.ivIcon.setImageResource(R.drawable.ic_born)
+            binding.tvSimilarity.text = formatSimilarity(similarity)
             binding.tvFund.text = itemView.context.getString(
                 R.string.fund_format,
                 item1.fundNumber,
@@ -67,6 +68,7 @@ class DuplicatesAdapter(
 
         private fun bindMarriageDuplicates(item1: Marriage, item2: Marriage, similarity: Double) {
             binding.ivIcon.setImageResource(R.drawable.ic_marriage)
+            binding.tvSimilarity.text = formatSimilarity(similarity)
             binding.tvFund.text = itemView.context.getString(
                 R.string.fund_format,
                 item1.fundNumber,
@@ -74,12 +76,13 @@ class DuplicatesAdapter(
                 item1.caseNumber,
                 item1.page
             )
-            binding.tvDate.text = item1.date + " :: " + similarity.toString()
+            binding.tvDate.text = item1.date
             binding.tvContent.text = item1.groom + "\n\n" + item2.groom
         }
 
-        private fun bindDiedDuplicates(item1: Died, item2: Died) {
+        private fun bindDiedDuplicates(item1: Died, item2: Died, similarity: Double) {
             binding.ivIcon.setImageResource(R.drawable.ic_died)
+            binding.tvSimilarity.text = formatSimilarity(similarity)
             binding.tvFund.text = itemView.context.getString(
                 R.string.fund_format,
                 item1.fundNumber,
@@ -89,6 +92,10 @@ class DuplicatesAdapter(
             )
             binding.tvDate.text = item1.deathDate
             binding.tvContent.text = item1.fullName + "\n\n" + item2.fullName
+        }
+
+        private fun formatSimilarity(similarity: Double): String {
+            return String.format("%.2f", similarity)
         }
     }
 }

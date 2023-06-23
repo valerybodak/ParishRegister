@@ -14,6 +14,20 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:id="@+id/tvSimilarity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:background="@color/yellow"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/normal_padding"
+        app:layout_constraintStart_toStartOf="@id/ivIcon"
+        app:layout_constraintEnd_toEndOf="@id/ivIcon"
+        app:layout_constraintTop_toBottomOf="@id/ivIcon" />
+
+    <TextView
         android:id="@+id/tvFund"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
