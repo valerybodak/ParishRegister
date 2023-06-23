@@ -62,7 +62,7 @@ class DuplicatesAdapter(
                 item1.page
             )
             binding.tvDate.text = item1.birthDate
-            binding.tvContent.text = item1.fullName + "\n" + item2.fullName
+            binding.tvContent.text = item1.fullName + "\n\n" + item2.fullName
         }
 
         private fun bindMarriageDuplicates(item1: Marriage, item2: Marriage, similarity: Double) {
@@ -75,7 +75,7 @@ class DuplicatesAdapter(
                 item1.page
             )
             binding.tvDate.text = item1.date + " :: " + similarity.toString()
-            binding.tvContent.text = item1.groom + "\n" + item2.groom
+            binding.tvContent.text = item1.groom + "\n\n" + item2.groom
         }
 
         private fun bindDiedDuplicates(item1: Died, item2: Died) {
@@ -88,7 +88,7 @@ class DuplicatesAdapter(
                 item1.page
             )
             binding.tvDate.text = item1.deathDate
-            binding.tvContent.text = item1.fullName + "\n" + item2.fullName
+            binding.tvContent.text = item1.fullName + "\n\n" + item2.fullName
         }
     }
 }
