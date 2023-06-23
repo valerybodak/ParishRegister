@@ -7,9 +7,9 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/possible_duplicates"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"

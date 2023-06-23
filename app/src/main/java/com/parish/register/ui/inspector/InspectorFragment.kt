@@ -69,6 +69,7 @@ class InspectorFragment : BaseFragment() {
     }
 
     private fun bindDuplicates(duplicates: List<DuplicateItem>) {
+        binding?.tvTitle?.text = getString(R.string.possible_duplicates_format, duplicates.size)
         duplicatesAdapter?.update(duplicates)
     }
 }
