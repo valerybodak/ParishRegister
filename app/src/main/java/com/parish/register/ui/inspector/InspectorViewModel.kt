@@ -162,6 +162,8 @@ class InspectorViewModel @Inject constructor(
             .replace("церкви", "")
             .replace("вдовец", "")
             .replace("после", "")
+            .replace("жила", "")
+            .replace("жил", "")
     }
 
     companion object {
