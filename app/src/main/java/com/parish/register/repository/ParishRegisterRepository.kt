@@ -116,6 +116,18 @@ class ParishRegisterRepository @Inject constructor(
         return daoDied.getAllDied().map { it.toDied() }
     }
 
+    suspend fun getBornCount(): Int {
+        return daoBorn.getBornCount()
+    }
+
+    suspend fun getMarriageCount(): Int {
+        return daoMarriage.getMarriageCount()
+    }
+
+    suspend fun getDiedCount(): Int {
+        return daoDied.getDiedCount()
+    }
+
     companion object {
         private const val BORN_LIST_FILE_NAME = "born.tsv"
         private const val MARRIAGE_LIST_FILE_NAME = "marriage.tsv"
