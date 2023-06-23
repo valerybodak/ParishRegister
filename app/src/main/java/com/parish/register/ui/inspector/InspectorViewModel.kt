@@ -33,7 +33,7 @@ class InspectorViewModel @Inject constructor(
         val born2 = born1.toList()
         born1.forEachIndexed { index1, item1 ->
             born2.forEachIndexed { index2, item2 ->
-                if (index1 != index2) {
+                if (index1 != index2 && !isCheckedAlready(duplicates, index1, index2)) {
                     if (item1.fundNumber == item2.fundNumber
                         && item1.inventoryNumber == item2.inventoryNumber
                         && item1.caseNumber == item2.caseNumber
@@ -46,7 +46,9 @@ class InspectorViewModel @Inject constructor(
                             duplicates.add(
                                 DuplicateItem(
                                     similarity = similarity,
+                                    item1Index = index1,
                                     item1 = item1,
+                                    item2Index = index2,
                                     item2 = item2
                                 )
                             )
@@ -64,7 +66,7 @@ class InspectorViewModel @Inject constructor(
         val marriage2 = marriage1.toList()
         marriage1.forEachIndexed { index1, item1 ->
             marriage2.forEachIndexed { index2, item2 ->
-                if (index1 != index2) {
+                if (index1 != index2 && !isCheckedAlready(duplicates, index1, index2)) {
                     if (item1.fundNumber == item2.fundNumber
                         && item1.inventoryNumber == item2.inventoryNumber
                         && item1.caseNumber == item2.caseNumber
@@ -76,7 +78,9 @@ class InspectorViewModel @Inject constructor(
                             duplicates.add(
                                 DuplicateItem(
                                     similarity = similarity,
+                                    item1Index = index1,
                                     item1 = item1,
+                                    item2Index = index2,
                                     item2 = item2
                                 )
                             )
@@ -94,7 +98,7 @@ class InspectorViewModel @Inject constructor(
         val died2 = died1.toList()
         died1.forEachIndexed { index1, item1 ->
             died2.forEachIndexed { index2, item2 ->
-                if (index1 != index2) {
+                if (index1 != index2 && !isCheckedAlready(duplicates, index1, index2)) {
                     if (item1.fundNumber == item2.fundNumber
                         && item1.inventoryNumber == item2.inventoryNumber
                         && item1.caseNumber == item2.caseNumber
@@ -106,7 +110,9 @@ class InspectorViewModel @Inject constructor(
                             duplicates.add(
                                 DuplicateItem(
                                     similarity = similarity,
+                                    item1Index = index1,
                                     item1 = item1,
+                                    item2Index = index2,
                                     item2 = item2
                                 )
                             )
@@ -120,6 +126,19 @@ class InspectorViewModel @Inject constructor(
 
     private fun calculateSimilarity(str1: String, str2: String): Double{
         return StringComparator.similarity(removeCommonItems(str1), removeCommonItems(str2))
+    }
+
+    private fun isCheckedAlready(duplicates: List<DuplicateItem>, index1: Int, index2: Int): Boolean {
+        duplicates.forEach { item ->
+            if (item.item1Index == index1
+                || item.item1Index == index2
+                || item.item2Index == index1
+                || item.item2Index == index2
+            ) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun removeCommonItems(str: String): String{
