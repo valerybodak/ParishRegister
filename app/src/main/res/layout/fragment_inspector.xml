@@ -1,44 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.parish.register.ui.custom.dashboard.DashboardView
-        android:id="@+id/dashboardView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDuplicates"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/big_padding"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHeight_percent="0.45"/>
+        android:layout_height="match_parent" />
 
-    <com.parish.register.ui.custom.dashboard.DashboardItemView
-        android:id="@+id/bornItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_padding"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/marriagesItem"
-        app:layout_constraintTop_toBottomOf="@id/dashboardView"/>
-
-    <com.parish.register.ui.custom.dashboard.DashboardItemView
-        android:id="@+id/marriagesItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/bornItem"
-        app:layout_constraintEnd_toStartOf="@id/diedItem"
-        app:layout_constraintTop_toTopOf="@id/bornItem"/>
-
-    <com.parish.register.ui.custom.dashboard.DashboardItemView
-        android:id="@+id/diedItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/marriagesItem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bornItem"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
