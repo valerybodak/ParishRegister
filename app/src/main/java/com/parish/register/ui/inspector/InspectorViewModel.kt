@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.parish.register.repository.ParishRegisterRepository
+import com.parish.register.utils.StringComparator
+import com.parish.register.utils.toLowerCaseLocalized
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,6 +43,7 @@ class InspectorViewModel @Inject constructor(
                     ) {
                         duplicates.add(
                             DuplicateItem(
+                                similarity = calculateSimilarity(item1.fullName, item2.fullName),
                                 item1 = item1,
                                 item2 = item2
                             )
@@ -67,6 +70,7 @@ class InspectorViewModel @Inject constructor(
                     ) {
                         duplicates.add(
                             DuplicateItem(
+                                similarity = calculateSimilarity(item1.groom, item2.groom),
                                 item1 = item1,
                                 item2 = item2
                             )
@@ -93,6 +97,7 @@ class InspectorViewModel @Inject constructor(
                     ) {
                         duplicates.add(
                             DuplicateItem(
+                                similarity = calculateSimilarity(item1.fullName, item2.fullName),
                                 item1 = item1,
                                 item2 = item2
                             )
@@ -102,5 +107,27 @@ class InspectorViewModel @Inject constructor(
             }
         }
         return duplicates
+    }
+
+    private fun calculateSimilarity(str1: String, str2: String): Double{
+        return StringComparator.similarity(removeCommonItems(str1), removeCommonItems(str2))
+    }
+
+    private fun removeCommonItems(str: String): String{
+        return str.toLowerCaseLocalized()
+            .replace(" ", "")
+            .replace("крестьянин", "")
+            .replace("крестьянка", "")
+            .replace("д.", "")
+            .replace(",", "")
+            .replace("1-й", "")
+            .replace("2-й", "")
+            .replace("брак", "")
+            .replace("лет", "")
+            .replace("года", "")
+            .replace("православного", "")
+            .replace("исповедания", "")
+            .replace("прихожанин", "")
+            .replace("церкви", "")
     }
 }

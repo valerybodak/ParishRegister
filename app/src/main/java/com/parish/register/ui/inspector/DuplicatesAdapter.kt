@@ -4,13 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.parish.register.R
-import com.parish.register.common.CommonConsts.BACKEND_DATE_FORMAT
 import com.parish.register.databinding.ItemDuplicateBinding
 import com.parish.register.model.Born
 import com.parish.register.model.Died
 import com.parish.register.model.Marriage
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DuplicatesAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -49,7 +46,7 @@ class DuplicatesAdapter(
             if (duplicate.item1 is Born) {
                 bindBornDuplicates(duplicate.item1, duplicate.item2 as Born)
             } else if (duplicate.item1 is Marriage) {
-                bindMarriageDuplicates(duplicate.item1, duplicate.item2 as Marriage)
+                bindMarriageDuplicates(duplicate.item1, duplicate.item2 as Marriage, duplicate.similarity)
             } else if (duplicate.item1 is Died) {
                 bindDiedDuplicates(duplicate.item1, duplicate.item2 as Died)
             }
@@ -68,7 +65,7 @@ class DuplicatesAdapter(
             binding.tvContent.text = item1.fullName + "\n" + item2.fullName
         }
 
-        private fun bindMarriageDuplicates(item1: Marriage, item2: Marriage) {
+        private fun bindMarriageDuplicates(item1: Marriage, item2: Marriage, similarity: Double) {
             binding.ivIcon.setImageResource(R.drawable.ic_marriage)
             binding.tvFund.text = itemView.context.getString(
                 R.string.fund_format,
@@ -77,7 +74,7 @@ class DuplicatesAdapter(
                 item1.caseNumber,
                 item1.page
             )
-            binding.tvDate.text = item1.date
+            binding.tvDate.text = item1.date + " :: " + similarity.toString()
             binding.tvContent.text = item1.groom + "\n" + item2.groom
         }
 
