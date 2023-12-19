@@ -1,5 +1,6 @@
 package com.parish.register.ui.dashboard
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +14,8 @@ class DashboardViewModel @Inject constructor(
     private val registerRepository: ParishRegisterRepository
 ) : ViewModel() {
 
-    val dashboardLiveData = MutableLiveData<DashboardUiState>()
+    private val _dashboardLiveData = MutableLiveData<DashboardUiState>()
+    val dashboardLiveData: LiveData<DashboardUiState> = _dashboardLiveData
 
     fun getDashboard() {
         viewModelScope.launch {
@@ -21,7 +23,7 @@ class DashboardViewModel @Inject constructor(
             val marriageCount = registerRepository.getMarriageCount()
             val diedCount = registerRepository.getDiedCount()
 
-            dashboardLiveData.value = DashboardUiState(
+            _dashboardLiveData.value = DashboardUiState(
                 bornCount = bornCount,
                 marriageCount = marriageCount,
                 diedCount = diedCount
