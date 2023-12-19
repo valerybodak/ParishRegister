@@ -1,5 +1,6 @@
 package com.parish.register.ui.inspector
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +16,8 @@ class InspectorViewModel @Inject constructor(
     private val registerRepository: ParishRegisterRepository
 ) : ViewModel() {
 
-    val duplicatesLiveData = MutableLiveData<List<DuplicateItem>>()
+    private val _duplicatesLiveData = MutableLiveData<List<DuplicateItem>>()
+    val duplicatesLiveData: LiveData<List<DuplicateItem>> = _duplicatesLiveData
 
     fun getDuplicates() {
         viewModelScope.launch {
@@ -23,7 +25,7 @@ class InspectorViewModel @Inject constructor(
             duplicates.addAll(getBornDuplicates())
             duplicates.addAll(getMarriageDuplicates())
             duplicates.addAll(getDiedDuplicates())
-            duplicatesLiveData.value = duplicates
+            _duplicatesLiveData.value = duplicates
         }
     }
 

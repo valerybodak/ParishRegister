@@ -1,5 +1,6 @@
 package com.parish.register.ui.filter
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.parish.register.common.SharedPrefsManager
@@ -14,10 +15,11 @@ class FilterViewModel @Inject constructor(
     private val sharedPrefsManager: SharedPrefsManager
 ) : ViewModel() {
 
-    val filterLiveData = MutableLiveData<ListFilter>()
+    private val _filterLiveData = MutableLiveData<ListFilter>()
+    val filterLiveData: LiveData<ListFilter> = _filterLiveData
 
     fun getFilter() {
-        filterLiveData.value = sharedPrefsManager.getListFilter()
+        _filterLiveData.value = sharedPrefsManager.getListFilter()
     }
 
     fun saveFilter(filterType: FilterType, periodFrom: Int, periodTo: Int, sortingType: SortingType) {
