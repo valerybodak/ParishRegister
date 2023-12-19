@@ -1,5 +1,6 @@
 package com.parish.register.ui.register
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,7 +26,8 @@ class RegisterViewModel @Inject constructor(
     private var combinedList = mutableListOf<RegisterItem>()
     private val dateFormat = SimpleDateFormat(CommonConsts.BACKEND_DATE_FORMAT, Locale.ENGLISH)
 
-    var parishRegisterLiveData = MutableLiveData<Resource<out List<RegisterItem>>>()
+    private val _parishRegisterLiveData = MutableLiveData<Resource<out List<RegisterItem>>>()
+    val parishRegisterLiveData: LiveData<Resource<out List<RegisterItem>>> = _parishRegisterLiveData
 
     fun getLists(forceSync: Boolean = false) {
         combinedList.clear()
@@ -42,16 +44,16 @@ class RegisterViewModel @Inject constructor(
 
     private fun mergeResource(resource: Resource<out List<RegisterItem>>) {
         if (resource is Resource.Error) {
-            parishRegisterLiveData.postValue(resource)
+            _parishRegisterLiveData.value = resource
         } else if (resource is Resource.Success) {
             combinedList.addAll(resource.data ?: emptyList())
             if (areAllListsReceived()) {
-                parishRegisterLiveData.postValue(Resource.Success(data = filterList()))
+                _parishRegisterLiveData.value = Resource.Success(data = filterList())
             }
         } else {
             //Loading
-            if (parishRegisterLiveData.value !is Resource.Loading) {
-                parishRegisterLiveData.postValue(resource)
+            if (_parishRegisterLiveData.value !is Resource.Loading) {
+                _parishRegisterLiveData.value = resource
             }
         }
     }
