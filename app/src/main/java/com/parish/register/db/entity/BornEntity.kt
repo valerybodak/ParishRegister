@@ -8,6 +8,7 @@ import com.parish.register.model.Gender
 data class BornEntity(
     @PrimaryKey(autoGenerate = true)
     val localId: Long = 0L,
+    val archiveId: String,
     val fundNumber: String,
     val inventoryNumber: String,
     val caseNumber: String,

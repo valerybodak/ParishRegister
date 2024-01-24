@@ -10,29 +10,33 @@ import com.parish.register.model.Marriage
 
 fun String.toBornEntity(): BornEntity? {
     val items = split("\t")
-    //check for Int because we have a headers in the TSV file in the first string
-    items[0].toIntOrNull()?.let {
-        return BornEntity(
-            fundNumber = items[0],
-            inventoryNumber = items[1],
-            caseNumber = items[2],
-            page = items[3],
-            gender = if (items[4].isNotEmpty()) Gender.MALE else if (items[5].isNotEmpty()) Gender.FEMALE else Gender.UNKNOWN,
-            birthDate = items[6],
-            baptismDate = items[7],
-            fullName = items[8],
-            parents = items[9],
-            godParents = items[10],
-            priest = items[11],
-            comments = items[12],
-            createdDate = items[13]
-        )
+    if(items.size >= 15) {
+        //check for Int because we have a headers in the TSV file in the first string
+        items[1].toIntOrNull()?.let {
+            return BornEntity(
+                archiveId = items[0],
+                fundNumber = items[1],
+                inventoryNumber = items[2],
+                caseNumber = items[3],
+                page = items[4],
+                gender = if (items[5].isNotEmpty()) Gender.MALE else if (items[6].isNotEmpty()) Gender.FEMALE else Gender.UNKNOWN,
+                birthDate = items[7],
+                baptismDate = items[8],
+                fullName = items[9],
+                parents = items[10],
+                godParents = items[11],
+                priest = items[12],
+                comments = items[13],
+                createdDate = items[14]
+            )
+        }
     }
     return null
 }
 
 fun BornEntity.toBorn() = Born(
     localId = localId,
+    archiveId = archiveId,
     fundNumber = fundNumber,
     inventoryNumber = inventoryNumber,
     caseNumber = caseNumber,
