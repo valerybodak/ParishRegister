@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.RecyclerView
 import com.parish.register.common.CommonConsts
 import com.parish.register.common.Resource
 import com.parish.register.common.SharedPrefsManager
@@ -44,19 +43,14 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun mergeResource(resource: Resource<out List<RegisterItem>>) {
-        when (resource) {
-            is Resource.Error ->
-                _parishRegisterLiveData.value = resource
-            is Resource.Success -> {
-                applyResource(resource)
-            }
-            is Resource.Loading -> {
-                applyResource(resource)
-            }
+        if (resource is Resource.Error) {
+            _parishRegisterLiveData.value = resource
+        } else if (resource is Resource.Success || resource is Resource.Loading) {
+            applyResource(resource)
         }
     }
 
-    private fun applyResource(resource: Resource<out List<RegisterItem>>){
+    private fun applyResource(resource: Resource<out List<RegisterItem>>) {
         val data = resource.data ?: emptyList()
         removeExistingItems(data)
         combinedList.addAll(data)
@@ -71,7 +65,7 @@ class RegisterViewModel @Inject constructor(
                 && combinedList.firstOrNull { it is Died } != null
     }
 
-    private fun removeExistingItems(list: List<RegisterItem>){
+    private fun removeExistingItems(list: List<RegisterItem>) {
         val item = list.firstOrNull()
         when (item) {
             is Born -> {
