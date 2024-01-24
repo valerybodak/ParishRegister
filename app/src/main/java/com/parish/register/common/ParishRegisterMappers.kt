@@ -15,7 +15,7 @@ fun String.toBornEntity(): BornEntity? {
         items[1].toIntOrNull()?.let {
             return BornEntity(
                 archiveId = items[0],
-                fundNumber = items[1],
+                fundNumber = it.toString(),
                 inventoryNumber = items[2],
                 caseNumber = items[3],
                 page = items[4],
