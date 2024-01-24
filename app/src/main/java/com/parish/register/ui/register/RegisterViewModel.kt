@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
 import com.parish.register.common.CommonConsts
 import com.parish.register.common.Resource
 import com.parish.register.common.SharedPrefsManager
@@ -43,18 +44,24 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun mergeResource(resource: Resource<out List<RegisterItem>>) {
-        if (resource is Resource.Error) {
-            _parishRegisterLiveData.value = resource
-        } else if (resource is Resource.Success) {
-            combinedList.addAll(resource.data ?: emptyList())
-            if (areAllListsReceived()) {
-                _parishRegisterLiveData.value = Resource.Success(data = filterList())
-            }
-        } else {
-            //Loading
-            if (_parishRegisterLiveData.value !is Resource.Loading) {
+        when (resource) {
+            is Resource.Error ->
                 _parishRegisterLiveData.value = resource
+            is Resource.Success -> {
+                applyResource(resource)
             }
+            is Resource.Loading -> {
+                applyResource(resource)
+            }
+        }
+    }
+
+    private fun applyResource(resource: Resource<out List<RegisterItem>>){
+        val data = resource.data ?: emptyList()
+        removeExistingItems(data)
+        combinedList.addAll(data)
+        if (areAllListsReceived()) {
+            _parishRegisterLiveData.value = Resource.Success(data = filterList())
         }
     }
 
@@ -62,6 +69,21 @@ class RegisterViewModel @Inject constructor(
         return combinedList.firstOrNull { it is Born } != null
                 && combinedList.firstOrNull { it is Marriage } != null
                 && combinedList.firstOrNull { it is Died } != null
+    }
+
+    private fun removeExistingItems(list: List<RegisterItem>){
+        val item = list.firstOrNull()
+        when (item) {
+            is Born -> {
+                combinedList.removeAll { it is Born }
+            }
+            is Marriage -> {
+                combinedList.removeAll { it is Marriage }
+            }
+            is Died -> {
+                combinedList.removeAll { it is Died }
+            }
+        }
     }
 
     private fun filterList(): List<RegisterItem> {
